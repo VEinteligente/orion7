@@ -1,0 +1,7 @@
+parameters:
+#    orion7_core.example.class: Orion7\CoreBundle\Example
+
+services:
+#    orion7_core.example:
+#        class: %orion7_core.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
