@@ -1,0 +1,41 @@
+Orion7\CoreBundle\Entity\Subcategoria:
+    type: entity
+    table: subcategoria
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        nombre:
+            type: string
+            length: 100
+        descripcion:
+            type: text
+        asistencia:
+            type: text
+        categoria_ushahidi:
+            type: integer
+
+    manyToOne:
+    	categoria:
+    		targetEntity: Categoria
+    		inversedBy: subcategorias
+    		joinColumn:
+    			name: categoria
+    			referencedColumnName: id
+    manyToMany:
+        articulos:
+              targetEntity: Articulo
+              mappedBy: subcategorias
+        denuncias:
+          targetEntity: Denuncia
+          inversedBy: subcategorias
+          joinTable:
+            name: subcategorias_denuncias
+            joinColumns:
+              subcategoria:
+                referencedColumnName: id
+            inverseJoinColumns:
+              denuncia:
+                referencedColumnName: id

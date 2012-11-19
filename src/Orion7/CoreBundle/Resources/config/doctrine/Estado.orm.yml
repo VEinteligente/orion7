@@ -1,0 +1,27 @@
+Orion7\CoreBundle\Entity\Estado:
+    type: entity
+    table: estado
+    id:
+        codigo:
+            type: integer
+    fields:
+        nombre:
+            type: string
+            length: 100
+    oneToMany:
+        municipios:
+          targetEntity: Municipio
+          mappedBy: estado
+        parroquias:
+          targetEntity: Parroquia
+          mappedBy: estado
+        centros:
+          targetEntity: Centro
+          mappedBy: estado
+       	entes:
+          targetEntity: Ente
+          mappedBy: estado
+          nullable: true
+        incidentes:
+          targetEntity: Incidente
+          mappedBy: estado

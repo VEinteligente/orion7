@@ -1,0 +1,49 @@
+Orion7\CoreBundle\Entity\Centro:
+    type: entity
+    table: centro
+    id:
+        codigo:
+            type: integer
+    fields:
+        codigo_municipio:
+            type: integer
+        codigo_parroquia:
+            type: integer
+        nombre:
+            type: string
+            length: 255
+        direccion:
+            type: text
+        electores:
+            type: integer
+        mesas:
+            type: integer
+        nuevo:
+            type: boolean
+        latitud:
+            type: float
+        longitud:
+            type: float
+    oneToMany:
+        incidentes:
+          targetEntity: Incidente
+          mappedBy: centro
+    manyToOne:
+    	estado:
+    		targetEntity: Estado
+    		inversedBy: centros
+    		joinColumn:
+    			name: estado
+    			referencedColumnName: codigo
+        municipio:
+            targetEntity: Municipio
+            inversedBy: centros
+            joinColumn:
+              name: municipio
+              referencedColumnName: id
+        parroquia:
+            targetEntity: Parroquia
+            inversedBy: centros
+            joinColumn:
+              name: parroquia
+              referencedColumnName: id

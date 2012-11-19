@@ -1,0 +1,16 @@
+Orion7\CoreBundle\Entity\Nombre_ente:
+    type: entity
+    table: nombre_ente
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        nombre:
+            type: string
+            length: 100
+    oneToMany:
+        entes:
+          targetEntity: Ente
+          mappedBy: nombre_ente

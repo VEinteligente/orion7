@@ -1,0 +1,73 @@
+Orion7\CoreBundle\Entity\Denuncia:
+    type: entity
+    table: denuncia
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        hora_hecho:
+            type: date
+        hora_registro:
+            type: date
+        relato:
+            type: text
+        nombre_denunciante:
+            type: string
+            length: 100
+        telefonos_denunciante:
+            type: string
+            length: 100
+        correo_denunciante:
+            type: string
+            length: 100
+        twitter_denunciante:
+            type: string
+            length: 100
+        genera_retraso:
+            type: boolean
+    manyToOne:
+    	incidente:
+    		targetEntity: Incidente
+    		inversedBy: denuncias
+    		joinColumn:
+    			name: incidente
+    			referencedColumnName: id
+        via:
+            targetEntity: Via
+            inversedBy: denuncias
+            joinColumn:
+                name: via
+                referencedColumnName: id
+        tipo_denunciante:
+            targetEntity: Tipo_denunciante
+            inversedBy: denuncias
+            joinColumn:
+                name: tipo_denunciante
+                referencedColumnName: id
+        incidente:
+            targetEntity: Incidente
+            inversedBy: denuncias
+            joinColumn:
+                name: incidente
+                referencedColumnName: id
+        # usuario_registro:
+        #     targetEntity: Estado
+        #     inversedBy: incidentes
+        #     joinColumn:
+        #         name: estado
+        #         referencedColumnName: codigo
+        # usuario_filtro:
+        #     targetEntity: Estado
+        #     inversedBy: incidentes
+        #     joinColumn:
+        #         name: estado
+        #         referencedColumnName: codigo
+    manyToMany:
+        responsables:
+              targetEntity: Responsable
+              mappedBy: denuncias
+        subcategorias:
+              targetEntity: Subcategoria
+              mappedBy: denuncias

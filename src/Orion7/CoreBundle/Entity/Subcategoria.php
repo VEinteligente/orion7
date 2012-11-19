@@ -12,4 +12,5 @@ class Subcategoria
     protected $categoria_ushahidi;
     protected $categoria;
     protected $articulos;
+    protected $enuncias;
 }

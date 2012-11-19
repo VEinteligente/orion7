@@ -1,0 +1,49 @@
+Orion7\CoreBundle\Entity\Incidente:
+    type: entity
+    table: incidente
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    oneToMany:
+        denuncias:
+          targetEntity: Denuncia
+          mappedBy: incidente
+    manyToOne:
+    	estado:
+    		targetEntity: Estado
+    		inversedBy: incidentes
+    		joinColumn:
+    			name: estado
+    			referencedColumnName: codigo
+        municipio:
+            targetEntity: Municipio
+            inversedBy: incidentes
+            joinColumn:
+                name: municipio
+                referencedColumnName: id
+        parroquia:
+            targetEntity: Parroquia
+            inversedBy: incidentes
+            nullable: true
+            joinColumn:
+                name: parroquia
+                referencedColumnName: id
+        centro:
+            targetEntity: Centro
+            inversedBy: incidentes
+            nullable: true
+            joinColumn:
+                name: centro
+                referencedColumnName: id
+        # usuario_canalizacion:
+        #     targetEntity: Estado
+        #     inversedBy: incidentes
+        #     joinColumn:
+        #         name: estado
+        #         referencedColumnName: codigo
+    manyToMany:
+        entes:
+              targetEntity: Ente
+              mappedBy: incidentes

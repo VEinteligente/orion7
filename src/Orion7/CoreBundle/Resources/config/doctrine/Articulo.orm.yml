@@ -1,0 +1,32 @@
+Orion7\CoreBundle\Entity\Articulo:
+    type: entity
+    table: articulo
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        numero:
+            type: integer
+        contenido:
+            type: text
+    manyToOne:
+    	ley:
+    		targetEntity: Ley
+    		inversedBy: articulos
+    		joinColumn:
+    			name: ley
+    			referencedColumnName: id
+    manyToMany:
+        subcategorias:
+          targetEntity: Subcategoria
+          inversedBy: articulos
+          joinTable:
+            name: articulos_subcategorias
+            joinColumns:
+              articulo:
+                referencedColumnName: id
+            inverseJoinColumns:
+              subcategoria:
+                referencedColumnName: id

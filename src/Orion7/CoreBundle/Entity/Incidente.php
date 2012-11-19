@@ -11,5 +11,6 @@ class Incidente
     protected $parroquia;
     protected $centro;
     protected $usuario_canalizacion;
-    protected $ente_canalizacion;
+    protected $ente;
+    protected $denuncias;
 }

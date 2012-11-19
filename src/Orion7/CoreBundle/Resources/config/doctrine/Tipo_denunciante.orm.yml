@@ -1,0 +1,16 @@
+Orion7\CoreBundle\Entity\Tipo_denunciante:
+    type: entity
+    table: tipo_denunciante
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        nombre:
+            type: string
+            length: 50
+    oneToMany:
+        denuncias:
+          targetEntity: Denuncia
+          mappedBy: tipo_denunciante

@@ -1,0 +1,37 @@
+Orion7\CoreBundle\Entity\Municipio:
+    type: entity
+    table: municipio
+    id:
+        id:
+            type: integer
+    fields:
+    	codigo:
+            type: integer
+        nombre:
+            type: string
+            length: 100
+        latitud:
+            type: float
+        longitud:
+            type: float
+    oneToMany:
+        parroquias:
+          targetEntity: Parroquia
+          mappedBy: municipio
+        centros:
+          targetEntity: Centro
+          mappedBy: municipio
+       	entes:
+          targetEntity: Ente
+          mappedBy: municipio
+          nullable: true
+        incidentes:
+          targetEntity: Incidente
+          mappedBy: municipio
+    manyToOne:
+    	estado:
+    		targetEntity: Estado
+    		inversedBy: municipios
+    		joinColumn:
+    			name: estado
+    			referencedColumnName: codigo

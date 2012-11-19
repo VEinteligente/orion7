@@ -1,0 +1,24 @@
+Orion7\CoreBundle\Entity\Responsable:
+    type: entity
+    table: responsable
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        nombre:
+            type: string
+            length: 50
+    manyToMany:
+        denuncias:
+          targetEntity: Denuncia
+          inversedBy: responsables
+          joinTable:
+            name: responsables_denuncias
+            joinColumns:
+              responsable:
+                referencedColumnName: id
+            inverseJoinColumns:
+              denuncia:
+                referencedColumnName: id

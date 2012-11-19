@@ -1,0 +1,45 @@
+Orion7\CoreBundle\Entity\Ente:
+    type: entity
+    table: ente
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        telefonos:
+            type: string
+            length: 100
+    manyToOne:
+    	nombre_ente:
+    		targetEntity: Nombre_ente
+    		inversedBy: entes
+    		joinColumn:
+    			name: nombre_ente
+    			referencedColumnName: id
+        estado:
+            targetEntity: Estado
+            inversedBy: entes
+            nullable:true
+            joinColumn:
+                name: estado
+                referencedColumnName: codigo
+        municipio:
+            targetEntity: Municipio
+            inversedBy: entes
+            nullable:true
+            joinColumn:
+                name: municipio
+                referencedColumnName: id
+    manyToMany:
+        incidentes:
+          targetEntity: Incidente
+          inversedBy: entes
+          joinTable:
+            name: entes_incidentes
+            joinColumns:
+              ente:
+                referencedColumnName: id
+            inverseJoinColumns:
+              incidente:
+                referencedColumnName: id

@@ -1,0 +1,18 @@
+Orion7\CoreBundle\Entity\Ley:
+    type: entity
+    table: ley
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        nombre:
+            type: string
+            length: 100
+        descripcion:
+            type: text
+    oneToMany:
+        articulos:
+          targetEntity: Articulo
+          mappedBy: ley
