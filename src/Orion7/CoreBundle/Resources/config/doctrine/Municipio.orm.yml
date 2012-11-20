@@ -4,6 +4,8 @@ Orion7\CoreBundle\Entity\Municipio:
     id:
         id:
             type: integer
+            generator:
+              strategy: AUTO
     fields:
     	codigo:
             type: integer

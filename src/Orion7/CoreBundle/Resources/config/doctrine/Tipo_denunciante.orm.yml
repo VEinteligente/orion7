@@ -10,6 +10,8 @@ Orion7\CoreBundle\Entity\Tipo_denunciante:
         nombre:
             type: string
             length: 50
+        es_publico:
+            type: boolean
     oneToMany:
         denuncias:
           targetEntity: Denuncia

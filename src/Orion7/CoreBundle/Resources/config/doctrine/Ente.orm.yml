@@ -7,15 +7,15 @@ Orion7\CoreBundle\Entity\Ente:
             generator:
                 strategy: AUTO
     fields:
-        telefonos:
+        telefono:
             type: string
             length: 100
     manyToOne:
-    	nombre_ente:
-    		targetEntity: Nombre_ente
+    	tipo_ente:
+    		targetEntity: Tipo_ente
     		inversedBy: entes
     		joinColumn:
-    			name: nombre_ente
+    			name: tipo_ente
     			referencedColumnName: id
         estado:
             targetEntity: Estado
@@ -36,7 +36,7 @@ Orion7\CoreBundle\Entity\Ente:
           targetEntity: Incidente
           inversedBy: entes
           joinTable:
-            name: entes_incidentes
+            name: entes_incidentes.
             joinColumns:
               ente:
                 referencedColumnName: id

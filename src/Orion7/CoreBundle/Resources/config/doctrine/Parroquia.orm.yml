@@ -4,6 +4,8 @@ Orion7\CoreBundle\Entity\Parroquia:
     id:
         id:
             type: integer
+            generator:
+              strategy: AUTO
     fields:
         codigo:
             type: integer
@@ -28,9 +30,9 @@ Orion7\CoreBundle\Entity\Parroquia:
     		joinColumn:
     			name: estado
     			referencedColumnName: codigo
-      municipio:
-        targetEntity: Municipio
-        inversedBy: parroquias
-        joinColumn:
-          name: municipio
-          referencedColumnName: id
+        municipio:
+            targetEntity: Municipio
+            inversedBy: parroquias
+            joinColumn:
+                name: municipio
+                referencedColumnName: id

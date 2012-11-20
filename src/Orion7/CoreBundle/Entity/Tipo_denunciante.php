@@ -8,4 +8,5 @@ class Tipo_denunciante
     protected $id;
     protected $nombre;
     protected $denuncias;
+    protected $es_publico;
 }
