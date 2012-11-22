@@ -1,0 +1,15 @@
+Orion7\CoreBundle\Entity\Usuario:
+    type: entity
+    table: usuario
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        nombre:
+            type: string
+            length: 100
+        passwordusuario:
+            type: string
+            length: 128

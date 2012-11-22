@@ -3,3 +3,9 @@ orion7_denuncia_homepage:
     defaults: { _controller: Orion7CoreBundle:Denuncia:index }
     requirements:
         _method:  GET
+
+test_admin:
+    pattern:  /admin
+    defaults: { _controller: Orion7CoreBundle:Denuncia:index }
+    requirements:
+        _method:  GET
