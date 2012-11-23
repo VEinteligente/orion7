@@ -11,12 +11,12 @@ Orion7\CoreBundle\Entity\Incidente:
           targetEntity: Denuncia
           mappedBy: incidente
     manyToOne:
-    	estado:
-    		targetEntity: Estado
-    		inversedBy: incidentes
-    		joinColumn:
-    			name: estado
-    			referencedColumnName: codigo
+        estado:
+            targetEntity: Estado
+            inversedBy: incidentes
+            joinColumn:
+                name: estado
+                referencedColumnName: codigo
         municipio:
             targetEntity: Municipio
             inversedBy: incidentes

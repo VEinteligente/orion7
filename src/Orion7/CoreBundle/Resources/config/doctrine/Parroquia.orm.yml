@@ -24,12 +24,12 @@ Orion7\CoreBundle\Entity\Parroquia:
           targetEntity: Incidente
           mappedBy: parroquia
     manyToOne:
-    	estado:
-    		targetEntity: Estado
-    		inversedBy: parroquias
-    		joinColumn:
-    			name: estado
-    			referencedColumnName: codigo
+        estado:
+            targetEntity: Estado
+            inversedBy: parroquias
+            joinColumn:
+                name: estado
+                referencedColumnName: codigo
         municipio:
             targetEntity: Municipio
             inversedBy: parroquias

@@ -29,12 +29,12 @@ Orion7\CoreBundle\Entity\Centro:
           targetEntity: Incidente
           mappedBy: centro
     manyToOne:
-    	estado:
-    		targetEntity: Estado
-    		inversedBy: centros
-    		joinColumn:
-    			name: estado
-    			referencedColumnName: codigo
+        estado:
+            targetEntity: Estado
+            inversedBy: centros
+            joinColumn:
+                name: estado
+                referencedColumnName: codigo
         municipio:
             targetEntity: Municipio
             inversedBy: centros

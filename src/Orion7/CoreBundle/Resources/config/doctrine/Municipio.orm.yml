@@ -7,7 +7,7 @@ Orion7\CoreBundle\Entity\Municipio:
             generator:
               strategy: AUTO
     fields:
-    	codigo:
+        codigo:
             type: integer
         nombre:
             type: string
@@ -23,7 +23,7 @@ Orion7\CoreBundle\Entity\Municipio:
         centros:
           targetEntity: Centro
           mappedBy: municipio
-       	entes:
+        entes:
           targetEntity: Ente
           mappedBy: municipio
           nullable: true
@@ -31,9 +31,9 @@ Orion7\CoreBundle\Entity\Municipio:
           targetEntity: Incidente
           mappedBy: municipio
     manyToOne:
-    	estado:
-    		targetEntity: Estado
-    		inversedBy: municipios
-    		joinColumn:
-    			name: estado
-    			referencedColumnName: codigo
+        estado:
+          targetEntity: Estado
+          inversedBy: municipios
+          joinColumn:
+            name: estado
+            referencedColumnName: codigo

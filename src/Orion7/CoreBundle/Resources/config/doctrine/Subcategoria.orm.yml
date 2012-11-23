@@ -18,12 +18,12 @@ Orion7\CoreBundle\Entity\Subcategoria:
             type: integer
 
     manyToOne:
-    	categoria:
-    		targetEntity: Categoria
-    		inversedBy: subcategorias
-    		joinColumn:
-    			name: categoria
-    			referencedColumnName: id
+        categoria:
+            targetEntity: Categoria
+            inversedBy: subcategorias
+            joinColumn:
+                name: categoria
+                referencedColumnName: id
     manyToMany:
         articulos:
               targetEntity: Articulo

@@ -18,7 +18,7 @@ Orion7\CoreBundle\Entity\Estado:
         centros:
           targetEntity: Centro
           mappedBy: estado
-       	entes:
+        entes:
           targetEntity: Ente
           mappedBy: estado
           nullable: true

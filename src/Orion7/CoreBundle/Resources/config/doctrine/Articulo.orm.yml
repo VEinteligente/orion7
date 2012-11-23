@@ -12,12 +12,12 @@ Orion7\CoreBundle\Entity\Articulo:
         contenido:
             type: text
     manyToOne:
-    	ley:
-    		targetEntity: Ley
-    		inversedBy: articulos
-    		joinColumn:
-    			name: ley
-    			referencedColumnName: id
+        ley:
+            targetEntity: Ley
+            inversedBy: articulos
+            joinColumn:
+                name: ley
+                referencedColumnName: id
     manyToMany:
         subcategorias:
           targetEntity: Subcategoria

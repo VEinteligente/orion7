@@ -10,6 +10,3 @@ Orion7\CoreBundle\Entity\Usuario:
         nombre:
             type: string
             length: 100
-        passwordusuario:
-            type: string
-            length: 128

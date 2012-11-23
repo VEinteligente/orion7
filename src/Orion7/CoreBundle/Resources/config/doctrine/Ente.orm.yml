@@ -11,23 +11,21 @@ Orion7\CoreBundle\Entity\Ente:
             type: string
             length: 100
     manyToOne:
-    	tipo_ente:
-    		targetEntity: Tipo_ente
-    		inversedBy: entes
-    		joinColumn:
-    			name: tipo_ente
-    			referencedColumnName: id
+        tipo_ente:
+            targetEntity: Tipo_ente
+            inversedBy: entes
+            joinColumn:
+                name: tipo_ente
+                referencedColumnName: id
         estado:
             targetEntity: Estado
             inversedBy: entes
-            nullable:true
             joinColumn:
                 name: estado
                 referencedColumnName: codigo
         municipio:
             targetEntity: Municipio
             inversedBy: entes
-            nullable:true
             joinColumn:
                 name: municipio
                 referencedColumnName: id

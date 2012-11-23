@@ -28,12 +28,12 @@ Orion7\CoreBundle\Entity\Denuncia:
         genera_retraso:
             type: boolean
     manyToOne:
-    	incidente:
-    		targetEntity: Incidente
-    		inversedBy: denuncias
-    		joinColumn:
-    			name: incidente
-    			referencedColumnName: id
+        incidente:
+            targetEntity: Incidente
+            inversedBy: denuncias
+            joinColumn:
+                name: incidente
+                referencedColumnName: id
         via:
             targetEntity: Via
             inversedBy: denuncias
