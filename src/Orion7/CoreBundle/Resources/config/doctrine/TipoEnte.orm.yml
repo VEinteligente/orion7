@@ -1,4 +1,4 @@
-Orion7\CoreBundle\Entity\Tipo_ente:
+Orion7\CoreBundle\Entity\TipoEnte:
     type: entity
     table: tipo_ente
     id:

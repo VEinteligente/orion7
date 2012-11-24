@@ -1,4 +1,4 @@
-Orion7\CoreBundle\Entity\Tipo_denunciante:
+Orion7\CoreBundle\Entity\TipoDenunciante:
     type: entity
     table: tipo_denunciante
     id:

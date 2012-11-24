@@ -12,7 +12,7 @@ Orion7\CoreBundle\Entity\Ente:
             length: 100
     manyToOne:
         tipo_ente:
-            targetEntity: Tipo_ente
+            targetEntity: TipoEnte
             inversedBy: entes
             joinColumn:
                 name: tipo_ente

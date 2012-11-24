@@ -3,12 +3,12 @@
 
 namespace Orion7\CoreBundle\Entity;
 
-class Tipo_denunciante
+class TipoDenunciante
 {
     protected $id;
     protected $nombre;
-    protected $denuncias;
     protected $es_publico;
+    protected $denuncias;
     /**
      * Constructor
      */

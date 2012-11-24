@@ -36,7 +36,7 @@ Orion7\CoreBundle\Entity\Incidente:
             nullable: true
             joinColumn:
                 name: centro
-                referencedColumnName: id
+                referencedColumnName: codigo
         # usuario_canalizacion:
         #     targetEntity: Estado
         #     inversedBy: incidentes

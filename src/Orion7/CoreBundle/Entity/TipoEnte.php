@@ -2,7 +2,7 @@
 
 namespace Orion7\CoreBundle\Entity;
 
-class Tipo_ente
+class TipoEnte
 {
     protected $id;
     protected $nombre;
