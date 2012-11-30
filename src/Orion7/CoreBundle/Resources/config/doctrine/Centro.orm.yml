@@ -28,6 +28,9 @@ Orion7\CoreBundle\Entity\Centro:
         incidentes:
           targetEntity: Incidente
           mappedBy: centro
+        electores:
+          targetEntity: Elector
+          mappedBy: centro
     manyToOne:
         estado:
             targetEntity: Estado

@@ -1,0 +1,36 @@
+Orion7\CoreBundle\Entity\Elector:
+    type: entity
+    table: elector
+    fields:
+        letra_cedula:
+            type: string
+            length: 1;
+        cedula:
+            type: integer
+        primer_apellido:
+            type: string
+            length: 35
+        segundo_apellido:
+            type: string
+            length: 35
+        primer_nombre:
+            type: string
+            length: 35
+        segundo_nombre:
+            type: string
+            length: 35
+        fecha_nacimiento:
+            type: date
+        estado:
+            type: integer
+        municipio:
+            type: integer
+        parroquia:
+            type: integer
+    manyToOne:
+        centro:
+          targetEntity: Centro
+          inversedBy: electores
+          joinColumn:
+            name: centro
+            referencedColumnName: codigo
