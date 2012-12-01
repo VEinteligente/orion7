@@ -1,6 +1,7 @@
 Orion7\CoreBundle\Entity\Centro:
     type: entity
     table: centro
+    repositoryClass: Orion7\CoreBundle\Entity\CentroRepository
     id:
         codigo:
             type: integer

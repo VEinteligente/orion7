@@ -1,6 +1,7 @@
 Orion7\CoreBundle\Entity\Ente:
     type: entity
     table: ente
+    repositoryClass: Orion7\CoreBundle\Entity\EnteRepository
     id:
         id:
             type: integer

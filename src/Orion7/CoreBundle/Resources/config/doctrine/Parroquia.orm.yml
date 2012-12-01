@@ -1,6 +1,7 @@
 Orion7\CoreBundle\Entity\Parroquia:
     type: entity
     table: parroquia
+    repositoryClass: Orion7\CoreBundle\Entity\ParroquiaRepository
     id:
         id:
             type: integer
