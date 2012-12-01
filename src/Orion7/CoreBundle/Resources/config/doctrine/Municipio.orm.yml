@@ -1,6 +1,7 @@
 Orion7\CoreBundle\Entity\Municipio:
     type: entity
     table: municipio
+    repositoryClass: Orion7\CoreBundle\Entity\MunicipioRepository
     id:
         id:
             type: integer
