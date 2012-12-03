@@ -1,12 +1,13 @@
 Orion7\CoreBundle\Entity\Elector:
     type: entity
     table: elector
+    id:
+        cedula:
+            type: integer
     fields:
         letra_cedula:
             type: string
-            length: 1;
-        cedula:
-            type: integer
+            length: 1
         primer_apellido:
             type: string
             length: 35
