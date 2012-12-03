@@ -3,6 +3,8 @@
 
 namespace Orion7\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Denuncia
 {
     protected $id;
@@ -10,31 +12,17 @@ class Denuncia
     protected $relato;
     protected $via;
     protected $tipo_denunciante;
-    protected $responsable;
     protected $hora_hecho;
     protected $hora_registro;
     protected $subcategorias;
     protected $nombre_denunciante;
     protected $telefono_denunciante;
     protected $correo_denunciante;
-    protected $twitter_handle_denunciante;
-    protected $genera_retraso_injustificado;
+    protected $twitter_denunciante;
+    protected $genera_retraso;
     protected $usuario_registro;
     protected $usuario_filtrado;
-    /**
-     * @var string
-     */
-    private $telefonos_denunciante;
 
-    /**
-     * @var string
-     */
-    private $twitter_denunciante;
-
-    /**
-     * @var boolean
-     */
-    private $genera_retraso;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -48,6 +36,8 @@ class Denuncia
     {
         $this->responsables = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subcategorias = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $this->setHoraRegistro(new \DateTime());
     }
     
     /**
@@ -150,29 +140,6 @@ class Denuncia
     public function getNombreDenunciante()
     {
         return $this->nombre_denunciante;
-    }
-
-    /**
-     * Set telefonos_denunciante
-     *
-     * @param string $telefonosDenunciante
-     * @return Denuncia
-     */
-    public function setTelefonosDenunciante($telefonosDenunciante)
-    {
-        $this->telefonos_denunciante = $telefonosDenunciante;
-    
-        return $this;
-    }
-
-    /**
-     * Get telefonos_denunciante
-     *
-     * @return string 
-     */
-    public function getTelefonosDenunciante()
-    {
-        return $this->telefonos_denunciante;
     }
 
     /**
@@ -377,5 +344,28 @@ class Denuncia
     public function getSubcategorias()
     {
         return $this->subcategorias;
+    }
+
+    /**
+     * Set telefono_denunciante
+     *
+     * @param string $telefonoDenunciante
+     * @return Denuncia
+     */
+    public function setTelefonoDenunciante($telefonoDenunciante)
+    {
+        $this->telefono_denunciante = $telefonoDenunciante;
+    
+        return $this;
+    }
+
+    /**
+     * Get telefono_denunciante
+     *
+     * @return string 
+     */
+    public function getTelefonoDenunciante()
+    {
+        return $this->telefono_denunciante;
     }
 }

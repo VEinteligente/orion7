@@ -1,0 +1,9 @@
+{% extends 'Orion7CoreBundle::layout.html.twig' %}
+
+{% block body %}
+    <form action="{{ path('Orion7CoreBundle_denuncia_homepage') }}" method="post" {{ form_enctype(form) }}>
+	    {{ form_widget(form) }}
+
+	    <input type="submit" />
+	</form>
+{% endblock %}

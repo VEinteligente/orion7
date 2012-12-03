@@ -16,7 +16,7 @@ Orion7\CoreBundle\Entity\Denuncia:
         nombre_denunciante:
             type: string
             length: 100
-        telefonos_denunciante:
+        telefono_denunciante:
             type: string
             length: 100
         correo_denunciante:
