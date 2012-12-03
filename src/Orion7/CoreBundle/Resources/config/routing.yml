@@ -4,13 +4,29 @@ Orion7CoreBundle_denuncia_homepage:
     requirements:
         _method:  GET
 
-Orion7CoreBundle_estado_index:
+Orion7CoreBundle_estado_list:
     pattern:  /estados
     defaults: { _controller: Orion7CoreBundle:Estado:index }
     requirements:
         _method:  GET
 
+Orion7CoreBundle_municipio_listbyestado:
+    pattern:  /municipios/{estado}
+    defaults: { _controller: Orion7CoreBundle:Municipio:listByEstado }
+    requirements:
+        _method:  GET
 
+Orion7CoreBundle_parroquia_listbymunicipio:
+    pattern:  /parroquias/{municipio}
+    defaults: { _controller: Orion7CoreBundle:Parroquia:listByMunicipio }
+    requirements:
+        _method:  GET
+
+Orion7CoreBundle_centro_listbyparroquia:
+    pattern:  /centros/{parroquia}
+    defaults: { _controller: Orion7CoreBundle:Centro:listByParroquia }
+    requirements:
+        _method:  GET
 
 test_admin:
     pattern:  /admin

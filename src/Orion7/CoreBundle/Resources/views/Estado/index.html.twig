@@ -4,7 +4,9 @@
     {% for estado in estados %}
         <article class="estado">
             <header>
+                <a href="{{ path('Orion7CoreBundle_municipio_listbyestado', { 'estado': estado.codigo }) }}">
                 <h2>{{ estado.codigo }} - {{ estado.nombre }}</h2>
+                </a>
             </header>
 
             asdf

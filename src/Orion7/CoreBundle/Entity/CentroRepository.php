@@ -23,7 +23,7 @@ class CentroRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('c')
                    ->select('c')
-                   ->where('c.municipio = :parroquia')
+                   ->where('c.parroquia = :parroquia')
                    ->setParameter('parroquia', $idParroquia);
 
         return $qb->getQuery()

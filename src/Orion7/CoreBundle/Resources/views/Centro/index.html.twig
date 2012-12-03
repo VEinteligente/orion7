@@ -1,0 +1,15 @@
+{% extends 'Orion7CoreBundle::layout.html.twig' %}
+
+{% block body %}
+    {% for centro in centros %}
+        <article class="centro">
+            <header>
+                <h2>{{ centro.codigo }} - {{ centro.nombre }}</h2>
+            </header>
+
+            asdf
+        </article>
+    {% else %}
+        <p>No hay centros!</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'Orion7CoreBundle::layout.html.twig' %}
+
+{% block body %}
+    {% for municipio in municipios %}
+        <article class="municipio">
+            <header>
+                
+                <a href="{{ path('Orion7CoreBundle_parroquia_listbymunicipio', { 'municipio': municipio.id }) }}">
+                <h2>{{ municipio.id }} - {{ municipio.nombre }}</h2>
+                </a>
+            </header>
+
+            asdf
+        </article>
+    {% else %}
+        <p>No hay municipios!</p>
+    {% endfor %}
+{% endblock %}

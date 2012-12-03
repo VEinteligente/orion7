@@ -1,0 +1,17 @@
+{% extends 'Orion7CoreBundle::layout.html.twig' %}
+
+{% block body %}
+    {% for parroquia in parroquias %}
+        <article class="parroquia">
+            <header>
+                <a href="{{ path('Orion7CoreBundle_centro_listbyparroquia', { 'parroquia': parroquia.id }) }}">
+                <h2>{{ parroquia.id }} - {{ parroquia.nombre }}</h2>
+                </a>
+            </header>
+
+            asdf
+        </article>
+    {% else %}
+        <p>No hay parroquias!</p>
+    {% endfor %}
+{% endblock %}
