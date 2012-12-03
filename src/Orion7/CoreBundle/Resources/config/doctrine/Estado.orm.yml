@@ -1,6 +1,7 @@
 Orion7\CoreBundle\Entity\Estado:
     type: entity
     table: estado
+    repositoryClass: Orion7\CoreBundle\Entity\EstadoRepository
     id:
         codigo:
             type: integer

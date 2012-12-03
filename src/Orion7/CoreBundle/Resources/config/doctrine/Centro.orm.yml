@@ -15,7 +15,7 @@ Orion7\CoreBundle\Entity\Centro:
             length: 255
         direccion:
             type: text
-        electores:
+        num_electores:
             type: integer
         mesas:
             type: integer

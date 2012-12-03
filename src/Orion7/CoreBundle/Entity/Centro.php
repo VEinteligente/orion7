@@ -13,6 +13,7 @@ class Centro
     protected $codigo_parroquia;
     protected $nombre;
     protected $direccion;
+    protected $num_electores;
     protected $electores;
     protected $mesas;
     protected $nuevo;
@@ -357,5 +358,51 @@ class Centro
     public function getParroquia()
     {
         return $this->parroquia;
+    }
+
+    /**
+     * Set num_electores
+     *
+     * @param integer $numElectores
+     * @return Centro
+     */
+    public function setNumElectores($numElectores)
+    {
+        $this->num_electores = $numElectores;
+    
+        return $this;
+    }
+
+    /**
+     * Get num_electores
+     *
+     * @return integer 
+     */
+    public function getNumElectores()
+    {
+        return $this->num_electores;
+    }
+
+    /**
+     * Add electores
+     *
+     * @param \Orion7\CoreBundle\Entity\Elector $electores
+     * @return Centro
+     */
+    public function addElectore(\Orion7\CoreBundle\Entity\Elector $electores)
+    {
+        $this->electores[] = $electores;
+    
+        return $this;
+    }
+
+    /**
+     * Remove electores
+     *
+     * @param \Orion7\CoreBundle\Entity\Elector $electores
+     */
+    public function removeElectore(\Orion7\CoreBundle\Entity\Elector $electores)
+    {
+        $this->electores->removeElement($electores);
     }
 }

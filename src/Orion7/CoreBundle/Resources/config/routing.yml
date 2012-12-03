@@ -1,8 +1,16 @@
-orion7_denuncia_homepage:
+Orion7CoreBundle_denuncia_homepage:
     pattern:  /
     defaults: { _controller: Orion7CoreBundle:Denuncia:index }
     requirements:
         _method:  GET
+
+Orion7CoreBundle_estado_index:
+    pattern:  /estados
+    defaults: { _controller: Orion7CoreBundle:Estado:index }
+    requirements:
+        _method:  GET
+
+
 
 test_admin:
     pattern:  /admin
