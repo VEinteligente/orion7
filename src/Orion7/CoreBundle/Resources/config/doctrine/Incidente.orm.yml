@@ -6,6 +6,9 @@ Orion7\CoreBundle\Entity\Incidente:
             type: integer
             generator:
                 strategy: AUTO
+    fields:
+        resuelto:
+            type: boolean
     oneToMany:
         denuncias:
           targetEntity: Denuncia
@@ -37,13 +40,3 @@ Orion7\CoreBundle\Entity\Incidente:
             joinColumn:
                 name: centro
                 referencedColumnName: codigo
-        # usuario_canalizacion:
-        #     targetEntity: Estado
-        #     inversedBy: incidentes
-        #     joinColumn:
-        #         name: estado
-        #         referencedColumnName: codigo
-    manyToMany:
-        entes:
-              targetEntity: Ente
-              mappedBy: incidentes

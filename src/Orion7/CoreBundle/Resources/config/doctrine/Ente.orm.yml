@@ -32,10 +32,10 @@ Orion7\CoreBundle\Entity\Ente:
                 referencedColumnName: id
     manyToMany:
         incidentes:
-          targetEntity: Incidente
+          targetEntity: Canalizacion
           inversedBy: entes
           joinTable:
-            name: entes_incidentes.
+            name: entes_canalizaciones.
             joinColumns:
               ente:
                 referencedColumnName: id

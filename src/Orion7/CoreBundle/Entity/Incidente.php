@@ -1,5 +1,4 @@
 <?php
-// src/Blogger/BlogBundle/Entity/Blog.php
 
 namespace Orion7\CoreBundle\Entity;
 
@@ -10,13 +9,10 @@ class Incidente
     protected $municipio;
     protected $parroquia;
     protected $centro;
-    protected $usuario_canalizacion;
     protected $ente;
     protected $denuncias;
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $entes;
+    protected $resuelto;
+    protected $canalizaciones;
 
     /**
      * Constructor
@@ -24,7 +20,6 @@ class Incidente
     public function __construct()
     {
         $this->denuncias = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->entes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -163,35 +158,25 @@ class Incidente
     }
 
     /**
-     * Add entes
+     * Set resuelto
      *
-     * @param \Orion7\CoreBundle\Entity\Ente $entes
+     * @param boolean $resuelto
      * @return Incidente
      */
-    public function addEnte(\Orion7\CoreBundle\Entity\Ente $entes)
+    public function setResuelto($resuelto)
     {
-        $this->entes[] = $entes;
+        $this->resuelto = $resuelto;
     
         return $this;
     }
 
     /**
-     * Remove entes
+     * Get resuelto
      *
-     * @param \Orion7\CoreBundle\Entity\Ente $entes
+     * @return boolean 
      */
-    public function removeEnte(\Orion7\CoreBundle\Entity\Ente $entes)
+    public function getResuelto()
     {
-        $this->entes->removeElement($entes);
-    }
-
-    /**
-     * Get entes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEntes()
-    {
-        return $this->entes;
+        return $this->resuelto;
     }
 }

@@ -1,0 +1,10 @@
+{% for canalizacion in canalizaciones %}
+    <article class="comment {{ cycle(['odd', 'even'], loop.index0) }}" id="canalizacion-{{ canalizacion.id }}">
+        <header>
+            <p><span class="highlight">NOMBREDEUSUARIO</span> a las <time datetime="{{ comment.created|date('c') }}" pubdate="pubdate">{{ comment.created|date('g:i a') }}</time></p>
+        </header>
+        <p>TODO: agregar entes. El comentario es: {{ canalizacion.comentario }}</p>
+    </article>
+{% else %}
+    <p>No hay canalizaciones para el incidente. Canaliza o marca como resuelto!</p>
+{% endfor %}

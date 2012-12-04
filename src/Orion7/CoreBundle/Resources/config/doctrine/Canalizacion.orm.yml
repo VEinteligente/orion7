@@ -1,0 +1,31 @@
+Orion7\CoreBundle\Entity\Canalizacion:
+    type: entity
+    table: canalizacion
+    repositoryClass: Orion7\CoreBundle\Entity\CanalizacionRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        comentario:
+            type: text
+        hora_registro:
+            type: date
+    manyToOne:
+        incidente:
+            targetEntity: Incidente
+            inversedBy: canalizaciones
+            joinColumn:
+                name: incidente
+                referencedColumnName: id
+        # usuario:
+        #     targetEntity: Estado
+        #     inversedBy: incidentes
+        #     joinColumn:
+        #         name: estado
+        #         referencedColumnName: codigo
+    manyToMany:
+        entes:
+              targetEntity: Ente
+              mappedBy: incidentes
