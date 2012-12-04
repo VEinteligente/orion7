@@ -16,8 +16,19 @@ class DenunciaType extends AbstractType
             'property' => 'nombre',
         ));
 
-        //TODO: agregar faltantes
+        $builder->add('tipo_denunciante', 'entity', array(
+            'class' => 'Orion7CoreBundle:TipoDenunciante',
+            'property' => 'nombre',
+        ));
 
+        $builder->add('responsables', 'entity', array(
+            'class' => 'Orion7CoreBundle:TipoDenunciante',
+            'property' => 'nombre',
+            'multiple' => 'true',
+        ));
+
+        //TODO: agregar faltantes. Creo que hace falta agregar un atributo "categorias" en Denuncia, 
+        // luego tener un "choice" que renderice en un select vacio que se pueda llenar luego. maybe.
 
         $builder->add('hora_hecho', 'time', array(
             'input'  => 'datetime',
