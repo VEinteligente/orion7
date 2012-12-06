@@ -100,3 +100,11 @@ body {
 	color: #aaa; 
 	background-color: #8951ae; 
 }
+
+.form_denuncia_widget{
+	width: 100%;
+}
+
+#formulario_denuncia{
+	width: 400px;
+}
