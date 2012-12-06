@@ -10,6 +10,20 @@ Orion7CoreBundle_denuncia_new:
     requirements:
         _method:  GET
 
+Orion7CoreBundle_incidente_listbycentro:
+    pattern:  /incidentes/centro/{codCentro}
+    defaults: { _controller: Orion7CoreBundle:Incidente:listByCentro }
+    requirements:
+        _method:  GET
+        codCentro: \d+
+
+Orion7CoreBundle_incidente_show:
+    pattern:  /incidente/{id}
+    defaults: { _controller: Orion7CoreBundle:Incidente:show }
+    requirements:
+        _method:  GET
+        id: \d+
+
 Orion7CoreBundle_canalizaciones:
     pattern:  /canalizaciones/{idIncidente}
     defaults: { _controller: Orion7CoreBundle:Canalizacion:index }

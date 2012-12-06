@@ -1,21 +1,49 @@
 # app/config/security.yml
 security:
+    providers:
+        # chain_provider:
+        #     providers: [in_memory, fos_userbundle]
+        # in_memory:
+        #     users:
+        #         admin: { password: passadmin, roles: ROLE_ADMIN }
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
     firewalls:
         main:
-            pattern:    ^/
-            anonymous: ~
-            http_basic:
-                realm: "Secured Demo Area"
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+            logout:       true
+            anonymous:    true
 
+    #TODO: agregar control por IP
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
-
-    providers:
-        in_memory:
-            memory:
-                users:
-                    ryan:  { password: passryan, roles: 'ROLE_USER' }
-                    admin: { password: passadmin, roles: 'ROLE_ADMIN' }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: ROLE_ADMIN }
+        - { path: ^/resetting, role: ROLE_ADMIN }
+        - { path: ^/admin, role: ROLE_ADMIN }
 
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_REGISTRADOR_CALLCENTER:       ROLE_USER
+        ROLE_REGISTRADOR_TWITTER:       ROLE_USER
+        ROLE_FILTRO1:       ROLE_USER
+        ROLE_FILTRO2:       ROLE_USER
+        ROLE_FILTRO3:       ROLE_USER
+        ROLE_FILTRO4:       ROLE_USER
+        ROLE_FILTRO5:       ROLE_USER
+        ROLE_CANALIZADOR1:       ROLE_USER
+        ROLE_CANALIZADOR2:       ROLE_USER
+        ROLE_CANALIZADOR3:       ROLE_USER
+        ROLE_CANALIZADOR4:       ROLE_USER
+        ROLE_CANALIZADOR5:       ROLE_USER
+        ROLE_COORD_CALLCENTER:  ROLE_REGISTRADOR_CALLCENTER
+        ROLE_COORD_TWITTER:  ROLE_REGISTRADOR_TWITTER
+        ROLE_COORD_FILTRO: [ROLE_FILTRO1, ROLE_FILTRO2, ROLE_FILTRO3, ROLE_FILTRO4, ROLE_FILTRO5]
+        ROLE_COORD_CANALIZACION: [ROLE_CANALIZADOR1, ROLE_CANALIZADOR2, ROLE_CANALIZADOR3, ROLE_CANALIZADOR4, ROLE_CANALIZADOR5]
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH, ROLE_COORD_CALLCENTER, ROLE_COORD_TWITTER, ROLE_COORD_FILTRO, ROLE_COORD_CANALIZACION]

@@ -8,8 +8,6 @@ use FOS\UserBundle\Entity\User as BaseUser;
 class Usuario extends BaseUser
 {
     protected $id;
-    protected $nombre;
-    protected $passwordusuario;
 
     public function __construct()
     {

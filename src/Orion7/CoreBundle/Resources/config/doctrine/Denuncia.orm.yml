@@ -1,6 +1,7 @@
 Orion7\CoreBundle\Entity\Denuncia:
     type: entity
     table: denuncia
+    repositoryClass: Orion7\CoreBundle\Entity\DenunciaRepository
     id:
         id:
             type: integer
