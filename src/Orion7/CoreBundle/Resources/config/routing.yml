@@ -63,3 +63,27 @@ test_admin:
     defaults: { _controller: Orion7CoreBundle:Denuncia:index }
     requirements:
         _method:  GET
+
+Orion7CoreBundle_selects_municipio:
+    pattern:  /select_municipio
+    defaults: { _controller: Orion7CoreBundle:Municipio:selectByEstado }
+    requirements:
+        _method:  GET|POST
+
+Orion7CoreBundle_selects_parroquia:
+    pattern:  /select_parroquia
+    defaults: { _controller: Orion7CoreBundle:Parroquia:selectByMunicipio }
+    requirements:
+        _method:  GET|POST
+
+Orion7CoreBundle_selects_centro:
+    pattern:  /select_centro
+    defaults: { _controller: Orion7CoreBundle:Centro:selectByParroquia }
+    requirements:
+        _method:  GET|POST
+
+Orion7CoreBundle_selects_subcategoria:
+    pattern:  /select_subcategoria
+    defaults: { _controller: Orion7CoreBundle:Subcategoria:selectByCategoria }
+    requirements:
+        _method:  GET|POST

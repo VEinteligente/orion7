@@ -1,10 +1,5 @@
-{% extends 'Orion7CoreBundle::layout.html.twig' %}
 
-{% block javascripts %}
-    {{ parent() }}
-    <script src="{{ asset('bundles/orion7core/js/denunciatype.js') }}" type="text/javascript"></script>
-    <script>
-    	(function( $ ) {
+(function( $ ) {
 		$.widget( "ui.combobox", {
 			_create: function() {
 				var input,
@@ -114,14 +109,14 @@
 	$(function() {
 
       	//combobox_via
-      	$("#denunciatype_via").combobox();
+      	$("#via").combobox();
 
 	$("#denunciatype_estado").combobox({
          	selected: function(event, ui) {
+         			alert('{{ path('Orion7CoreBundle_selects_municipio') }}');
 	            	estado=$(this).val();
-	            	//alert('HOla! {{ path('Orion7CoreBundle_selects_municipio') }}');
 					$.post("{{ path('Orion7CoreBundle_selects_municipio') }}", { estado: estado }, function(data){
-						//alert(data + 'hh');
+						
 						$("#denunciatype_municipio").html(data);
 						$("#denunciatype_parroquia").html("");
 						$("#denunciatype_centro").html("");
@@ -129,48 +124,61 @@
 	         	}
 	      	});
       	
-      	//Nueva función combo_muncipio
-      	$("#denunciatype_municipio").combobox({
+		//Nueva función combo_estado
+		$("#combo_estado").combobox({
          	selected: function(event, ui) {
+            	//alert('HOla!');
+            	estado=$(this).val();
+				$.post("combo_estado.php", { estado: estado }, function(data){
+					$("#combo_municipio").html(data);
+					$("#combo_parroquia").html("");
+					$("#combo_centro").html("");
+					$("#combo_incidente").html("");
+					$("#denuncias").html("");
+				});
+         	}
+      	});
+      	
+      	//Nueva función combo_muncipio
+      	$("#combo_municipio").combobox({
+         	selected: function(event, ui) {
+            	//alert('HOla!');
             	municipio=$(this).val();
-				$.post("{{ path('Orion7CoreBundle_selects_parroquia') }}", { municipio: municipio }, function(data){
-					$("#denunciatype_parroquia").html(data);
-					$("#denunciatype_centro").html("");
+				estado=$('#combo_estado').val();
+				$.post("combo_municipio.php", { municipio: municipio , estado: estado }, function(data){
+					$("#combo_parroquia").html(data);
+					$("#combo_centro").html("");
+					$("#combo_incidente").html("");
+					$("#denuncias").html("");
 				});	
          	}
       	});
       	      	
       	//Nueva función combo_parroquia
-      	$("#denunciatype_parroquia").combobox({
+      	$("#combo_parroquia").combobox({
          	selected: function(event, ui) {
+            	//alert('HOla!');
             	parroquia=$(this).val();
-				$.post("{{ path('Orion7CoreBundle_selects_centro') }}", { parroquia: parroquia }, function(data){
-					$("#denunciatype_centro").html(data);
+				estado=$('#combo_estado').val();
+				municipio=$('#combo_municipio').val();
+				$.post("combo_parroquia.php", { parroquia: parroquia, municipio: municipio , estado: estado }, function(data){
+					$("#combo_centro").html(data);
+					$("#combo_incidente").html("");
+					$("#denuncias").html("");
 				});	
          	}
       	});
       	
-      	//Nueva función combo_categoriaa
-      	$("#denunciatype_categoria").combobox({
+      	//Nueva función combo_centro
+      	$("#combo_centro").combobox({
          	selected: function(event, ui) {
-            	categoria=$(this).val();
-				$.post("{{ path('Orion7CoreBundle_selects_subcategoria') }}", { categoria: categoria }, function(data){
-					$("#denunciatype_subcategorias").html(data);
-				});	
+            	//alert('HOla!');
+            	centro=$(this).val();
+				$('#combo_incidente').load('combo_centro.php?centro='+centro);
+				$("#combo_incidente").html("");
+				$("#denuncias").html("");	
          	}
       	});
-
-      	//Nueva función combo_centro
-      	$("#denunciatype_centro").combobox();
-
-      	//Nueva función combo_subcategorias
-      	$("#denunciatype_subcategorias").combobox();
-
-      	//Nueva función combo_tipodenunciante
-      	$("#denunciatype_tipo_denunciante").combobox();
-
-      	//Nueva función combo_responsables
-      	//$("#denunciatype_responsables").combobox(
       	
       	//Nueva función nueva_denuncia
       	$("#combo_nueva_denuncia").combobox({
@@ -191,79 +199,3 @@
       	});
       	
 	});
-    </script>
-{% endblock %}
-
-{% block body %}
-	<div id="formulario_denuncia">
-    <form action="{{ path('Orion7CoreBundle_denuncia_homepage') }}" method="post" {{ form_enctype(form) }}>
-	    
-	    {{ form_errors(form) }}
-
-		<div>
-		    {{ form_errors(form.via) }}
-		    {{ form_widget(form.via, { 'attr': {'class': 'form_denuncia_widget'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.relato) }}
-		    {{ form_widget(form.relato, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all', 'placeholder': 'Relato'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.estado) }}
-		    {{ form_widget(form.estado, { 'attr': {'class': 'form_denuncia_widget'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.municipio) }}
-		    {{ form_widget(form.municipio, { 'attr': {'class': 'form_denuncia_widget'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.parroquia) }}
-		    {{ form_widget(form.parroquia, { 'attr': {'class': 'form_denuncia_widget'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.centro) }}
-		    {{ form_widget(form.centro, { 'attr': {'class': 'form_denuncia_widget'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.categoria) }}
-		    {{ form_widget(form.categoria, { 'attr': {'class': 'form_denuncia_widget'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.subcategorias) }}
-		    {{ form_widget(form.subcategorias, { 'attr': {'class': 'form_denuncia_widget'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.tipo_denunciante) }}
-		    {{ form_widget(form.tipo_denunciante, { 'attr': {'class': 'form_denuncia_widget'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.responsables) }}
-		    {{ form_widget(form.responsables, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.hora_hecho) }}
-		    {{ form_widget(form.hora_hecho, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.nombre_denunciante) }}
-		    {{ form_widget(form.nombre_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all', 'placeholder': 'Nombre del Denunciante'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.telefono_denunciante) }}
-		    {{ form_widget(form.telefono_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all', 'placeholder': 'Teléfonos del Denunciante'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.correo_denunciante) }}
-		    {{ form_widget(form.correo_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all', 'placeholder': 'Correo del Denunciante'} }) }}
-		</div>
-		<div>
-		    {{ form_errors(form.twitter_denunciante) }}
-		    {{ form_widget(form.twitter_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all', 'placeholder': 'Twitter del Denunciante'} }) }}
-		</div>
-
-		{{ form_rest(form) }}
-
-	    <input type="submit" />
-	</form>
-	</div>
-{% endblock %}
