@@ -28,7 +28,7 @@ class MunicipioController extends Controller
                          ->getEntityManager();
               $municipios = $em->getRepository('Orion7CoreBundle:Municipio')
                           ->findByEstado($estado);
-        $html = '';
+        $html = '<option value="">Municipio</option>';
         foreach($municipios as $municipio)
         {
             $html = $html . sprintf("<option value=\"%d\">%s</option>",$municipio->getId(), $municipio->getNombre());

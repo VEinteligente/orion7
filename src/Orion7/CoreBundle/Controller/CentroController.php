@@ -27,7 +27,7 @@ class CentroController extends Controller
                          ->getEntityManager();
               $centros = $em->getRepository('Orion7CoreBundle:Centro')
                           ->findByParroquia($parroquia);
-        $html = '';
+        $html = '<option value="">Centro de votación</option>';
         foreach($centros as $centro)
         {
             $html = $html . sprintf("<option value=\"%d\">%s</option>",$centro->getCodigo(), $centro->getNombre());

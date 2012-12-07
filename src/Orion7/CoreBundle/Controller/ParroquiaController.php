@@ -27,7 +27,7 @@ class ParroquiaController extends Controller
                          ->getEntityManager();
               $parroquias = $em->getRepository('Orion7CoreBundle:Parroquia')
                           ->findByMunicipio($municipio);
-        $html = '';
+        $html = '<option value="">Parroquia</option>';
         foreach($parroquias as $parroquia)
         {
             $html = $html . sprintf("<option value=\"%d\">%s</option>",$parroquia->getId(), $parroquia->getNombre());

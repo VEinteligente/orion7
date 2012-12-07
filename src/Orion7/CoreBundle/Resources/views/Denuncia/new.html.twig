@@ -1,196 +1,54 @@
 {% extends 'Orion7CoreBundle::layout.html.twig' %}
 
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/orion7core/js/chosen/chosen.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('bundles/orion7core/js/denunciatype.js') }}" type="text/javascript"></script>
-    <script>
-    	(function( $ ) {
-		$.widget( "ui.combobox", {
-			_create: function() {
-				var input,
-					self = this,
-					select = this.element.hide(),
-					selected = select.children( ":selected" ),
-					value = selected.val() ? selected.text() : "",
-					wrapper = this.wrapper = $( "<span>" )
-						.addClass( "ui-combobox" )
-						.insertAfter( select );
+    <script src="{{ asset('bundles/orion7core/js/chosen/chosen.jquery.min.js') }}" type="text/javascript"></script>
 
-				input = $( "<input>" )
-					.appendTo( wrapper )
-					.val( value )
-					.addClass( "ui-state-default ui-combobox-input" )
-					.autocomplete({
-						delay: 0,
-						minLength: 0,
-						source: function( request, response ) {
-							var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
-							response( select.children( "option" ).map(function() {
-								var text = $( this ).text();
-								if ( this.value && ( !request.term || matcher.test(text) ) )
-									return {
-										label: text.replace(
-											new RegExp(
-												"(?![^&;]+;)(?!<[^<>]*)(" +
-												$.ui.autocomplete.escapeRegex(request.term) +
-												")(?![^<>]*>)(?![^&;]+;)", "gi"
-											), "<strong>$1</strong>" ),
-										value: text,
-										option: this
-									};
-							}) );
-						},
-						select: function( event, ui ) {
-							ui.item.option.selected = true;
-							self._trigger( "selected", event, {
-								item: ui.item.option
-							});
-						},
-						change: function( event, ui ) {
-							if ( !ui.item ) {
-								var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
-									valid = false;
-								select.children( "option" ).each(function() {
-									if ( $( this ).text().match( matcher ) ) {
-										this.selected = valid = true;
-										return false;
-									}
-								});
-								if ( !valid ) {
-									// remove invalid value, as it didn't match anything
-									$( this ).val( "" );
-									select.val( "" );
-									input.data( "autocomplete" ).term = "";
-									return false;
-								}
-							}
-						}
-					})
-					.addClass( "ui-widget ui-widget-content ui-corner-left" );
+	<script type="text/javascript"> 
+		$(".chzn-select").chosen(); 
+		$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
+	</script>
 
-				input.data( "autocomplete" )._renderItem = function( ul, item ) {
-					return $( "<li></li>" )
-						.data( "item.autocomplete", item )
-						.append( "<a>" + item.label + "</a>" )
-						.appendTo( ul );
-				};
-
-				$( "<a>" )
-					.attr( "tabIndex", -1 )
-					.attr( "title", "Show All Items" )
-					.appendTo( wrapper )
-					.button({
-						icons: {
-							primary: "ui-icon-triangle-1-s"
-						},
-						text: false
-					})
-					.removeClass( "ui-corner-all" )
-					.addClass( "ui-corner-right ui-combobox-toggle" )
-					.click(function() {
-						// close if already visible
-						if ( input.autocomplete( "widget" ).is( ":visible" ) ) {
-							input.autocomplete( "close" );
-							return;
-						}
-
-						// work around a bug (likely same cause as #5265)
-						$( this ).blur();
-
-						// pass empty string as value to search for, displaying all results
-						input.autocomplete( "search", "" );
-						input.focus();
-					});
-			},
-
-			destroy: function() {
-				this.wrapper.remove();
-				this.element.show();
-				$.Widget.prototype.destroy.call( this );
-			}
-		});
-	})( jQuery );
-
+	<script>
 	$(function() {
-
-      	//combobox_via
-      	$("#denunciatype_via").combobox();
-
-	$("#denunciatype_estado").combobox({
-         	selected: function(event, ui) {
-	            	estado=$(this).val();
-	            	//alert('HOla! {{ path('Orion7CoreBundle_selects_municipio') }}');
-					$.post("{{ path('Orion7CoreBundle_selects_municipio') }}", { estado: estado }, function(data){
-						//alert(data + 'hh');
-						$("#denunciatype_municipio").html(data);
-						$("#denunciatype_parroquia").html("");
-						$("#denunciatype_centro").html("");
-					});
-	         	}
-	      	});
-      	
-      	//Nueva función combo_muncipio
-      	$("#denunciatype_municipio").combobox({
-         	selected: function(event, ui) {
-            	municipio=$(this).val();
-				$.post("{{ path('Orion7CoreBundle_selects_parroquia') }}", { municipio: municipio }, function(data){
-					$("#denunciatype_parroquia").html(data);
-					$("#denunciatype_centro").html("");
-				});	
-         	}
-      	});
-      	      	
-      	//Nueva función combo_parroquia
-      	$("#denunciatype_parroquia").combobox({
-         	selected: function(event, ui) {
-            	parroquia=$(this).val();
-				$.post("{{ path('Orion7CoreBundle_selects_centro') }}", { parroquia: parroquia }, function(data){
-					$("#denunciatype_centro").html(data);
-				});	
-         	}
-      	});
-      	
-      	//Nueva función combo_categoriaa
-      	$("#denunciatype_categoria").combobox({
-         	selected: function(event, ui) {
-            	categoria=$(this).val();
-				$.post("{{ path('Orion7CoreBundle_selects_subcategoria') }}", { categoria: categoria }, function(data){
-					$("#denunciatype_subcategorias").html(data);
-				});	
-         	}
-      	});
-
-      	//Nueva función combo_centro
-      	$("#denunciatype_centro").combobox();
-
-      	//Nueva función combo_subcategorias
-      	$("#denunciatype_subcategorias").combobox();
-
-      	//Nueva función combo_tipodenunciante
-      	$("#denunciatype_tipo_denunciante").combobox();
-
-      	//Nueva función combo_responsables
-      	//$("#denunciatype_responsables").combobox(
-      	
-      	//Nueva función nueva_denuncia
-      	$("#combo_nueva_denuncia").combobox({
-         	selected: function(event, ui) {
-   				tipo_denuncia=$(this).val();
-				centro=$('#combo_centro').val();
-				$.get('denuncia_nueva2.php?tipo_denuncia=' + tipo_denuncia + '&centro=' + centro + '&id_n=' + denuncia_nueva, function(data) {
-		  			$('#denuncias').append(data);
-				});
-				$.get('denuncia_nueva_asistencia2.php?tipo_denuncia=' + tipo_denuncia + '&centro=' + centro + '&id_n=' + denuncia_nueva, function(data) {
-		  			$('#asistencia').append(data);
-				});
-				//$('#denuncia').val(''); RESOLVER AQUI
-				denuncia_nueva++;
-				setTimeout(function() {chequea_seguimiento();},750);
-				//chequea_seguimiento();
-         	}
-      	});
-      	
+		// Select dependiente cuando se cambia estado
+		$('#denunciatype_estado').chosen().change(function() {
+        	estado=$(this).val();
+			$.post("{{ path('Orion7CoreBundle_selects_municipio') }}", { estado: estado }, function(data){
+				$("#denunciatype_municipio").html(data);
+				$("#denunciatype_municipio").trigger("liszt:updated");
+				$("#denunciatype_parroquia").html("");
+				$("#denunciatype_centro").html("");
+			});
+		});	 	
+		// Select dependiente cuando se cambia municipio
+		$('#denunciatype_municipio').chosen().change(function() {
+			municipio=$(this).val();
+			$.post("{{ path('Orion7CoreBundle_selects_parroquia') }}", { municipio: municipio }, function(data){
+				$("#denunciatype_parroquia").html(data);
+				$("#denunciatype_parroquia").trigger("liszt:updated");
+				$("#denunciatype_centro").html("");
+			});	
+		});	
+		// Select dependiente cuando se cambia parroquia
+		$('#denunciatype_parroquia').chosen().change(function() {
+			parroquia=$(this).val();
+			$.post("{{ path('Orion7CoreBundle_selects_centro') }}", { parroquia: parroquia }, function(data){
+				$("#denunciatype_centro").html(data);
+				$("#denunciatype_centro").trigger("liszt:updated");
+			});
+		});	 	
 	});
+	</script>
+
+	<script>
+    $(function() {
+        $( "#tabs" ).tabs();
+    });
     </script>
 {% endblock %}
 
@@ -200,65 +58,89 @@
 	    
 	    {{ form_errors(form) }}
 
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.via) }}
-		    {{ form_widget(form.via, { 'attr': {'class': 'form_denuncia_widget'} }) }}
+		    {{ form_widget(form.via, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Vía de ingreso de la denuncia'} }) }}
 		</div>
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.relato) }}
-		    {{ form_widget(form.relato, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all', 'placeholder': 'Relato'} }) }}
+		    {{ form_widget(form.relato, { 'attr': {'class': 'form_denuncia_ta ui-widget ', 'placeholder': ' Relato'} }) }}
 		</div>
-		<div>
+		<div id="tabs" class="form_div_field">
+    <ul>
+        <li><a href="#tabs-1">Listados</a></li>
+        <li><a href="#tabs-2">Código de Centro</a></li>
+        <li><a href="#tabs-3">Cédula Elector</a></li>
+    </ul>
+    <div id="tabs-1">
+        <div class="form_div_field">
 		    {{ form_errors(form.estado) }}
-		    {{ form_widget(form.estado, { 'attr': {'class': 'form_denuncia_widget'} }) }}
+		    {{ form_widget(form.estado, { 'attr': {'class': 'chzn-select form_denuncia_widget2', 'data-placeholder': 'Estado'} }) }}
 		</div>
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.municipio) }}
-		    {{ form_widget(form.municipio, { 'attr': {'class': 'form_denuncia_widget'} }) }}
+		    {{ form_widget(form.municipio, { 'attr': {'class': 'chzn-select form_denuncia_widget2', 'data-placeholder': 'Municipio'} }) }}
 		</div>
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.parroquia) }}
-		    {{ form_widget(form.parroquia, { 'attr': {'class': 'form_denuncia_widget'} }) }}
+		    {{ form_widget(form.parroquia, { 'attr': {'class': 'chzn-select form_denuncia_widget2', 'data-placeholder': 'Parroquia'} }) }}
 		</div>
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.centro) }}
-		    {{ form_widget(form.centro, { 'attr': {'class': 'form_denuncia_widget'} }) }}
+		    {{ form_widget(form.centro, { 'attr': {'class': 'chzn-select form_denuncia_widget2', 'data-placeholder': 'Centro de votación'} }) }}
 		</div>
-		<div>
+    </div>
+    <div id="tabs-2">
+        <div class="form_div_field">
+		    {{ form_errors(form.codigo_centro) }}
+		    {{ form_widget(form.codigo_centro, { 'attr': {'class': 'form_denuncia_widget2 ui-widget form_fix_v', 'placeholder': ' Código del Centro de Votación'} }) }}
+		</div>
+    </div>
+    <div id="tabs-3">
+        <div class="form_div_field">
+		    {{ form_errors(form.cedula_elector) }}
+		    {{ form_widget(form.cedula_elector, { 'attr': {'class': 'form_denuncia_widget2 ui-widget form_fix_v', 'placeholder': ' Cédula del elector'} }) }}
+		</div>
+    </div>
+</div>
+		
+		<div class="form_div_field">
 		    {{ form_errors(form.categoria) }}
-		    {{ form_widget(form.categoria, { 'attr': {'class': 'form_denuncia_widget'} }) }}
+		    {{ form_widget(form.categoria, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Subcategorías asociadas'} }) }}
 		</div>
+		{#
 		<div>
 		    {{ form_errors(form.subcategorias) }}
 		    {{ form_widget(form.subcategorias, { 'attr': {'class': 'form_denuncia_widget'} }) }}
 		</div>
-		<div>
+		#}
+		<div class="form_div_field">
 		    {{ form_errors(form.tipo_denunciante) }}
-		    {{ form_widget(form.tipo_denunciante, { 'attr': {'class': 'form_denuncia_widget'} }) }}
+		    {{ form_widget(form.tipo_denunciante, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Rol del denunciante'} }) }}
 		</div>
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.responsables) }}
-		    {{ form_widget(form.responsables, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all'} }) }}
+		    {{ form_widget(form.responsables, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Responsables de la situación'} }) }}
 		</div>
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.hora_hecho) }}
-		    {{ form_widget(form.hora_hecho, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all'} }) }}
+		    {{ form_widget(form.hora_hecho, { 'attr': {'class': 'form_denuncia_widget ui-widget'} }) }}
 		</div>
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.nombre_denunciante) }}
-		    {{ form_widget(form.nombre_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all', 'placeholder': 'Nombre del Denunciante'} }) }}
+		    {{ form_widget(form.nombre_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget form_fix_v', 'placeholder': ' Nombre del Denunciante'} }) }}
 		</div>
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.telefono_denunciante) }}
-		    {{ form_widget(form.telefono_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all', 'placeholder': 'Teléfonos del Denunciante'} }) }}
+		    {{ form_widget(form.telefono_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget form_fix_v', 'placeholder': ' Teléfonos del Denunciante'} }) }}
 		</div>
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.correo_denunciante) }}
-		    {{ form_widget(form.correo_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all', 'placeholder': 'Correo del Denunciante'} }) }}
+		    {{ form_widget(form.correo_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget form_fix_v', 'placeholder': ' Correo del Denunciante'} }) }}
 		</div>
-		<div>
+		<div class="form_div_field">
 		    {{ form_errors(form.twitter_denunciante) }}
-		    {{ form_widget(form.twitter_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget ui-corner-all', 'placeholder': 'Twitter del Denunciante'} }) }}
+		    {{ form_widget(form.twitter_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget form_fix_v', 'placeholder': ' Twitter del Denunciante'} }) }}
 		</div>
 
 		{{ form_rest(form) }}
