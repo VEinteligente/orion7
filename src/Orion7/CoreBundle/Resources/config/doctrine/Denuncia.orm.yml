@@ -47,18 +47,16 @@ Orion7\CoreBundle\Entity\Denuncia:
             joinColumn:
                 name: tipo_denunciante
                 referencedColumnName: id
-        # usuario_registro:
-        #     targetEntity: Estado
-        #     inversedBy: incidentes
-        #     joinColumn:
-        #         name: estado
-        #         referencedColumnName: codigo
-        # usuario_filtro:
-        #     targetEntity: Estado
-        #     inversedBy: incidentes
-        #     joinColumn:
-        #         name: estado
-        #         referencedColumnName: codigo
+        usuario_registro:
+            targetEntity: Usuario
+            joinColumn:
+                name: usuario_registro
+                referencedColumnName: id
+        usuario_filtrado:
+            targetEntity: Usuario
+            joinColumn:
+                name: usuario_filtrado
+                referencedColumnName: id
     manyToMany:
         responsables:
               targetEntity: Responsable

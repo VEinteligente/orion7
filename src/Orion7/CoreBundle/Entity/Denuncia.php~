@@ -18,20 +18,11 @@ class Denuncia
     protected $nombre_denunciante;
     protected $telefono_denunciante;
     protected $correo_denunciante;
-    protected $twitter_handle_denunciante;
-    protected $genera_retraso_injustificado;
+    protected $twitter_denunciante;
+    protected $genera_retraso;
     protected $usuario_registro;
     protected $usuario_filtrado;
 
-    /**
-     * @var string
-     */
-    private $twitter_denunciante;
-
-    /**
-     * @var boolean
-     */
-    private $genera_retraso;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -353,5 +344,28 @@ class Denuncia
     public function getSubcategorias()
     {
         return $this->subcategorias;
+    }
+
+    /**
+     * Set telefono_denunciante
+     *
+     * @param string $telefonoDenunciante
+     * @return Denuncia
+     */
+    public function setTelefonoDenunciante($telefonoDenunciante)
+    {
+        $this->telefono_denunciante = $telefonoDenunciante;
+    
+        return $this;
+    }
+
+    /**
+     * Get telefono_denunciante
+     *
+     * @return string 
+     */
+    public function getTelefonoDenunciante()
+    {
+        return $this->telefono_denunciante;
     }
 }

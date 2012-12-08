@@ -17,6 +17,7 @@ class Canalizacion
     public function __construct()
     {
         $this->entes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setHoraRegistro(new \DateTime());
     }
     
     /**
