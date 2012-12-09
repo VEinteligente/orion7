@@ -87,3 +87,15 @@ Orion7CoreBundle_selects_subcategoria:
     defaults: { _controller: Orion7CoreBundle:Subcategoria:selectByCategoria }
     requirements:
         _method:  GET|POST
+
+Orion7CoreBundle_selects_codigo_centro:
+    pattern:  /select_codigo_centro
+    defaults: { _controller: Orion7CoreBundle:Centro:selectByCodigoCentro }
+    requirements:
+        _method:  GET|POST
+
+Orion7CoreBundle_selects_cedula_elector:
+    pattern:  /select_cedula_elector
+    defaults: { _controller: Orion7CoreBundle:Centro:selectByCedulaElector }
+    requirements:
+        _method:  GET|POST

@@ -120,6 +120,14 @@ body {
 	border-color: #999;
 	border-style: solid;
 	border-width: 1px;
+	height: 40px;
+}
+
+.form_denuncia_widget2_2{
+	width: 85%;
+	border-color: #999;
+	border-style: solid;
+	border-width: 1px;
 }
 
 #formulario_denuncia{

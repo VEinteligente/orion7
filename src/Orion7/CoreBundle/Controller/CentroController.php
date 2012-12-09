@@ -34,4 +34,64 @@ class CentroController extends Controller
         }
         return new Response($html);
     }
+    public function selectByCodigoCentroAction()
+    {
+        $request = $this->getRequest();
+              $codigo_centro = $request->request->get('codigo_centro');
+              $em = $this->getDoctrine()
+                         ->getEntityManager();
+              $centro = $em->getRepository('Orion7CoreBundle:Centro')
+                           ->find($codigo_centro);
+          $html = '';
+
+          if (!$centro) {
+            $html = $html . 'esta vacio, no consegui centro'; 
+          }
+          else {
+            // $html = $html . sprintf("estado = %d \n municipio = %s",$centro->getEstado(), $centro->getMunicipio());
+            //$html = $html . $centro -> getParroquia() -> getId();
+            $datos = array(
+                'prueba' => true,
+                'estado' => $centro -> getEstado() -> getCodigo(),
+                'municipio' => $centro -> getMunicipio() -> getId(),
+                'parroquia' => $centro -> getParroquia() -> getId()
+            );
+          }
+
+        return new Response(json_encode($datos));
+        // return new Response($html);
+    }
+    public function selectByCedulaElectorAction()
+    {
+        $request = $this->getRequest();
+              $cedula_elector = $request->request->get('cedula_elector');
+              $em = $this->getDoctrine()
+                         ->getEntityManager();
+              $centro_elector = $em->getRepository('Orion7CoreBundle:Elector')
+                           ->find($cedula_elector);
+              $em2 = $this->getDoctrine()
+                         ->getEntityManager();
+              $centro = $em2->getRepository('Orion7CoreBundle:Centro')
+                           ->find($centro_elector->getCentro()-> getCodigo());
+          // $html = '';
+
+          if (!$centro_elector) {
+            $html = $html . 'esta vacio, no consegui centro'; 
+          }
+          else {
+            // $html = $html . sprintf("estado = %d \n municipio = %s",$centro->getEstado(), $centro->getMunicipio());
+            //$html = $html . $centro -> getParroquia() -> getId();
+            $datos = array(
+                'prueba' => true,
+                'estado' => $centro -> getEstado() -> getCodigo(),
+                'municipio' => $centro -> getMunicipio() -> getId(),
+                'parroquia' => $centro -> getParroquia() -> getId(),
+                'centro' => $centro_elector -> getCentro()-> getCodigo(),
+                'nombre' => $centro_elector -> getPrimerNombre().' '.$centro_elector -> getPrimerApellido()
+            );
+          }
+
+        return new Response(json_encode($datos));
+        // return new Response($html);
+    }
 }
