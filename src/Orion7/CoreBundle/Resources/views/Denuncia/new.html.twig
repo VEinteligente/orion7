@@ -42,6 +42,81 @@
 				$("#denunciatype_centro").trigger("liszt:updated");
 			});
 		});	 	
+
+		// cambio de codigo del centro de votación
+
+		function calculaCentro(){
+			codigo_centro=$('#denunciatype_codigo_centro').val();
+			$.post("{{ path('Orion7CoreBundle_selects_codigo_centro') }}", { codigo_centro: codigo_centro }, function(data){
+				var obj = jQuery.parseJSON(data);
+				estado = obj.estado;
+				municipio = obj.municipio;
+				parroquia = obj.parroquia;
+
+				$("#denunciatype_estado option[value="+estado+"]").attr("selected",true);
+				$("#denunciatype_estado").trigger("liszt:updated");
+
+				//alert( parroquia );
+				$.post("{{ path('Orion7CoreBundle_selects_municipio') }}", { estado: estado }, function(data){
+					$("#denunciatype_municipio").html(data);
+					$("#denunciatype_municipio option[value="+municipio+"]").attr("selected",true);
+					$("#denunciatype_municipio").trigger("liszt:updated");
+					$.post("{{ path('Orion7CoreBundle_selects_parroquia') }}", { municipio: municipio }, function(data){
+						$("#denunciatype_parroquia").html(data);
+						$("#denunciatype_parroquia option[value="+parroquia+"]").attr("selected",true);
+						$("#denunciatype_parroquia").trigger("liszt:updated");
+						$.post("{{ path('Orion7CoreBundle_selects_centro') }}", { parroquia: parroquia }, function(data){
+							$("#denunciatype_centro").html(data);
+							$("#denunciatype_centro option[value="+codigo_centro+"]").attr("selected",true);
+							$("#denunciatype_centro").trigger("liszt:updated");
+						});
+					});	
+				});
+
+				$("#tabs").tabs("select", "#tabs-1");
+			});
+		}
+		$('#boton_centro').click(function() {
+			calculaCentro()
+		});	
+
+		// cambio de cedula del elector
+
+		function calculaCedula(){
+			//cedula_elector=$(this).val();
+			cedula_elector=$('#denunciatype_cedula_elector').val();
+			$.post("{{ path('Orion7CoreBundle_selects_cedula_elector') }}", { cedula_elector: cedula_elector }, function(data){	
+				var obj = jQuery.parseJSON(data);
+				estado = obj.estado;
+				municipio = obj.municipio;
+				parroquia = obj.parroquia;
+				codigo_centro = obj.centro;
+				nombre_elector = obj.nombre;
+				$("#denunciatype_estado option[value="+estado+"]").attr("selected",true);
+				$("#denunciatype_estado").trigger("liszt:updated");
+				$.post("{{ path('Orion7CoreBundle_selects_municipio') }}", { estado: estado }, function(data){
+					$("#denunciatype_municipio").html(data);
+					$("#denunciatype_municipio option[value="+municipio+"]").attr("selected",true);
+					$("#denunciatype_municipio").trigger("liszt:updated");
+					$.post("{{ path('Orion7CoreBundle_selects_parroquia') }}", { municipio: municipio }, function(data){
+						$("#denunciatype_parroquia").html(data);
+						$("#denunciatype_parroquia option[value="+parroquia+"]").attr("selected",true);
+						$("#denunciatype_parroquia").trigger("liszt:updated");
+						$.post("{{ path('Orion7CoreBundle_selects_centro') }}", { parroquia: parroquia }, function(data){
+							$("#denunciatype_centro").html(data);
+							$("#denunciatype_centro option[value="+codigo_centro+"]").attr("selected",true);
+							$("#denunciatype_centro").trigger("liszt:updated");
+						});
+					});	
+				});
+				$('#denunciatype_nombre_denunciante').val(nombre_elector);
+				$("#tabs").tabs("select", "#tabs-1");
+			});
+		}
+
+		$('#boton_cedula').click(function() {
+			calculaCedula();
+		});	
 	});
 	</script>
 
@@ -93,13 +168,15 @@
     <div id="tabs-2">
         <div class="form_div_field">
 		    {{ form_errors(form.codigo_centro) }}
-		    {{ form_widget(form.codigo_centro, { 'attr': {'class': 'form_denuncia_widget2 ui-widget form_fix_v', 'placeholder': ' Código del Centro de Votación'} }) }}
+		    {{ form_widget(form.codigo_centro, { 'attr': {'class': 'form_denuncia_widget2_2 ui-widget form_fix_v', 'placeholder': ' Código del Centro de Votación'} }) }}
+		    <button type="button" id="boton_centro" class="ui-widget form_fix_v">-></button>
 		</div>
     </div>
     <div id="tabs-3">
         <div class="form_div_field">
 		    {{ form_errors(form.cedula_elector) }}
-		    {{ form_widget(form.cedula_elector, { 'attr': {'class': 'form_denuncia_widget2 ui-widget form_fix_v', 'placeholder': ' Cédula del elector'} }) }}
+		    {{ form_widget(form.cedula_elector, { 'attr': {'class': 'form_denuncia_widget2_2 ui-widget form_fix_v', 'placeholder': ' Cédula del elector'} }) }}
+		    <button type="button" id="boton_cedula" class="ui-widget form_fix_v">-></button>
 		</div>
     </div>
 </div>
@@ -108,12 +185,11 @@
 		    {{ form_errors(form.categoria) }}
 		    {{ form_widget(form.categoria, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Subcategorías asociadas'} }) }}
 		</div>
-		{#
-		<div>
-		    {{ form_errors(form.subcategorias) }}
-		    {{ form_widget(form.subcategorias, { 'attr': {'class': 'form_denuncia_widget'} }) }}
+
+		<div id="incidentes_existentes" class="form_div_field">
+			<input type="radio" value="0" id="incidente_n"> <label for="incidente_n">Nuevo Incidente</label>
 		</div>
-		#}
+
 		<div class="form_div_field">
 		    {{ form_errors(form.tipo_denunciante) }}
 		    {{ form_widget(form.tipo_denunciante, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Rol del denunciante'} }) }}
