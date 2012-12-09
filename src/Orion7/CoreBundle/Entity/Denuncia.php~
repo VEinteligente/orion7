@@ -368,4 +368,50 @@ class Denuncia
     {
         return $this->telefono_denunciante;
     }
+
+    /**
+     * Set usuario_registro
+     *
+     * @param \Orion7\CoreBundle\Entity\Usuario $usuarioRegistro
+     * @return Denuncia
+     */
+    public function setUsuarioRegistro(\Orion7\CoreBundle\Entity\Usuario $usuarioRegistro = null)
+    {
+        $this->usuario_registro = $usuarioRegistro;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuario_registro
+     *
+     * @return \Orion7\CoreBundle\Entity\Usuario 
+     */
+    public function getUsuarioRegistro()
+    {
+        return $this->usuario_registro;
+    }
+
+    /**
+     * Set usuario_filtrado
+     *
+     * @param \Orion7\CoreBundle\Entity\Usuario $usuarioFiltrado
+     * @return Denuncia
+     */
+    public function setUsuarioFiltrado(\Orion7\CoreBundle\Entity\Usuario $usuarioFiltrado = null)
+    {
+        $this->usuario_filtrado = $usuarioFiltrado;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuario_filtrado
+     *
+     * @return \Orion7\CoreBundle\Entity\Usuario 
+     */
+    public function getUsuarioFiltrado()
+    {
+        return $this->usuario_filtrado;
+    }
 }

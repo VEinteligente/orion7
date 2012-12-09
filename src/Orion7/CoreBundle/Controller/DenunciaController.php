@@ -28,7 +28,7 @@ class DenunciaController extends Controller
     }
 
     //ESQUELETO NO FUNCIONAL
-    public function createAction($incidenteId)
+    /*public function createAction($incidenteId)
     {
         $denuncia = new Denuncia();
 
@@ -81,7 +81,7 @@ class DenunciaController extends Controller
         // return $this->render('Orion7CoreBundle:Denuncia:new.html.twig', array(
         //     'form' => $form->createView()
         // ));
-    }
+    }*/
 
     protected function getIncidente($incidenteId)
     {
@@ -119,7 +119,7 @@ class DenunciaController extends Controller
 
         $centro = $em->getRepository('Orion7CoreBundle:Centro')
                     ->find($centroID);
-        $incidente -> setCentro($centro);  
+        $incidente -> setCentro($centro);
 
         return $incidente;
     }

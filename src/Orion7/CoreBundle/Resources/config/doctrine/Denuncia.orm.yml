@@ -9,9 +9,9 @@ Orion7\CoreBundle\Entity\Denuncia:
                 strategy: AUTO
     fields:
         hora_hecho:
-            type: date
+            type: datetime
         hora_registro:
-            type: date
+            type: datetime
         relato:
             type: text
         nombre_denunciante:

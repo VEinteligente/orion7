@@ -11,7 +11,7 @@ Orion7\CoreBundle\Entity\Canalizacion:
         comentario:
             type: text
         hora_registro:
-            type: date
+            type: datetime
     manyToOne:
         incidente:
             targetEntity: Incidente
