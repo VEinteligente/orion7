@@ -9,7 +9,6 @@ class Incidente
     protected $municipio;
     protected $parroquia;
     protected $centro;
-    protected $ente;
     protected $denuncias;
     protected $resuelto;
     protected $canalizaciones;
@@ -155,5 +154,28 @@ class Incidente
     public function getCentro()
     {
         return $this->centro;
+    }
+
+    /**
+     * Set resuelto
+     *
+     * @param boolean $resuelto
+     * @return Incidente
+     */
+    public function setResuelto($resuelto)
+    {
+        $this->resuelto = $resuelto;
+    
+        return $this;
+    }
+
+    /**
+     * Get resuelto
+     *
+     * @return boolean 
+     */
+    public function getResuelto()
+    {
+        return $this->resuelto;
     }
 }

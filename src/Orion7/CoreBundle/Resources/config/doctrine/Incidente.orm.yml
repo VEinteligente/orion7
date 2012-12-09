@@ -13,6 +13,9 @@ Orion7\CoreBundle\Entity\Incidente:
         denuncias:
           targetEntity: Denuncia
           mappedBy: incidente
+        canalizaciones:
+          targetEntity: Canalizacion
+          mappedBy: incidente
     manyToOne:
         estado:
             targetEntity: Estado
