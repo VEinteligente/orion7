@@ -28,22 +28,22 @@ class IncidenteController extends Controller
     //     ));
     // }
 
-    public function listByCentroAction($codCentro)
-    {
-    	$em = $this->getDoctrine()
-                   ->getEntityManager();
+    // public function listByCentroAction($codCentro)
+    // {
+    // 	$em = $this->getDoctrine()
+    //                ->getEntityManager();
 
-        $incidentes = $em->getRepository('Orion7CoreBundle:Incidente')
-                    ->findByCentro($codCentro);
+    //     $incidentes = $em->getRepository('Orion7CoreBundle:Incidente')
+    //                 ->findByCentro($codCentro);
 
-        return $this->render('Orion7CoreBundle:Incidente:listByCentroAction.html.twig', array(
-            'incidentes' => $incidentes
-        ));
+    //     return $this->render('Orion7CoreBundle:Incidente:index.html.twig', array(
+    //         'incidentes' => $incidentes
+    //     ));
 
-        //TODO: hacer vista y ver caso de como mostrar que sea practico. Snippets de las denuncias?
-    }
+    //     //TODO: hacer vista y ver caso de como mostrar que sea practico. Snippets de las denuncias?
+    // }
 
-public function buscarIncidentesAction()
+    public function buscarIncidentesAction()
     {
         $request = $this->getRequest();
         $codCentro = $request->request->get('centro');
@@ -54,9 +54,15 @@ public function buscarIncidentesAction()
         $incidentes = $em->getRepository('Orion7CoreBundle:Incidente')
                     ->findByCentro($codCentro);
 
+<<<<<<< HEAD
         return $this->render('Orion7CoreBundle:Incidente:lista_denuncia.html.twig', array(
+=======
+        return $this->render('Orion7CoreBundle:Incidente:listByCentro.html.twig', array(
+>>>>>>> mf
             'incidentes' => $incidentes
         ));
+
+        //TODO: hacer vista y ver caso de como mostrar que sea practico. Snippets de las denuncias?
     }
 
 }
