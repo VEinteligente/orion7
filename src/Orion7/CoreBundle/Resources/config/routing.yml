@@ -33,7 +33,7 @@ Orion7CoreBundle_canalizaciones:
 
 Orion7CoreBundle_canalizacion_create:
     pattern:  /canalizacion/{incidenteId}
-    defaults: { _controller: rion7CoreBundle:Canalizacion:create }
+    defaults: { _controller: Orion7CoreBundle:Canalizacion:create }
     requirements:
         _method:  POST
         blog_id: \d+

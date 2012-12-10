@@ -47,6 +47,10 @@ class CanalizacionController extends Controller
 
         $canalizacion  = new Canalizacion();
         $canalizacion->setIncidente($incidente);
+
+        $user = $this->getUser();
+        $canalizacion -> setUsuario($user);
+
         $request = $this->getRequest();
         $form    = $this->createForm(new CanalizacionType(), $canalizacion);
         $form->bindRequest($request);
@@ -57,9 +61,10 @@ class CanalizacionController extends Controller
             $em->persist($canalizacion);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
-                'id' => $canalizacion->getIncidente()->getId())) .
-                '#comment-' . $comment->getId()
+            //TODO: debe ser el show de Incidente
+            return $this->redirect($this->generateUrl('Orion7CoreBundle_canalizaciones', array(
+                'incidenteId' => $incidenteId)) .
+                '#canalizacion-' . $canalizacion->getId()
             );
         }
 
@@ -68,5 +73,22 @@ class CanalizacionController extends Controller
             'incidenteId' => $incidenteId,
             'form'    => $form->createView()
         ));
+    }
+
+
+    //Es lo mismo que en DenunciaController: refactor?
+    protected function getIncidente($incidenteId)
+    {
+        $em = $this->getDoctrine()
+                   ->getEntityManager();
+
+        $incidente = $em->getRepository('Orion7CoreBundle:Incidente')
+                    ->find($incidenteId);
+
+        if (!$incidente) {
+            throw $this->createNotFoundException('No se puede conseguir el incidente especificado');
+        }
+
+        return $incidente;
     }
 }
