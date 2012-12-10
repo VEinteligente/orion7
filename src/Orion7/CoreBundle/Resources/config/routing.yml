@@ -25,11 +25,18 @@ Orion7CoreBundle_incidente_show:
         id: \d+
 
 Orion7CoreBundle_canalizaciones:
-    pattern:  /canalizaciones/{idIncidente}
-    defaults: { _controller: Orion7CoreBundle:Canalizacion:index }
+    pattern:  /canalizaciones/{incidenteId}
+    defaults: { _controller: Orion7CoreBundle:Canalizacion:new }
     requirements:
         _method:  GET
-        idIncidente: \d+
+        incidenteId: \d+
+
+Orion7CoreBundle_canalizacion_create:
+    pattern:  /canalizacion/{incidenteId}
+    defaults: { _controller: rion7CoreBundle:Canalizacion:create }
+    requirements:
+        _method:  POST
+        blog_id: \d+
 
 Orion7CoreBundle_estado_list:
     pattern:  /estados

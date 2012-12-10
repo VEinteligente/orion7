@@ -1,0 +1,6 @@
+<form action="{{ path('Orion7CoreBundle_canalizaciones', { 'incidenteId' : incidenteId } ) }}" method="post" {{ form_enctype(form) }} class="canalizacion">
+    {{ form_widget(form) }}
+    <p>
+        <input type="submit" value="Submit">
+    </p>
+</form>

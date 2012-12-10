@@ -11,6 +11,9 @@ Orion7\CoreBundle\Entity\Ente:
         telefono:
             type: string
             length: 100
+        nombre:
+            type: string
+            length: 100
     manyToOne:
         tipo_ente:
             targetEntity: TipoEnte

@@ -6,7 +6,7 @@ namespace Orion7\CoreBundle\Entity;
 class Ente
 {
     protected $id;
-    protected $nombre_ente;
+    protected $nombre;
     protected $estado;
     protected $municipio;
     protected $telefonos;
@@ -162,5 +162,28 @@ class Ente
     public function getIncidentes()
     {
         return $this->incidentes;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Ente
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
     }
 }

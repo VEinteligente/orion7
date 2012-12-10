@@ -6,7 +6,7 @@ namespace Orion7\CoreBundle\Entity;
 class Ente
 {
     protected $id;
-    protected $nombre_ente;
+    protected $nombre;
     protected $estado;
     protected $municipio;
     protected $telefonos;
