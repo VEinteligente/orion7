@@ -72,22 +72,31 @@ test_admin:
         _method:  GET
 
 Orion7CoreBundle_selects_municipio:
-    pattern:  /select_municipio
+    pattern:  /select_municipio/{estado}
     defaults: { _controller: Orion7CoreBundle:Municipio:selectByEstado }
     requirements:
         _method:  GET|POST
+        estado: \d+
+    options:
+        expose: true
 
 Orion7CoreBundle_selects_parroquia:
-    pattern:  /select_parroquia
+    pattern:  /select_parroquia/{municipio}
     defaults: { _controller: Orion7CoreBundle:Parroquia:selectByMunicipio }
     requirements:
         _method:  GET|POST
+        municipio: \d+
+    options:
+        expose: true
 
 Orion7CoreBundle_selects_centro:
-    pattern:  /select_centro
+    pattern:  /select_centro/{parroquia}
     defaults: { _controller: Orion7CoreBundle:Centro:selectByParroquia }
     requirements:
         _method:  GET|POST
+        parroquia: \d+
+    options:
+        expose: true
 
 Orion7CoreBundle_selects_subcategoria:
     pattern:  /select_subcategoria
@@ -96,16 +105,22 @@ Orion7CoreBundle_selects_subcategoria:
         _method:  GET|POST
 
 Orion7CoreBundle_selects_codigo_centro:
-    pattern:  /select_codigo_centro
+    pattern:  /select_codigo_centro/{codigo_centro}
     defaults: { _controller: Orion7CoreBundle:Centro:selectByCodigoCentro }
     requirements:
         _method:  GET|POST
+        codigo_centro: \d+
+    options:
+        expose: true
 
 Orion7CoreBundle_selects_cedula_elector:
-    pattern:  /select_cedula_elector
+    pattern:  /select_cedula_elector/{cedula_elector}
     defaults: { _controller: Orion7CoreBundle:Centro:selectByCedulaElector }
     requirements:
         _method:  GET|POST
+        cedula_elector: \d+
+    options:
+        expose: true
 
 Orion7CoreBundle_selects_incidentes:
     pattern:  /select_incidentes

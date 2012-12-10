@@ -18,7 +18,8 @@
 		// Select dependiente cuando se cambia estado
 		$('#denunciatype_estado').chosen().change(function() {
         	estado=$(this).val();
-			$.post("{{ path('Orion7CoreBundle_selects_municipio') }}", { estado: estado }, function(data){
+        	ruta = Routing.generate('Orion7CoreBundle_selects_municipio', { estado: estado }, true);
+			$.post(ruta, function(data){
 				$("#denunciatype_municipio").html(data);
 				$("#denunciatype_municipio").trigger("liszt:updated");
 				$("#denunciatype_parroquia").html("");
@@ -28,7 +29,8 @@
 		// Select dependiente cuando se cambia municipio
 		$('#denunciatype_municipio').chosen().change(function() {
 			municipio=$(this).val();
-			$.post("{{ path('Orion7CoreBundle_selects_parroquia') }}", { municipio: municipio }, function(data){
+			ruta = Routing.generate('Orion7CoreBundle_selects_parroquia', { municipio: municipio }, true);
+			$.post(ruta, function(data){
 				$("#denunciatype_parroquia").html(data);
 				$("#denunciatype_parroquia").trigger("liszt:updated");
 				$("#denunciatype_centro").html("");
@@ -37,38 +39,40 @@
 		// Select dependiente cuando se cambia parroquia
 		$('#denunciatype_parroquia').chosen().change(function() {
 			parroquia=$(this).val();
-			$.post("{{ path('Orion7CoreBundle_selects_centro') }}", { parroquia: parroquia }, function(data){
+			ruta = Routing.generate('Orion7CoreBundle_selects_centro', { parroquia: parroquia }, true);
+			$.post(ruta, function(data){
 				$("#denunciatype_centro").html(data);
 				$("#denunciatype_centro").trigger("liszt:updated");
 			});
 		});	 	
 
 		// cambio de codigo del centro de votación
-
 		function calculaCentro(){
 			codigo_centro=$('#denunciatype_codigo_centro').val();
-			$.post("{{ path('Orion7CoreBundle_selects_codigo_centro') }}", { codigo_centro: codigo_centro }, function(data){
+			ruta = Routing.generate('Orion7CoreBundle_selects_codigo_centro', { codigo_centro: codigo_centro }, true);
+			$.post(ruta, function(data){
 				var obj = jQuery.parseJSON(data);
 				estado = obj.estado;
 				municipio = obj.municipio;
 				parroquia = obj.parroquia;
-
 				$("#denunciatype_estado option[value="+estado+"]").attr("selected",true);
 				$("#denunciatype_estado").trigger("liszt:updated");
-
-				//alert( parroquia );
-				$.post("{{ path('Orion7CoreBundle_selects_municipio') }}", { estado: estado }, function(data){
+					ruta = Routing.generate('Orion7CoreBundle_selects_municipio', { estado: estado }, true);
+					$.post(ruta, function(data){
 					$("#denunciatype_municipio").html(data);
 					$("#denunciatype_municipio option[value="+municipio+"]").attr("selected",true);
 					$("#denunciatype_municipio").trigger("liszt:updated");
-					$.post("{{ path('Orion7CoreBundle_selects_parroquia') }}", { municipio: municipio }, function(data){
+					ruta = Routing.generate('Orion7CoreBundle_selects_parroquia', { municipio: municipio }, true);
+					$.post(ruta, function(data){
 						$("#denunciatype_parroquia").html(data);
 						$("#denunciatype_parroquia option[value="+parroquia+"]").attr("selected",true);
 						$("#denunciatype_parroquia").trigger("liszt:updated");
-						$.post("{{ path('Orion7CoreBundle_selects_centro') }}", { parroquia: parroquia }, function(data){
+						ruta = Routing.generate('Orion7CoreBundle_selects_centro', { parroquia: parroquia }, true);
+						$.post(ruta, function(data){
 							$("#denunciatype_centro").html(data);
 							$("#denunciatype_centro option[value="+codigo_centro+"]").attr("selected",true);
 							$("#denunciatype_centro").trigger("liszt:updated");
+							calculaIncidentes();
 						});
 					});	
 				});
@@ -85,7 +89,8 @@
 		function calculaCedula(){
 			//cedula_elector=$(this).val();
 			cedula_elector=$('#denunciatype_cedula_elector').val();
-			$.post("{{ path('Orion7CoreBundle_selects_cedula_elector') }}", { cedula_elector: cedula_elector }, function(data){	
+			ruta = Routing.generate('Orion7CoreBundle_selects_cedula_elector', { cedula_elector: cedula_elector }, true);
+			$.post(ruta, function(data){
 				var obj = jQuery.parseJSON(data);
 				estado = obj.estado;
 				municipio = obj.municipio;
@@ -94,22 +99,25 @@
 				nombre_elector = obj.nombre;
 				$("#denunciatype_estado option[value="+estado+"]").attr("selected",true);
 				$("#denunciatype_estado").trigger("liszt:updated");
-				$.post("{{ path('Orion7CoreBundle_selects_municipio') }}", { estado: estado }, function(data){
+				ruta = Routing.generate('Orion7CoreBundle_selects_municipio', { estado: estado }, true);
+				$.post(ruta, function(data){
 					$("#denunciatype_municipio").html(data);
 					$("#denunciatype_municipio option[value="+municipio+"]").attr("selected",true);
 					$("#denunciatype_municipio").trigger("liszt:updated");
-					$.post("{{ path('Orion7CoreBundle_selects_parroquia') }}", { municipio: municipio }, function(data){
+					ruta = Routing.generate('Orion7CoreBundle_selects_parroquia', { municipio: municipio }, true);
+					$.post(ruta, function(data){
 						$("#denunciatype_parroquia").html(data);
 						$("#denunciatype_parroquia option[value="+parroquia+"]").attr("selected",true);
 						$("#denunciatype_parroquia").trigger("liszt:updated");
-						$.post("{{ path('Orion7CoreBundle_selects_centro') }}", { parroquia: parroquia }, function(data){
+						ruta = Routing.generate('Orion7CoreBundle_selects_centro', { parroquia: parroquia }, true);
+						$.post(ruta, function(data){
 							$("#denunciatype_centro").html(data);
 							$("#denunciatype_centro option[value="+codigo_centro+"]").attr("selected",true);
 							$("#denunciatype_centro").trigger("liszt:updated");
 							calculaIncidentes();
 						});
 					});	
-				});
+				}); 
 				$('#denunciatype_nombre_denunciante').val(nombre_elector);
 				$("#tabs").tabs("select", "#tabs-1");
 				//calculaIncidentes();
