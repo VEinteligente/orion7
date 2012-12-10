@@ -37,29 +37,29 @@ class CentroController extends Controller
     public function selectByCodigoCentroAction()
     {
         $request = $this->getRequest();
-              $codigo_centro = $request->request->get('codigo_centro');
-              $em = $this->getDoctrine()
-                         ->getEntityManager();
-              $centro = $em->getRepository('Orion7CoreBundle:Centro')
-                           ->find($codigo_centro);
-          $html = '';
+        $codigo_centro = $request->request->get('codigo_centro');
+        $em = $this->getDoctrine()
+                   ->getEntityManager();
+        $centro = $em->getRepository('Orion7CoreBundle:Centro')
+                     ->find($codigo_centro);
+        $html = '';
 
-          if (!$centro) {
-            $html = $html . 'esta vacio, no consegui centro'; 
-          }
-          else {
-            // $html = $html . sprintf("estado = %d \n municipio = %s",$centro->getEstado(), $centro->getMunicipio());
-            //$html = $html . $centro -> getParroquia() -> getId();
-            $datos = array(
-                'prueba' => true,
-                'estado' => $centro -> getEstado() -> getCodigo(),
-                'municipio' => $centro -> getMunicipio() -> getId(),
-                'parroquia' => $centro -> getParroquia() -> getId()
-            );
-          }
+        if (!$centro) {
+          $html = $html . 'esta vacio, no consegui centro'; 
+        }
+        else {
+          // $html = $html . sprintf("estado = %d \n municipio = %s",$centro->getEstado(), $centro->getMunicipio());
+          //$html = $html . $centro -> getParroquia() -> getId();
+          $datos = array(
+              'prueba' => true,
+              'estado' => $centro -> getEstado() -> getCodigo(),
+              'municipio' => $centro -> getMunicipio() -> getId(),
+              'parroquia' => $centro -> getParroquia() -> getId()
+          );
+        }
 
-        return new Response(json_encode($datos));
-        // return new Response($html);
+      return new Response(json_encode($datos));
+      // return new Response($html);
     }
     public function selectByCedulaElectorAction()
     {

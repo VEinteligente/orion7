@@ -111,11 +111,28 @@
 				});
 				$('#denunciatype_nombre_denunciante').val(nombre_elector);
 				$("#tabs").tabs("select", "#tabs-1");
+				calculaIncidentes();
 			});
 		}
 
 		$('#boton_cedula').click(function() {
 			calculaCedula();
+		});	
+
+		//Función para generar el listado de las denuncias existentes
+		function calculaIncidentes(){
+			centro=$('#denunciatype_centro').val();
+			alert('centro: '+ centro );
+			//$('#incidentes_existentes').append('<p>Test</p>');
+			$.post("{{ path('Orion7CoreBundle_selects_incidentes') }}", { centro: centro }, function(data){
+				alert(data);
+				//$('#incidentes_existentes').replaceWith(data);
+				$('#incidentes_existentes').html(data);
+			});
+		}
+
+		$('#denunciatype_centro').chosen().change(function() {
+			calculaIncidentes();
 		});	
 	});
 	</script>
@@ -186,8 +203,13 @@
 		    {{ form_widget(form.categoria, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Subcategorías asociadas'} }) }}
 		</div>
 
-		<div id="incidentes_existentes" class="form_div_field">
-			<input type="radio" value="0" id="incidente_n"> <label for="incidente_n">Nuevo Incidente</label>
+		<div class="form_div_field" id="incidentes_nuevo">
+		    {{ form_errors(form.incidente_existente) }}
+		    {{ form_widget(form.incidente_existente, { 'attr': {'class': 'form_denuncia_widget' } }) }}
+		</div>
+
+		<div class="form_div_field" id="incidentes_existentes">
+		    
 		</div>
 
 		<div class="form_div_field">

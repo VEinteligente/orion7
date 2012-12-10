@@ -99,3 +99,9 @@ Orion7CoreBundle_selects_cedula_elector:
     defaults: { _controller: Orion7CoreBundle:Centro:selectByCedulaElector }
     requirements:
         _method:  GET|POST
+
+Orion7CoreBundle_selects_incidentes:
+    pattern:  /select_incidentes
+    defaults: { _controller: Orion7CoreBundle:Incidente:buscarIncidentes }
+    requirements:
+        _method:  GET|POST

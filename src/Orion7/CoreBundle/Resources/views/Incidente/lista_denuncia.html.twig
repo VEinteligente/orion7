@@ -1,0 +1,24 @@
+    {% for incidente in incidentes %}
+
+            <div class="form_denuncia_widget form_div_field">
+                <input type="radio" name="denunciatype[incidente_existente]" value="{{ incidente.id }}" id="denunciatype_incidente_existente_{{ incidente.id }}">
+                <label for="denunciatype_incidente_existente_{{ incidente.id }}">
+                    <b class="ui-state-default">{{ incidente.id }}: </b>
+                    {% for denuncia in incidente.denuncias %}
+                        {% for subcategoria in denuncia.subcategorias %}
+                            <b class="ui-state-default">{{ subcategoria.nombre }}, </b>
+                        {% endfor %}
+                        
+                        :<br>
+                        {{ denuncia.relato }}
+                        <br>
+                    {% else %}
+                        No hay denuncias en incidente.denuncias
+                    {% endfor %}
+                </label>
+            </div>
+
+            entre! {{ incidente.id }}
+    {% else %}
+        <p>No hay incidentes adicionales!</p>
+    {% endfor %}

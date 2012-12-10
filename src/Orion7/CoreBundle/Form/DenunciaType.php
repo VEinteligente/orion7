@@ -144,10 +144,12 @@ class DenunciaType extends AbstractType
             'multiple' => 'true',
         ));
 
-        // $builder->add('subcategorias', 'entity', array(
-        //     'class' => 'Orion7CoreBundle:Subcategoria',
-        //     'property' => 'nombre',
-        // ));
+        $builder->add('incidente_existente', 'choice', array(
+            'choices'   => array('0' => 'Nuevo Incidente'),
+            'required'  => true,
+            'mapped'  => false,
+            'expanded' => true,
+        ));
 
         $builder->add('tipo_denunciante', 'entity', array(
             'class' => 'Orion7CoreBundle:TipoDenunciante',
