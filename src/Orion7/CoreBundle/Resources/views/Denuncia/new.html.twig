@@ -106,12 +106,13 @@
 							$("#denunciatype_centro").html(data);
 							$("#denunciatype_centro option[value="+codigo_centro+"]").attr("selected",true);
 							$("#denunciatype_centro").trigger("liszt:updated");
+							calculaIncidentes();
 						});
 					});	
 				});
 				$('#denunciatype_nombre_denunciante').val(nombre_elector);
 				$("#tabs").tabs("select", "#tabs-1");
-				calculaIncidentes();
+				//calculaIncidentes();
 			});
 		}
 
@@ -122,10 +123,10 @@
 		//Función para generar el listado de las denuncias existentes
 		function calculaIncidentes(){
 			centro=$('#denunciatype_centro').val();
-			alert('centro: '+ centro );
+			//alert('centro: '+ centro );
 			//$('#incidentes_existentes').append('<p>Test</p>');
 			$.post("{{ path('Orion7CoreBundle_selects_incidentes') }}", { centro: centro }, function(data){
-				alert(data);
+				//alert(data);
 				//$('#incidentes_existentes').replaceWith(data);
 				$('#incidentes_existentes').html(data);
 			});

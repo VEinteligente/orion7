@@ -1,13 +1,5 @@
-1,CiudadanoT,1
-2,Miembro de MesaT,1
-3,Miembro de Junta ElectoralT,1
-4,Personal CNET,1
-5,TestigoT,1
-6,Plan RepúblicaT,1
-7,Activista Político OficialT,1
-8,Activista Político OpositorT,1
-9,Activista Sociedad CivilT,1
-10,Funcionario PúblicoT,1
-11,Grupos ArmadosT,1
-12,No IdentificadoT,1
-13,OtroT,1
+"1","Elector","1"
+"2","Miembro de Mesa","1"
+"3","Testigo de Mesa","1"
+"4","Funcionario CNE","1"
+"5","Otro","1"
