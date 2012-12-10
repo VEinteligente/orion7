@@ -1,0 +1,15 @@
+{% extends 'Orion7CoreBundle::layout.html.twig' %}
+
+{% block body %}
+    {% for incidente in incidentes %}
+        <article class="incidente">
+            <header>
+                <h2><a href="{{ path('Orion7CoreBundle_incidente_show', { 'id': incidente.id }) }}">{{ incidente.id }} - {{ incidente.centro.nombre }}</a></h2>
+            </header>
+
+            asdf
+        </article>
+    {% else %}
+        <p>No hay incidentes!</p>
+    {% endfor %}
+{% endblock %}
