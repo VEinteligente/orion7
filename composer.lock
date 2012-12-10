@@ -1,5 +1,5 @@
 {
-    "hash": "b7320baa4fe3527caa26908e1808976e",
+    "hash": "7b70dbff576bfe1bba328ff4f30b9136",
     "packages": [
         {
             "name": "doctrine/common",
@@ -86,6 +86,7 @@
             "require": {
                 "php": ">=5.3.2"
             },
+            "time": "1351735543",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -107,8 +108,7 @@
             "homepage": "http://www.doctrine-project.org",
             "keywords": [
                 "database"
-            ],
-            "time": "1351735543"
+            ]
         },
         {
             "name": "doctrine/dbal",
@@ -128,6 +128,7 @@
                 "php": ">=5.3.2",
                 "doctrine/common": "2.3.*"
             },
+            "time": "1352716871",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -170,8 +171,7 @@
                 "persistence",
                 "dbal",
                 "queryobject"
-            ],
-            "time": "1352716871"
+            ]
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -203,6 +203,7 @@
             "suggest": {
                 "doctrine/orm": "The Doctrine ORM integration is optional in the bundle."
             },
+            "time": "1353074073",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -239,8 +240,7 @@
                 "orm",
                 "persistence",
                 "dbal"
-            ],
-            "time": "1353074073"
+            ]
         },
         {
             "name": "doctrine/doctrine-fixtures-bundle",
@@ -263,6 +263,7 @@
                 "doctrine/doctrine-bundle": "1.0.*",
                 "symfony/doctrine-bridge": ">=2.1.0,<2.3-dev"
             },
+            "time": "1350914272",
             "type": "symfony-bundle",
             "installation-source": "source",
             "autoload": {
@@ -292,8 +293,7 @@
             "keywords": [
                 "persistence",
                 "Fixture"
-            ],
-            "time": "1350914272"
+            ]
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
@@ -374,6 +374,7 @@
             "suggest": {
                 "symfony/console": "to run the migration from the console"
             },
+            "time": "1350643044",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -400,8 +401,7 @@
             "keywords": [
                 "database",
                 "migrations"
-            ],
-            "time": "1350643044"
+            ]
         },
         {
             "name": "doctrine/orm",
@@ -426,6 +426,7 @@
             "suggest": {
                 "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
             },
+            "time": "1352731781",
             "bin": [
                 "bin/doctrine",
                 "bin/doctrine.php"
@@ -470,8 +471,61 @@
             "keywords": [
                 "database",
                 "orm"
+            ]
+        },
+        {
+            "name": "friendsofsymfony/jsrouting-bundle",
+            "version": "dev-master",
+            "target-dir": "FOS/JsRoutingBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle",
+                "reference": "481f24ec727ecd47409e36fd18739b44bac78b15"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/FriendsOfSymfony/FOSJsRoutingBundle/archive/481f24ec727ecd47409e36fd18739b44bac78b15.zip",
+                "reference": "481f24ec727ecd47409e36fd18739b44bac78b15",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": ">=2.0,<2.3-dev",
+                "symfony/serializer": ">=2.0,<2.3-dev",
+                "symfony/console": ">=2.0,<2.3-dev"
+            },
+            "time": "1354485453",
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "installation-source": "source",
+            "autoload": {
+                "psr-0": {
+                    "FOS\\JsRoutingBundle": ""
+                }
+            },
+            "license": [
+                "MIT"
             ],
-            "time": "1352731781"
+            "authors": [
+                {
+                    "name": "William Durand",
+                    "email": "william.durand1@gmail.com",
+                    "homepage": "http://www.willdurand.fr"
+                },
+                {
+                    "name": "FriendsOfSymfony Community",
+                    "homepage": "https://github.com/friendsofsymfony/FOSJsRoutingBundle/contributors"
+                }
+            ],
+            "description": "Symfony FOSJsRoutingBundle",
+            "homepage": "http://friendsofsymfony.github.com",
+            "keywords": [
+                "Js Routing"
+            ]
         },
         {
             "name": "friendsofsymfony/user-bundle",
@@ -877,6 +931,7 @@
                 "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
                 "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
             },
+            "time": "1352285252",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -908,8 +963,7 @@
                 "assets",
                 "compression",
                 "minification"
-            ],
-            "time": "1352285252"
+            ]
         },
         {
             "name": "monolog/monolog",
@@ -936,6 +990,7 @@
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
                 "ext-mongo": "Allow sending log messages to a MongoDB server"
             },
+            "time": "1352907970",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -964,8 +1019,7 @@
             "keywords": [
                 "log",
                 "logging"
-            ],
-            "time": "1352907970"
+            ]
         },
         {
             "name": "sensio/distribution-bundle",
@@ -1189,6 +1243,7 @@
             "suggest": {
                 "symfony/twig-bundle": ">=2.1.0,<2.3-dev"
             },
+            "time": "1352285268",
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
@@ -1217,8 +1272,7 @@
                 "assets",
                 "compression",
                 "minification"
-            ],
-            "time": "1352285268"
+            ]
         },
         {
             "name": "symfony/monolog-bundle",
@@ -1390,6 +1444,7 @@
                 "propel/propel1": "dev-master",
                 "monolog/monolog": "1.*"
             },
+            "time": "1352985781",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1420,8 +1475,7 @@
             "homepage": "http://symfony.com",
             "keywords": [
                 "framework"
-            ],
-            "time": "1352985781"
+            ]
         },
         {
             "name": "twig/extensions",
@@ -1487,6 +1541,7 @@
             "require": {
                 "php": ">=5.2.4"
             },
+            "time": "1353049473",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1516,8 +1571,7 @@
             "homepage": "http://twig.sensiolabs.org",
             "keywords": [
                 "templating"
-            ],
-            "time": "1353049473"
+            ]
         }
     ],
     "packages-dev": null,

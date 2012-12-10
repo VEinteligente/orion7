@@ -19,10 +19,8 @@ class ParroquiaController extends Controller
             'parroquias' => $parroquias
         ));
     }
-    public function selectByMunicipioAction()
+    public function selectByMunicipioAction($municipio)
     {
-        $request = $this->getRequest();
-              $municipio = $request->request->get('municipio');
               $em = $this->getDoctrine()
                          ->getEntityManager();
               $parroquias = $em->getRepository('Orion7CoreBundle:Parroquia')
@@ -30,7 +28,7 @@ class ParroquiaController extends Controller
         $html = '<option value="">Parroquia</option>';
         foreach($parroquias as $parroquia)
         {
-            $html = $html . sprintf("<option value=\"%d\">%s</option>",$parroquia->getId(), $parroquia->getNombre());
+            $html = $html . sprintf("<option value=\"%d\">%s</option>",$parroquia->getId(), mb_convert_case($parroquia->getNombre(), MB_CASE_TITLE, "UTF-8"));
         }
         return new Response($html);
     }

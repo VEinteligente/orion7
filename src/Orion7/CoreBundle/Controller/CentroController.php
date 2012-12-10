@@ -19,10 +19,8 @@ class CentroController extends Controller
             'centros' => $centros
         ));
     }
-    public function selectByParroquiaAction()
+    public function selectByParroquiaAction($parroquia)
     {
-        $request = $this->getRequest();
-              $parroquia = $request->request->get('parroquia');
               $em = $this->getDoctrine()
                          ->getEntityManager();
               $centros = $em->getRepository('Orion7CoreBundle:Centro')
@@ -30,14 +28,12 @@ class CentroController extends Controller
         $html = '<option value="">Centro de votación</option>';
         foreach($centros as $centro)
         {
-            $html = $html . sprintf("<option value=\"%d\">%s</option>",$centro->getCodigo(), $centro->getNombre());
+            $html = $html . sprintf("<option value=\"%d\">%s</option>",$centro->getCodigo(), mb_convert_case($centro->getNombre(), MB_CASE_TITLE, "UTF-8"));
         }
         return new Response($html);
     }
-    public function selectByCodigoCentroAction()
+    public function selectByCodigoCentroAction($codigo_centro)
     {
-        $request = $this->getRequest();
-        $codigo_centro = $request->request->get('codigo_centro');
         $em = $this->getDoctrine()
                    ->getEntityManager();
         $centro = $em->getRepository('Orion7CoreBundle:Centro')
@@ -48,8 +44,6 @@ class CentroController extends Controller
           $html = $html . 'esta vacio, no consegui centro'; 
         }
         else {
-          // $html = $html . sprintf("estado = %d \n municipio = %s",$centro->getEstado(), $centro->getMunicipio());
-          //$html = $html . $centro -> getParroquia() -> getId();
           $datos = array(
               'prueba' => true,
               'estado' => $centro -> getEstado() -> getCodigo(),
@@ -61,10 +55,8 @@ class CentroController extends Controller
       return new Response(json_encode($datos));
       // return new Response($html);
     }
-    public function selectByCedulaElectorAction()
+    public function selectByCedulaElectorAction($cedula_elector)
     {
-        $request = $this->getRequest();
-              $cedula_elector = $request->request->get('cedula_elector');
               $em = $this->getDoctrine()
                          ->getEntityManager();
               $centro_elector = $em->getRepository('Orion7CoreBundle:Elector')
@@ -79,8 +71,6 @@ class CentroController extends Controller
             $html = $html . 'esta vacio, no consegui centro'; 
           }
           else {
-            // $html = $html . sprintf("estado = %d \n municipio = %s",$centro->getEstado(), $centro->getMunicipio());
-            //$html = $html . $centro -> getParroquia() -> getId();
             $datos = array(
                 'prueba' => true,
                 'estado' => $centro -> getEstado() -> getCodigo(),

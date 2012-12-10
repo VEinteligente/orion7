@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Orion7\CoreBundle\Orion7CoreBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
