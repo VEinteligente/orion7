@@ -36,7 +36,7 @@ class IncidenteController extends Controller
         $incidentes = $em->getRepository('Orion7CoreBundle:Incidente')
                     ->findByCentro($codCentro);
 
-        return $this->render('Orion7CoreBundle:Incidente:index.html.twig', array(
+        return $this->render('Orion7CoreBundle:Incidente:listByCentro.html.twig', array(
             'incidentes' => $incidentes
         ));
 
