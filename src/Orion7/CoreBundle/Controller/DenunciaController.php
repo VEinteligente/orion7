@@ -10,11 +10,17 @@ use Orion7\CoreBundle\Form\DenunciaType;
 
 use Orion7\CoreBundle\Entity\Incidente;
 
+use JMS\SecurityExtraBundle\Security\Authorization\Expression\Expression;
+
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+
 class DenunciaController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('Orion7CoreBundle:Denuncia:index.html.twig');
+        return $this->render('Orion7CoreBundle:Denuncia:index.html.twig', array(
+            'denuncias' => array()
+        ));
     }
 
     public function newAction()
@@ -124,6 +130,82 @@ class DenunciaController extends Controller
         return $incidente;
     }
 
+    public function listNewByRoleAction()
+    {
+        if (false === $this->get('security.context')->isGranted(array(new Expression('hasRole("ROLE_FILTRO1") or hasRole("ROLE_FILTRO2") or hasRole("ROLE_FILTRO3") or hasRole("ROLE_FILTRO4") or hasRole("ROLE_FILTRO5")'))))
+        {
+            throw new AccessDeniedException();
+        }
 
+        if ($this->get('security.context')->isGranted('ROLE_FILTRO1')) 
+        {
+            $terminales[] = 0;
+            $terminales[] = 9;
+        }
+
+        if ($this->get('security.context')->isGranted('ROLE_FILTRO2')) 
+        {
+            $terminales[] = 1;
+            $terminales[] = 8;
+        }
+
+        if ($this->get('security.context')->isGranted('ROLE_FILTRO3')) 
+        {
+            $terminales[] = 2;
+            $terminales[] = 7;
+        }
+
+        if ($this->get('security.context')->isGranted('ROLE_FILTRO4')) 
+        {
+            $terminales[] = 3;
+            $terminales[] = 6;
+        }
+        if ($this->get('security.context')->isGranted('ROLE_FILTRO5')) 
+        {
+            $terminales[] = 4;
+            $terminales[] = 5;
+        }
+
+        $em = $this->getDoctrine()
+                    ->getEntityManager();
+
+        $incidentesCentrosAsignados = $this->getIncidentesTerminalesCodcentro($terminales);
+
+        //$this->get('session')->getFlashBag()->add('notice', '' . var_export($incidentesCentrosAsignados));
+
+        $denuncias = $em->getRepository('Orion7CoreBundle:Denuncia')
+                     ->findByIncidentesAsignados($incidentesCentrosAsignados);
+
+        return $this->render('Orion7CoreBundle:Denuncia:index.html.twig', array(
+            'denuncias' => $denuncias
+        ));
+    }
+
+    //Feo (salta Doctrine) pero necesario, la manera correcta implica mas tiempo de implementacion
+    protected function getIncidentesTerminalesCodcentro($terminales)
+    {
+        $sql = "SELECT i.id FROM incidente i ";
+        $sql = $sql . "WHERE RIGHT(i.centro,1) = $terminales[0]";
+
+        for ($i=1; $i < count($terminales); $i++) { 
+            $sql .= " OR RIGHT(i.centro,1) = $terminales[$i]";
+        }
+
+        $conn = $this->get('database_connection');
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+        $arr = $statement->fetchAll();
+        return $this->getFlatArray($arr);
+    }
+
+    protected function getFlatArray($array)
+    {
+        $ret_array = array();
+        foreach(new \RecursiveIteratorIterator(new \RecursiveArrayIterator($array)) as $value)
+        {
+            $ret_array[] = $value;
+        }
+        return $ret_array;
+  }
 
 }

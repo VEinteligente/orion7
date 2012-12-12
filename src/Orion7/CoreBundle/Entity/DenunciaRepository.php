@@ -18,4 +18,17 @@ class DenunciaRepository extends EntityRepository
         return $qb->getQuery()
                   ->getResult();
     }
+
+    public function findByIncidentesAsignados($incidentesAsignados)
+    {
+      if (count($incidentesAsignados)==0) return array();
+
+      $qb = $this->createQueryBuilder('d');
+      $qb->select('d');
+      $qb->where($qb->expr()->in('d.incidente', $incidentesAsignados ));
+
+      return $qb->getQuery()
+                ->getResult();
+    }
+
 }

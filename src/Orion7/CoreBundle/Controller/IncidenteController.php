@@ -43,7 +43,7 @@ class IncidenteController extends Controller
         //TODO: hacer vista y ver caso de como mostrar que sea practico. Snippets de las denuncias?
     }
 
-public function buscarIncidentesAction()
+    public function buscarIncidentesAction()
     {
         $request = $this->getRequest();
         $codCentro = $request->request->get('centro');

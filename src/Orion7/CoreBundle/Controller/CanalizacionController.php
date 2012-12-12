@@ -11,16 +11,17 @@ use Orion7\CoreBundle\Form\CanalizacionType;
 class CanalizacionController extends Controller
 {
     //para prueba, esta diseñado para ser render en otro twig (el show del incidente) y no pasar por este controlador
-    public function indexAction($idIncidente)
+    public function indexAction($incidenteId)
     {
     	$em = $this->getDoctrine()
                    ->getEntityManager();
 
         $canalizaciones = $em->getRepository('Orion7CoreBundle:Canalizacion')
-                    ->findByIncidente($idIncidente);
+                    ->findByIncidente($incidenteId);
 
         return $this->render('Orion7CoreBundle:Canalizacion:index.html.twig', array(
-            'canalizaciones' => $canalizaciones
+            'canalizaciones' => $canalizaciones,
+            'incidenteId' => $incidenteId
          ));
 
 

@@ -62,3 +62,7 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Orion7\CoreBundle\Entity\Usuario
+
+jms_security_extra:
+    secure_all_services: false
+    expressions: true

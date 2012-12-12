@@ -24,9 +24,15 @@ Orion7CoreBundle_incidente_show:
         _method:  GET
         id: \d+
 
+Orion7CoreBundle_filtro:
+    pattern:  /filtro
+    defaults: { _controller: Orion7CoreBundle:Denuncia:listNewByRole }
+    requirements:
+        _method:  GET
+
 Orion7CoreBundle_canalizaciones:
     pattern:  /canalizaciones/{incidenteId}
-    defaults: { _controller: Orion7CoreBundle:Canalizacion:new }
+    defaults: { _controller: Orion7CoreBundle:Canalizacion:index }
     requirements:
         _method:  GET
         incidenteId: \d+

@@ -1,6 +1,19 @@
-{# src/Blogger/BlogBundle/Resources/views/Page/index.html.twig #}
 {% extends 'Orion7CoreBundle::layout.html.twig' %}
 
 {% block body %}
-    index de denuncia
+{% for flashMessage in app.session.flashbag.get('notice') %}
+    <div class="flash-notice">
+        {{ flashMessage }}
+    </div>
+{% endfor %}
+    {% for denuncia in denuncias %}
+	    <article class="denuncia {{ cycle(['odd', 'even'], loop.index0) }}" id="denuncia-{{ denuncia.id }}">
+	        <header>
+	            <p><span class="highlight">{{ denuncia.usuarioRegistro }}</span> a las <time datetime="{{ denuncia.horaRegistro|date('c') }}" pubdate="pubdate">{{ denuncia.horaRegistro|date('g:i a') }}</time></p>
+	        </header>
+	        <p>El relato es: {{ denuncia.relato }}</p>
+	    </article>
+	{% else %}
+	    <p>No hay denuncias</p>
+	{% endfor %}
 {% endblock %}

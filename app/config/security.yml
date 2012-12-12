@@ -17,6 +17,7 @@ security:
                 csrf_provider: form.csrf_provider
             logout:       true
             anonymous:    true
+            switch_user: true
 
     #TODO: agregar control por IP
     access_control:
