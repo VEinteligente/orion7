@@ -102,7 +102,7 @@ class CanalizacionController extends Controller
         return $incidente;
     }
 
-    public function listNewByRoleAction()
+    public function listByRoleAction($isResuelto)
     {
         if (false === $this->get('security.context')->isGranted('ROLE_CANALIZADOR'))
         {
@@ -148,8 +148,9 @@ class CanalizacionController extends Controller
         $incidentes = $em->getRepository('Orion7CoreBundle:Incidente')
                      ->listAllByIds($incidentesCentrosAsignados);
 
-        return $this->render('Orion7CoreBundle:Canalizacion:listNewByRole.html.twig', array(
-            'incidentes' => $incidentes
+        return $this->render('Orion7CoreBundle:Canalizacion:listByRole.html.twig', array(
+            'incidentes' => $incidentes,
+            'resuelto' => $isResuelto
         ));
 
     }

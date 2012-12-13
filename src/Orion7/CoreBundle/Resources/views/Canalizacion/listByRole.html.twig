@@ -1,4 +1,11 @@
+{% if resuelto == 0 %}
+    <p><b>Titulo por formatear: Incidentes por canalizar</b></p>
+{% endif %}
+{% if resuelto == 1 %}
+    <p><b>Titulo por formatear: Incidentes canalizados</b></p>
+{% endif %}
 {% for incidente in incidentes %}
+    {% if incidente.resuelto == resuelto %}
             <div class="form_denuncia_widget form_div_field">
                 <label for="denunciatype_incidente_existente_{{ incidente.id }}">
                     <b class="ui-state-default">{{ incidente.id }}: </b>
@@ -15,6 +22,12 @@
                     {% endfor %}
                 </label>
             </div>
-    {% else %}
-        <p>No hay incidentes asignados para ser canalizados!</p>
-    {% endfor %}
+    {% endif %}
+{% else %}
+    {% if filtrado == 0 %}
+            <p>No hay incidentes asignados por canalizar!</p>
+        {% endif %}
+        {% if filtrado == 1 %}
+            <p>No hay incidentes asignados canalizados!</p>
+        {% endif %}
+{% endfor %}

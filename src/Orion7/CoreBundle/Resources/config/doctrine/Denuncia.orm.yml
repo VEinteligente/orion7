@@ -28,6 +28,8 @@ Orion7\CoreBundle\Entity\Denuncia:
             length: 100
         genera_retraso:
             type: boolean
+        isFiltrado:
+            type: boolean
     manyToOne:
         incidente:
             targetEntity: Incidente

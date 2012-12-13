@@ -1,19 +1,40 @@
 {% extends 'Orion7CoreBundle::layout.html.twig' %}
 
 {% block body %}
-{% for flashMessage in app.session.flashbag.get('notice') %}
-    <div class="flash-notice">
-        {{ flashMessage }}
-    </div>
-{% endfor %}
+	{% for flashMessage in app.session.flashbag.get('notice') %}
+	    <div class="flash-notice">
+	        {{ flashMessage }}
+	    </div>
+	{% endfor %}
+
+
+	{% if filtrado == 0 %}
+    	<p><b>Titulo por formatear: Denuncias por filtrar</b></p>
+    {% endif %}
+    {% if filtrado == 1 %}
+    	<p><b>Titulo por formatear: Denuncias filtradas</b></p>
+    {% endif %}
+    
     {% for denuncia in denuncias %}
-	    <article class="denuncia {{ cycle(['odd', 'even'], loop.index0) }}" id="denuncia-{{ denuncia.id }}">
-	        <header>
-	            <p><span class="highlight">{{ denuncia.usuarioRegistro }}</span> a las <time datetime="{{ denuncia.horaRegistro|date('c') }}" pubdate="pubdate">{{ denuncia.horaRegistro|date('g:i a') }}</time></p>
-	        </header>
-	        <p>El relato es: {{ denuncia.relato }}</p>
-	    </article>
+
+    	{% if denuncia.isFiltrado == filtrado %}
+    		<article class="denuncia {{ cycle(['odd', 'even'], loop.index0) }}" id="denuncia-{{ denuncia.id }}">
+		        <header>
+		            <p><span class="highlight">{{ denuncia.usuarioRegistro }}</span> a las <time datetime="{{ denuncia.horaRegistro|date('c') }}" pubdate="pubdate">{{ denuncia.horaRegistro|date('g:i a') }}</time></p>
+		        </header>
+		        <p>El relato es: {{ denuncia.relato }}</p>
+		        <p>Agregar ubicacion: {{ denuncia.incidente.centro.nombre }}</p>
+		         {% if is_granted('ROLE_FILTRO') %}
+		         	<p>Tiene rol filtro, agregar boton o link que vaya al show de la denuncia especifica</p>
+	    		 {% endif %}
+	    	</article>
+    	{% endif %}
 	{% else %}
-	    <p>No hay denuncias</p>
+		{% if filtrado == 0 %}
+	    	<p>No hay denuncias por filtrar!</p>
+	    {% endif %}
+	    {% if filtrado == 1 %}
+	    	<p>No hay denuncias filtradas</p>
+	    {% endif %}
 	{% endfor %}
 {% endblock %}

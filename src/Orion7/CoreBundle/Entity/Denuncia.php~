@@ -23,6 +23,7 @@ class Denuncia
     protected $usuario_registro;
     protected $usuario_filtrado;
     protected $responsables;
+    protected $isFiltrado;
 
     /**
      * Constructor

@@ -25,21 +25,22 @@ Orion7CoreBundle_incidente_show:
         id: \d+
 
 Orion7CoreBundle_filtro:
-    pattern:  /filtro
-    defaults: { _controller: Orion7CoreBundle:Denuncia:listNewByRole }
+    pattern:  /filtro/{isFiltrado}
+    defaults: { _controller: Orion7CoreBundle:Denuncia:listNewByRole, isFiltrado: 0 }
     requirements:
         _method:  GET
+        isFiltrado: 0|1
 
 Orion7CoreBundle_canalizaciones_incidente:
-    pattern:  /canalizaciones/{incidenteId}
+    pattern:  /canalizaciones/incidente/{incidenteId}
     defaults: { _controller: Orion7CoreBundle:Canalizacion:listByIncidente }
     requirements:
         _method:  GET
         incidenteId: \d+
 
 Orion7CoreBundle_canalizaciones_incidentes_roles:
-    pattern:  /canalizaciones
-    defaults: { _controller: Orion7CoreBundle:Canalizacion:listNewByRole }
+    pattern:  /canalizaciones/{isResuelto}
+    defaults: { _controller: Orion7CoreBundle:Canalizacion:listByRole, isResuelto: 0 }
     requirements:
         _method:  GET
 

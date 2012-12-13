@@ -132,7 +132,7 @@ class DenunciaController extends Controller
         return $incidente;
     }
 
-    public function listNewByRoleAction()
+    public function listNewByRoleAction($isFiltrado)
     {
         if (false === $this->get('security.context')->isGranted('ROLE_FILTRO'))
         {
@@ -179,7 +179,8 @@ class DenunciaController extends Controller
                      ->findByIncidentesAsignados($incidentesCentrosAsignados);
 
         return $this->render('Orion7CoreBundle:Denuncia:index.html.twig', array(
-            'denuncias' => $denuncias
+            'denuncias' => $denuncias,
+            'filtrado' => $isFiltrado
         ));
     }
 

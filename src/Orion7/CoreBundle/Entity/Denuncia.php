@@ -23,6 +23,7 @@ class Denuncia
     protected $usuario_registro;
     protected $usuario_filtrado;
     protected $responsables;
+    protected $isFiltrado;
 
     /**
      * Constructor
@@ -32,6 +33,7 @@ class Denuncia
         $this->responsables = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subcategorias = new \Doctrine\Common\Collections\ArrayCollection();
 
+        $this->setIsFiltrado(false);
         $this->setHoraRegistro(new \DateTime());
     }
     
@@ -408,5 +410,28 @@ class Denuncia
     public function getUsuarioFiltrado()
     {
         return $this->usuario_filtrado;
+    }
+
+    /**
+     * Set isFiltrado
+     *
+     * @param boolean $isFiltrado
+     * @return Denuncia
+     */
+    public function setIsFiltrado($isFiltrado)
+    {
+        $this->isFiltrado = $isFiltrado;
+    
+        return $this;
+    }
+
+    /**
+     * Get isFiltrado
+     *
+     * @return boolean 
+     */
+    public function getIsFiltrado()
+    {
+        return $this->isFiltrado;
     }
 }
