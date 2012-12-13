@@ -129,7 +129,10 @@ Orion7CoreBundle_selects_cedula_elector:
         expose: true
 
 Orion7CoreBundle_selects_incidentes:
-    pattern:  /select_incidentes
+    pattern:  /select_incidentes/{centro}
     defaults: { _controller: Orion7CoreBundle:Incidente:buscarIncidentes }
     requirements:
         _method:  GET|POST
+        centro: \d+
+    options:
+        expose: true

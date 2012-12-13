@@ -43,16 +43,16 @@ class IncidenteController extends Controller
         //TODO: hacer vista y ver caso de como mostrar que sea practico. Snippets de las denuncias?
     }
 
-    public function buscarIncidentesAction()
+    public function buscarIncidentesAction($centro)
     {
-        $request = $this->getRequest();
-        $codCentro = $request->request->get('centro');
+        // $request = $this->getRequest();
+        // $codCentro = $request->request->get('centro');
 
         $em = $this->getDoctrine()
                    ->getEntityManager();
 
         $incidentes = $em->getRepository('Orion7CoreBundle:Incidente')
-                    ->findByCentro($codCentro);
+                    ->findByCentro($centro);
 
         return $this->render('Orion7CoreBundle:Incidente:listaDenuncia.html.twig', array(
             'incidentes' => $incidentes
