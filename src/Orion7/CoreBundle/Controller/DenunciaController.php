@@ -134,7 +134,7 @@ class DenunciaController extends Controller
 
     public function listNewByRoleAction()
     {
-        if (false === $this->get('security.context')->isGranted(array(new Expression('hasRole("ROLE_FILTRO1") or hasRole("ROLE_FILTRO2") or hasRole("ROLE_FILTRO3") or hasRole("ROLE_FILTRO4") or hasRole("ROLE_FILTRO5")'))))
+        if (false === $this->get('security.context')->isGranted('ROLE_FILTRO'))
         {
             throw new AccessDeniedException();
         }
@@ -183,6 +183,7 @@ class DenunciaController extends Controller
         ));
     }
 
+    //TODO: refactor para evitar duplicidad con CanalizacionController
     //Feo (salta Doctrine) pero necesario, la manera correcta implica mas tiempo de implementacion
     protected function getIncidentesTerminalesCodcentro($terminales)
     {
@@ -200,6 +201,7 @@ class DenunciaController extends Controller
         return $this->getFlatArray($arr);
     }
 
+    //TODO: refactor para evitar duplicidad con CanalizacionController
     protected function getFlatArray($array)
     {
         $ret_array = array();
@@ -208,6 +210,6 @@ class DenunciaController extends Controller
             $ret_array[] = $value;
         }
         return $ret_array;
-  }
+    }
 
 }

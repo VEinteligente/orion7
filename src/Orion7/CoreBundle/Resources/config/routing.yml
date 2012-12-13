@@ -30,9 +30,9 @@ Orion7CoreBundle_filtro:
     requirements:
         _method:  GET
 
-Orion7CoreBundle_canalizaciones:
+Orion7CoreBundle_canalizaciones_incidente:
     pattern:  /canalizaciones/{incidenteId}
-    defaults: { _controller: Orion7CoreBundle:Canalizacion:index }
+    defaults: { _controller: Orion7CoreBundle:Canalizacion:listByIncidente }
     requirements:
         _method:  GET
         incidenteId: \d+
