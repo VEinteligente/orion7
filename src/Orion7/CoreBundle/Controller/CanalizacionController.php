@@ -104,35 +104,35 @@ class CanalizacionController extends Controller
 
     public function listNewByRoleAction()
     {
-        if (false === $this->get('security.context')->isGranted('ROLE_FILTRO'))
+        if (false === $this->get('security.context')->isGranted('ROLE_CANALIZADOR'))
         {
             throw new AccessDeniedException();
         }
 
-        if ($this->get('security.context')->isGranted('ROLE_FILTRO1')) 
+        if ($this->get('security.context')->isGranted('ROLE_CANALIZADOR1')) 
         {
             $terminales[] = 0;
             $terminales[] = 9;
         }
 
-        if ($this->get('security.context')->isGranted('ROLE_FILTRO2')) 
+        if ($this->get('security.context')->isGranted('ROLE_CANALIZADOR2')) 
         {
             $terminales[] = 1;
             $terminales[] = 8;
         }
 
-        if ($this->get('security.context')->isGranted('ROLE_FILTRO3')) 
+        if ($this->get('security.context')->isGranted('ROLE_CANALIZADOR3')) 
         {
             $terminales[] = 2;
             $terminales[] = 7;
         }
 
-        if ($this->get('security.context')->isGranted('ROLE_FILTRO4')) 
+        if ($this->get('security.context')->isGranted('ROLE_CANALIZADOR4')) 
         {
             $terminales[] = 3;
             $terminales[] = 6;
         }
-        if ($this->get('security.context')->isGranted('ROLE_FILTRO5')) 
+        if ($this->get('security.context')->isGranted('ROLE_CANALIZADOR5')) 
         {
             $terminales[] = 4;
             $terminales[] = 5;
