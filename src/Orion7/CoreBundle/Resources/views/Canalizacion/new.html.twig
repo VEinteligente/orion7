@@ -1,6 +1,13 @@
 <form action="{{ path('Orion7CoreBundle_canalizacion_create', { 'incidenteId' : incidenteId } ) }}" method="post" {{ form_enctype(form) }} class="canalizacion">
-    {{ form_widget(form) }}
-    <p>
+     {{ form_errors(form) }}
+
+		<div class="form_div_field">
+		    {{ form_errors(form.entes) }}
+		    {{ form_widget(form.entes, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Entes a contactar'} }) }}
+		</div>
+		<div class="form_div_field">
+		    {{ form_errors(form.comentario) }}
+		    {{ form_widget(form.comentario, { 'attr': {'class': 'form_denuncia_ta ui-widget ', 'placeholder': ' Relato'} }) }}
+		</div>
         <input type="submit" value="Submit">
-    </p>
 </form>

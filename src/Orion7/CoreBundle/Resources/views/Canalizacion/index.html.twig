@@ -1,3 +1,16 @@
+{% extends 'Orion7CoreBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/orion7core/js/chosen/chosen.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/orion7core/js/chosen/chosen.jquery.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/orion7core/js/denuncia.js') }}" type="text/javascript"></script>
+{% endblock %}
+
+{% block body %}
 {% for canalizacion in canalizaciones %}
     <article class="canalizacion {{ cycle(['odd', 'even'], loop.index0) }}" id="canalizacion-{{ canalizacion.id }}">
         <header>
@@ -10,3 +23,4 @@
 {% endfor %}
 
 {% render "Orion7CoreBundle:Canalizacion:new" with {'incidenteId': incidenteId} %}
+{% endblock %}
