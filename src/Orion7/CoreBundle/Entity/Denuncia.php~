@@ -22,12 +22,7 @@ class Denuncia
     protected $genera_retraso;
     protected $usuario_registro;
     protected $usuario_filtrado;
-
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $responsables;
+    protected $responsables;
 
     /**
      * Constructor

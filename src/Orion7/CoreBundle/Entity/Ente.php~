@@ -11,16 +11,9 @@ class Ente
     protected $municipio;
     protected $telefonos;
     protected $incidentes;
-    /**
-     * @var string
-     */
-    private $telefono;
-
-    /**
-     * @var \Orion7\CoreBundle\Entity\Tipo_ente
-     */
-    private $tipo_ente;
-
+    protected $telefono;
+    protected $tipo_ente;
+   
     /**
      * Constructor
      */
@@ -162,5 +155,28 @@ class Ente
     public function getIncidentes()
     {
         return $this->incidentes;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Ente
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
     }
 }

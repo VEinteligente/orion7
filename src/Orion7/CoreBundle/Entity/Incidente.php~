@@ -19,6 +19,9 @@ class Incidente
     public function __construct()
     {
         $this->denuncias = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->canalizaciones = new \Doctrine\Common\Collections\ArrayCollection();
+
+        $this-> setResuelto(false);
     }
     
     /**
@@ -177,5 +180,38 @@ class Incidente
     public function getResuelto()
     {
         return $this->resuelto;
+    }
+
+    /**
+     * Add canalizaciones
+     *
+     * @param \Orion7\CoreBundle\Entity\Canalizacion $canalizaciones
+     * @return Incidente
+     */
+    public function addCanalizacione(\Orion7\CoreBundle\Entity\Canalizacion $canalizaciones)
+    {
+        $this->canalizaciones[] = $canalizaciones;
+    
+        return $this;
+    }
+
+    /**
+     * Remove canalizaciones
+     *
+     * @param \Orion7\CoreBundle\Entity\Canalizacion $canalizaciones
+     */
+    public function removeCanalizacione(\Orion7\CoreBundle\Entity\Canalizacion $canalizaciones)
+    {
+        $this->canalizaciones->removeElement($canalizaciones);
+    }
+
+    /**
+     * Get canalizaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCanalizaciones()
+    {
+        return $this->canalizaciones;
     }
 }

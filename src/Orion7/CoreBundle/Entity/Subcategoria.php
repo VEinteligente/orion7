@@ -12,11 +12,7 @@ class Subcategoria
     protected $categoria_ushahidi;
     protected $categoria;
     protected $articulos;
-    protected $enuncias;
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $denuncias;
+    protected $denuncias;
 
     /**
      * Constructor

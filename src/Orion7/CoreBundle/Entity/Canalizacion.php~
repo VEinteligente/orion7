@@ -131,4 +131,27 @@ class Canalizacion
     {
         return $this->entes;
     }
+
+    /**
+     * Set usuario
+     *
+     * @param \Orion7\CoreBundle\Entity\Usuario $usuario
+     * @return Canalizacion
+     */
+    public function setUsuario(\Orion7\CoreBundle\Entity\Usuario $usuario = null)
+    {
+        $this->usuario = $usuario;
+    
+        return $this;
+    }
+
+    /**
+     * Get usuario
+     *
+     * @return \Orion7\CoreBundle\Entity\Usuario 
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
 }

@@ -11,16 +11,9 @@ class Ente
     protected $municipio;
     protected $telefonos;
     protected $incidentes;
-    /**
-     * @var string
-     */
-    private $telefono;
-
-    /**
-     * @var \Orion7\CoreBundle\Entity\Tipo_ente
-     */
-    private $tipo_ente;
-
+    protected $telefono;
+    protected $tipo_ente;
+   
     /**
      * Constructor
      */

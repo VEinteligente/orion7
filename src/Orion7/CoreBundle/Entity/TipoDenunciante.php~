@@ -3,10 +3,11 @@
 
 namespace Orion7\CoreBundle\Entity;
 
-class Responsable
+class TipoDenunciante
 {
     protected $id;
     protected $nombre;
+    protected $es_publico;
     protected $denuncias;
     /**
      * Constructor
@@ -30,7 +31,7 @@ class Responsable
      * Set nombre
      *
      * @param string $nombre
-     * @return Responsable
+     * @return Tipo_denunciante
      */
     public function setNombre($nombre)
     {
@@ -50,10 +51,33 @@ class Responsable
     }
 
     /**
+     * Set es_publico
+     *
+     * @param boolean $esPublico
+     * @return Tipo_denunciante
+     */
+    public function setEsPublico($esPublico)
+    {
+        $this->es_publico = $esPublico;
+    
+        return $this;
+    }
+
+    /**
+     * Get es_publico
+     *
+     * @return boolean 
+     */
+    public function getEsPublico()
+    {
+        return $this->es_publico;
+    }
+
+    /**
      * Add denuncias
      *
      * @param \Orion7\CoreBundle\Entity\Denuncia $denuncias
-     * @return Responsable
+     * @return Tipo_denunciante
      */
     public function addDenuncia(\Orion7\CoreBundle\Entity\Denuncia $denuncias)
     {
