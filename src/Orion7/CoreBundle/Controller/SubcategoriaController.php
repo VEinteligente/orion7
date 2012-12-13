@@ -10,6 +10,7 @@ class SubcategoriaController extends Controller
     
     public function selectByCategoriaAction()
     {
+
         $request = $this->getRequest();
               $categoria = $request->request->get('categoria');
               $em = $this->getDoctrine()
@@ -22,5 +23,19 @@ class SubcategoriaController extends Controller
             $html = $html . sprintf("<option value=\"%d\">%s</option>",$subcategoria->getId(), $subcategoria->getNombre());
         }
         return new Response($html);
+    }
+
+    public function generaAsistenciasAction($categorias)
+    {
+        $asubcategorias = explode(',', $categorias);
+        $em = $this->getDoctrine()
+                      ->getEntityManager();
+
+        $subcategorias = $em->getRepository('Orion7CoreBundle:Subcategoria')
+                          ->getBySubcategoriasFormulario($asubcategorias);
+             
+        return $this->render('Orion7CoreBundle:Subcategoria:asistencias.html.twig', array(
+            'subcategorias' => $subcategorias
+        ));
     }
 }

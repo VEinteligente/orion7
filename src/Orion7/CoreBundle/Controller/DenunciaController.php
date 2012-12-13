@@ -33,6 +33,8 @@ class DenunciaController extends Controller
         ));
     }
 
+    
+
     //ESQUELETO NO FUNCIONAL
     /*public function createAction($incidenteId)
     {

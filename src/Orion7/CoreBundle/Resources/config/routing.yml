@@ -136,3 +136,11 @@ Orion7CoreBundle_selects_incidentes:
         centro: \d+
     options:
         expose: true
+
+Orion7CoreBundle_asistencias:
+    pattern:  /genera_asistencias/{categorias}
+    defaults: { _controller: Orion7CoreBundle:Subcategoria:generaAsistencias }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true

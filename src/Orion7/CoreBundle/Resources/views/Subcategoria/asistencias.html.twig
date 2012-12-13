@@ -1,0 +1,13 @@
+    {% for subcategoria in subcategorias %}
+        <article class="municipio">
+            <header>
+                
+                <h3 class="titulo_asistencia">{{ subcategoria.nombre }}</h3>
+                <p class="descripcion_asistencia">{{ subcategoria.descripcion }}</p>
+                <p class="texto_asistencia">{{ subcategoria.asistencia }}</p>
+            </header>
+
+        </article>
+    {% else %}
+        <p>No hay subcategorias!</p>
+    {% endfor %}

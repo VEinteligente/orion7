@@ -119,14 +119,8 @@
 		//Función para generar el listado de las denuncias existentes
 		function calculaIncidentes(){
 			centro=$('#denunciatype_centro').val();
-			//alert('centro: '+ centro );
-			//$('#incidentes_existentes').append('<p>Test</p>');
-
-			//$.post("{{ path('Orion7CoreBundle_selects_incidentes') }}", { centro: centro }, function(data){
 			ruta = Routing.generate('Orion7CoreBundle_selects_incidentes', { centro: centro }, true);
 			$.post(ruta, function(data){
-				//alert(data);
-				//$('#incidentes_existentes').replaceWith(data);
 				$('#incidentes_existentes').html(data);
 			});
 		}
@@ -135,6 +129,20 @@
 			calculaIncidentes();
 		});	
 	});
+
+		//Función para mostrar asistencias en pantalla
+		function calculaAsistencias(){
+			categorias=$('#denunciatype_categoria').val();
+			ruta = Routing.generate('Orion7CoreBundle_asistencias', { categorias: categorias }, true);
+			$.post(ruta, function(data){
+				alert('función');
+				$('#asistencias').html(data);
+			});
+		}
+
+		$('#denunciatype_categoria').chosen().change(function() {
+			calculaAsistencias();
+		});
 
     $(function() {
         $( "#tabs" ).tabs();

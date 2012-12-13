@@ -1,6 +1,7 @@
 Orion7\CoreBundle\Entity\Subcategoria:
     type: entity
     table: subcategoria
+    repositoryClass: Orion7\CoreBundle\Entity\SubcategoriaRepository
     id:
         id:
             type: integer

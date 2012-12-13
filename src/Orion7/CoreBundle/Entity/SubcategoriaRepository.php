@@ -18,4 +18,16 @@ class SubcategoriaRepository extends EntityRepository
         return $qb->getQuery()
                   ->getResult();
     }
+
+    public function getBySubcategoriasFormulario($asubcategorias)
+
+    {
+ 
+      if (count($asubcategorias)==0) return array();
+      $qb = $this->createQueryBuilder('s');
+      $qb->select('s');
+      $qb->where($qb->expr()->in('s.id', $asubcategorias ));
+      return $qb->getQuery()
+                ->getResult();
+    }
 }
