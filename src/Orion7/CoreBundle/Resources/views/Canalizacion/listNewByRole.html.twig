@@ -1,0 +1,20 @@
+{% for incidente in incidentes %}
+            <div class="form_denuncia_widget form_div_field">
+                <label for="denunciatype_incidente_existente_{{ incidente.id }}">
+                    <b class="ui-state-default">{{ incidente.id }}: </b>
+                    {% for denuncia in incidente.denuncias %}
+                        {% for subcategoria in denuncia.subcategorias %}
+                            <b class="ui-state-default">{{ subcategoria.nombre }}, </b>
+                        {% endfor %}
+                        
+                        :<br>
+                        {{ denuncia.relato }}
+                        <br>
+                    {% else %}
+                        No hay denuncias en incidente.denuncias
+                    {% endfor %}
+                </label>
+            </div>
+    {% else %}
+        <p>No hay incidentes asignados para ser canalizados!</p>
+    {% endfor %}

@@ -37,6 +37,12 @@ Orion7CoreBundle_canalizaciones_incidente:
         _method:  GET
         incidenteId: \d+
 
+Orion7CoreBundle_canalizaciones_incidentes_roles:
+    pattern:  /canalizaciones
+    defaults: { _controller: Orion7CoreBundle:Canalizacion:listNewByRole }
+    requirements:
+        _method:  GET
+
 Orion7CoreBundle_canalizacion_create:
     pattern:  /canalizacion/{incidenteId}
     defaults: { _controller: Orion7CoreBundle:Canalizacion:create }

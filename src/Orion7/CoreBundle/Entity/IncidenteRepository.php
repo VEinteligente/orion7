@@ -127,4 +127,16 @@ class IncidenteRepository extends EntityRepository
 		// Close handle
 		curl_close($process);
     }
+
+    public function listAllByIds($ids)
+    {
+      if (count($ids)==0) return array();
+
+      $qb = $this->createQueryBuilder('i');
+      $qb->select('i');
+      $qb->where($qb->expr()->in('i.id', $ids ));
+
+      return $qb->getQuery()
+                ->getResult();
+    }
 }

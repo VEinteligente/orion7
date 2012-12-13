@@ -59,4 +59,16 @@ class IncidenteController extends Controller
         ));
     }
 
+    public function listAllByIds($ids)
+    {
+      if (count($ids)==0) return array();
+
+      $qb = $this->createQueryBuilder('i');
+      $qb->select('i');
+      $qb->where($qb->expr()->in('i.id', $ids ));
+
+      return $qb->getQuery()
+                ->getResult();
+    }
+
 }

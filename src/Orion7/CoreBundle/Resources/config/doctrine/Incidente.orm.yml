@@ -1,6 +1,7 @@
 Orion7\CoreBundle\Entity\Incidente:
     type: entity
     table: incidente
+    repositoryClass: Orion7\CoreBundle\Entity\IncidenteRepository
     id:
         id:
             type: integer
