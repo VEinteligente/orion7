@@ -41,7 +41,7 @@ class DenunciaController extends Controller
         $form    = $this->createForm(new DenunciaType(), $denuncia);
         $form->bindRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()
                        ->getEntityManager();
             
@@ -53,30 +53,38 @@ class DenunciaController extends Controller
                     ->find($tipoDenuncianteValue);
             $denuncia -> setTipoDenunciante($TipoDenunciante);*/
 
-            $incidenteId = $form['incidente_existente']->getValue();
-
+            $denunciatype = $request->request->get('denunciatype');
+            $incidenteId = $denunciatype['incidente_existente'];
             if ($incidenteId) {
                 $incidente = $this -> getIncidente($incidenteId);
+                $this->get('session')->getFlashBag()->add('notice', 'adentro, valid form' . $incidenteId);
             }
             else {
                 //Caso id = 0, indicando que se quiere un incidente nuevo
                 //TODO: sacar los datos de estado-parroquia-municipio-centro del form
-                $estadoId = $form['estado']->getValue();
-                $parroquiaId = $form['parroquia']->getValue();
-                $municipioId = $form['municipio']->getValue();
-                $centroId = $form['centro']->getValue();
+
+                // $estadoId = $request->request->get('estado');
+                // $parroquiaId = $request->request->get('municipio');
+                // $municipioId = $request->request->get('parroquia');
+                // $centroId = $request->request->get('centro');  
+
+                $estadoId = $denunciatype['estado'];
+                $parroquiaId = $denunciatype['parroquia'];
+                $municipioId = $denunciatype['municipio'];
+                $centroId = $denunciatype['centro'];  
+
                 $incidente = $this -> newIncidente($estadoId, $municipioId, $parroquiaId, $centroId);
                 $em->persist($incidente);
             }
             $denuncia -> setIncidente($incidente);
 
-            $this->get('session')->getFlashBag()->add('notice', 'adentro, valid form');
+            
             
             $em->persist($denuncia);
             $em->flush();
 
             return $this->redirect($this->generateUrl('Orion7CoreBundle_denuncia_new'));
-        }
+        //}
 
         $this->get('session')->getFlashBag()->add('notice', 'llegue afuera, form not valid' . $form->getErrorsAsString());
 
@@ -108,19 +116,19 @@ class DenunciaController extends Controller
         $incidente = new Incidente();
 
         $estado = $em->getRepository('Orion7CoreBundle:Estado')
-                    ->find($estadoID);
+                    ->find($estadoId);
         $incidente -> setEstado($estado);
 
         $municipio = $em->getRepository('Orion7CoreBundle:Municipio')
-                    ->find($parroquiaID);
+                    ->find($municipioId);
         $incidente -> setMunicipio($municipio);
 
         $parroquia = $em->getRepository('Orion7CoreBundle:Parroquia')
-                    ->find($parroquiaID);
+                    ->find($parroquiaId);
         $incidente -> setParroquia($parroquia);
 
         $centro = $em->getRepository('Orion7CoreBundle:Centro')
-                    ->find($centroID);
+                    ->find($centroId);
         $incidente -> setCentro($centro);
 
         return $incidente;

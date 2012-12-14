@@ -135,7 +135,6 @@
 			categorias=$('#denunciatype_categoria').val();
 			ruta = Routing.generate('Orion7CoreBundle_asistencias', { categorias: categorias }, true);
 			$.post(ruta, function(data){
-				alert('función');
 				$('#asistencias').html(data);
 			});
 		}

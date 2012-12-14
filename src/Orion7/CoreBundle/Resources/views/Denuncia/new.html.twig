@@ -18,6 +18,8 @@
 	        {{ flashMessage }}
 	    </div>
 	{% endfor %}
+	<ul>
+</ul>
 	<div id="formulario_denuncia">
     <form action="{{ path('Orion7CoreBundle_denuncia_create') }}" method="post" {{ form_enctype(form) }}>
 	    
@@ -47,7 +49,7 @@
 		    {{ form_widget(form.municipio, { 'attr': {'class': 'chzn-select form_denuncia_widget2', 'data-placeholder': 'Municipio'} }) }}
 		</div>
 		<div class="form_div_field">
-		    {{ form_errors(form.parroquia) }}
+		   {{ form_errors(form.parroquia) }}
 		    {{ form_widget(form.parroquia, { 'attr': {'class': 'chzn-select form_denuncia_widget2', 'data-placeholder': 'Parroquia'} }) }}
 		</div>
 		<div class="form_div_field">
