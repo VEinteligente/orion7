@@ -4,15 +4,12 @@
 namespace Orion7\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Orion7\CoreBundle\Entity\Denuncia;
 use Orion7\CoreBundle\Form\DenunciaType;
-
 use Orion7\CoreBundle\Entity\Incidente;
-
 use JMS\SecurityExtraBundle\Security\Authorization\Expression\Expression;
-
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Response;
 
 class DenunciaController extends Controller
 {
@@ -213,6 +210,37 @@ class DenunciaController extends Controller
             $ret_array[] = $value;
         }
         return $ret_array;
+    }
+
+    public function ushahidiLabAction($denunciaid)
+    {
+        $em = $this->getDoctrine()
+                    ->getEntityManager();
+         $denuncia = $em->getRepository('Orion7CoreBundle:Denuncia')
+                    ->find($denunciaid);
+        
+       $data = array(
+          'task' => 'report', 
+          'incident_title' => 'Denuncia '.$denuncia->getId(), 
+          'incident_description' => $denuncia->getRelato(), 
+          'incident_date' => date('m/d/Y'),
+          'incident_hour' => $denuncia->getHoraHecho()->format('g'),
+          'incident_minute' => $denuncia->getHoraHecho()->format('i'), 
+          'incident_ampm' => $denuncia->getHoraHecho()->format('a'), 
+          'incident_category' => '49,20,33', 
+          'latitude' => $denuncia->getIncidente()->getCentro()->getLatitud(), 
+          'longitude' => $denuncia->getIncidente()->getCentro()->getLongitud(),  
+          'location_name' => 'Estado: '.$denuncia->getIncidente()->getEstado()->getNombre().' Municipio: '.$denuncia->getIncidente()->getMunicipio()->getNombre().' Parroquia: '.$denuncia->getIncidente()->getParroquia()->getNombre().' Centro de Votación: '.$denuncia->getIncidente()->getCentro()->getNombre(),
+        );
+
+        $envio = $em->getRepository('Orion7CoreBundle:Denuncia')
+                    ->sendUshahidiReport($data);
+
+        $denuncia ->setIdUshahidi($envio);
+        $em->flush();
+
+        $html = $envio;
+        return new Response($html);
     }
 
 }

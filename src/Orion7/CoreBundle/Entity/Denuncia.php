@@ -25,6 +25,7 @@ class Denuncia
     protected $responsables;
     protected $isFiltrado;
     protected $autorizacion_twitter;
+    protected $id_ushahidi;
 
     /**
      * Constructor
@@ -462,5 +463,28 @@ class Denuncia
     public function getAutorizacionCne()
     {
         return $this->autorizacion_cne;
+    }
+
+    /**
+     * Set id_ushahidi
+     *
+     * @param integer $idUshahidi
+     * @return Denuncia
+     */
+    public function setIdUshahidi($idUshahidi)
+    {
+        $this->id_ushahidi = $idUshahidi;
+    
+        return $this;
+    }
+
+    /**
+     * Get id_ushahidi
+     *
+     * @return integer 
+     */
+    public function getIdUshahidi()
+    {
+        return $this->id_ushahidi;
     }
 }

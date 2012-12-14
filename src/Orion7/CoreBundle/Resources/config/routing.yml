@@ -157,3 +157,11 @@ Orion7CoreBundle_asistencias:
         _method:  GET|POST
     options:
         expose: true
+
+Orion7CoreBundle_lab:
+    pattern:  /labushahidi/{denunciaid}
+    defaults: { _controller: Orion7CoreBundle:Denuncia:ushahidiLab }
+    requirements:
+        _method:  GET|POST
+    options:
+        expose: true
