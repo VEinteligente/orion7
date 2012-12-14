@@ -24,6 +24,7 @@ class Denuncia
     protected $usuario_filtrado;
     protected $responsables;
     protected $isFiltrado;
+    protected $autorizacion_twitter;
 
     /**
      * Constructor
@@ -33,6 +34,7 @@ class Denuncia
         $this->responsables = new \Doctrine\Common\Collections\ArrayCollection();
         $this->subcategorias = new \Doctrine\Common\Collections\ArrayCollection();
 
+        $this->setIsFiltrado(false);
         $this->setHoraRegistro(new \DateTime());
     }
     
@@ -256,10 +258,10 @@ class Denuncia
     /**
      * Set tipo_denunciante
      *
-     * @param \Orion7\CoreBundle\Entity\Tipo_denunciante $tipoDenunciante
+     * @param \Orion7\CoreBundle\Entity\TipoDenunciante $tipoDenunciante
      * @return Denuncia
      */
-    public function setTipoDenunciante(\Orion7\CoreBundle\Entity\Tipo_denunciante $tipoDenunciante = null)
+    public function setTipoDenunciante(\Orion7\CoreBundle\Entity\TipoDenunciante $tipoDenunciante = null)
     {
         $this->tipo_denunciante = $tipoDenunciante;
     
@@ -269,7 +271,7 @@ class Denuncia
     /**
      * Get tipo_denunciante
      *
-     * @return \Orion7\CoreBundle\Entity\Tipo_denunciante 
+     * @return \Orion7\CoreBundle\Entity\TipoDenunciante 
      */
     public function getTipoDenunciante()
     {
@@ -409,5 +411,28 @@ class Denuncia
     public function getUsuarioFiltrado()
     {
         return $this->usuario_filtrado;
+    }
+
+    /**
+     * Set isFiltrado
+     *
+     * @param boolean $isFiltrado
+     * @return Denuncia
+     */
+    public function setIsFiltrado($isFiltrado)
+    {
+        $this->isFiltrado = $isFiltrado;
+    
+        return $this;
+    }
+
+    /**
+     * Get isFiltrado
+     *
+     * @return boolean 
+     */
+    public function getIsFiltrado()
+    {
+        return $this->isFiltrado;
     }
 }

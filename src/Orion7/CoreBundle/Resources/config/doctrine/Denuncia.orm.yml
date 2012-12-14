@@ -30,6 +30,8 @@ Orion7\CoreBundle\Entity\Denuncia:
             type: boolean
         isFiltrado:
             type: boolean
+        autorizacion_cne:
+            type: boolean
     manyToOne:
         incidente:
             targetEntity: Incidente
