@@ -32,11 +32,8 @@ class DenunciaController extends Controller
             'form' => $form->createView()
         ));
     }
-
     
-
-    //ESQUELETO NO FUNCIONAL
-    /*public function createAction($incidenteId)
+    public function createAction()
     {
         $denuncia = new Denuncia();
 
@@ -47,49 +44,46 @@ class DenunciaController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()
                        ->getEntityManager();
+            
+            $user = $this->getUser();
+            $denuncia -> setUsuarioRegistro($user);
+
+            /*$tipoDenuncianteValue = $form['tipo_denunciante']->getValue();
+            $tipoDenunciante = $em->getRepository('Orion7CoreBundle:TipoDenunciante')
+                    ->find($tipoDenuncianteValue);
+            $denuncia -> setTipoDenunciante($TipoDenunciante);*/
+
+            $incidenteId = $form['incidente_existente']->getValue();
+
             if ($incidenteId) {
-                $incidente = this -> getIncidente($incidenteId);
+                $incidente = $this -> getIncidente($incidenteId);
             }
             else {
                 //Caso id = 0, indicando que se quiere un incidente nuevo
                 //TODO: sacar los datos de estado-parroquia-municipio-centro del form
-                // $estadoId = ;
-                // $parroquiaId = ;
-                // $municipioId = ;
-                // $centroId = ;
-                //$incidente = this -> newIncidente();
-                //$em->persist($incidente);
+                $estadoId = $form['estado']->getValue();
+                $parroquiaId = $form['parroquia']->getValue();
+                $municipioId = $form['municipio']->getValue();
+                $centroId = $form['centro']->getValue();
+                $incidente = $this -> newIncidente($estadoId, $municipioId, $parroquiaId, $centroId);
+                $em->persist($incidente);
             }
             $denuncia -> setIncidente($incidente);
 
-            $user = $this->getUser();
-            $denuncia -> setUsuarioRegistro($user);
-
-            //TODO: ver caso responsables
-
-            //TODO: ver caso subcategorias
-
+            $this->get('session')->getFlashBag()->add('notice', 'adentro, valid form');
+            
             $em->persist($denuncia);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('BloggerBlogBundle_blog_show', array(
-                'id' => $comment->getBlog()->getId())) .
-                '#comment-' . $comment->getId()
-            );
+            return $this->redirect($this->generateUrl('Orion7CoreBundle_denuncia_new'));
         }
 
-        return $this->render('BloggerBlogBundle:Comment:create.html.twig', array(
-            'comment' => $comment,
-            'form'    => $form->createView()
+        $this->get('session')->getFlashBag()->add('notice', 'llegue afuera, form not valid' . $form->getErrorsAsString());
+
+        return $this->render('Orion7CoreBundle:Denuncia:new.html.twig', array(
+            'form' => $form->createView()
         ));
-
-
-        // 
-
-        // return $this->render('Orion7CoreBundle:Denuncia:new.html.twig', array(
-        //     'form' => $form->createView()
-        // ));
-    }*/
+    }
 
     protected function getIncidente($incidenteId)
     {

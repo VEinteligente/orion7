@@ -257,10 +257,10 @@ class Denuncia
     /**
      * Set tipo_denunciante
      *
-     * @param \Orion7\CoreBundle\Entity\Tipo_denunciante $tipoDenunciante
+     * @param \Orion7\CoreBundle\Entity\TipoDenunciante $tipoDenunciante
      * @return Denuncia
      */
-    public function setTipoDenunciante(\Orion7\CoreBundle\Entity\Tipo_denunciante $tipoDenunciante = null)
+    public function setTipoDenunciante(\Orion7\CoreBundle\Entity\TipoDenunciante $tipoDenunciante = null)
     {
         $this->tipo_denunciante = $tipoDenunciante;
     
@@ -270,7 +270,7 @@ class Denuncia
     /**
      * Get tipo_denunciante
      *
-     * @return \Orion7\CoreBundle\Entity\Tipo_denunciante 
+     * @return \Orion7\CoreBundle\Entity\TipoDenunciante 
      */
     public function getTipoDenunciante()
     {

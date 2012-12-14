@@ -69,9 +69,11 @@ class DenunciaType extends AbstractType
 
         $builder->add('codigo_centro', 'number', array(
             'mapped'  => false,
+            'required'  => false,
         ));
         $builder->add('cedula_elector', 'number', array(
             'mapped'  => false,
+            'required'  => false,
         ));
 
         $builder->add('categoria', 'choice', array(

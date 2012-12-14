@@ -10,6 +10,12 @@ Orion7CoreBundle_denuncia_new:
     requirements:
         _method:  GET
 
+Orion7CoreBundle_denuncia_create:
+    pattern:  /denuncia
+    defaults: { _controller: Orion7CoreBundle:Denuncia:create }
+    requirements:
+        _method:  POST
+
 Orion7CoreBundle_incidente_listbycentro:
     pattern:  /incidentes/centro/{codCentro}
     defaults: { _controller: Orion7CoreBundle:Incidente:listByCentro }
