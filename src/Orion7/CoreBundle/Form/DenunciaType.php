@@ -187,6 +187,10 @@ class DenunciaType extends AbstractType
             'label'     => 'Genera retraso',
             'required'  => false,
         ));
+        $builder->add('autorizacion_cne', 'checkbox', array(
+            'label'     => 'Autoriza denuncia formal ante el CNE',
+            'required'  => false,
+        ));
     }
 
     public function getName()

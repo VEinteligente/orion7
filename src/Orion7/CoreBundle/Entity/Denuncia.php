@@ -24,6 +24,8 @@ class Denuncia
     protected $usuario_filtrado;
     protected $responsables;
     protected $isFiltrado;
+    protected $autorizacion_twitter;
+    protected $id_ushahidi;
 
     /**
      * Constructor
@@ -433,5 +435,56 @@ class Denuncia
     public function getIsFiltrado()
     {
         return $this->isFiltrado;
+    }
+    /**
+     * @var boolean
+     */
+    private $autorizacion_cne;
+
+
+    /**
+     * Set autorizacion_cne
+     *
+     * @param boolean $autorizacionCne
+     * @return Denuncia
+     */
+    public function setAutorizacionCne($autorizacionCne)
+    {
+        $this->autorizacion_cne = $autorizacionCne;
+    
+        return $this;
+    }
+
+    /**
+     * Get autorizacion_cne
+     *
+     * @return boolean 
+     */
+    public function getAutorizacionCne()
+    {
+        return $this->autorizacion_cne;
+    }
+
+    /**
+     * Set id_ushahidi
+     *
+     * @param integer $idUshahidi
+     * @return Denuncia
+     */
+    public function setIdUshahidi($idUshahidi)
+    {
+        $this->id_ushahidi = $idUshahidi;
+    
+        return $this;
+    }
+
+    /**
+     * Get id_ushahidi
+     *
+     * @return integer 
+     */
+    public function getIdUshahidi()
+    {
+        return $this->id_ushahidi;
     }
 }
