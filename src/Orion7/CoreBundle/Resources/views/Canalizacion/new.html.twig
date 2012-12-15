@@ -1,4 +1,5 @@
 {% if is_granted('ROLE_CANALIZADOR') %}
+
     <form action="{{ path('Orion7CoreBundle_canalizacion_create', { 'incidenteId' : incidenteId } ) }}" method="post" {{ form_enctype(form) }} class="canalizacion">
      {{ form_errors(form) }}
 

@@ -205,3 +205,18 @@ th{
 .menu{
 	color: #FFFFFF;
 }
+
+#columna_izq{
+	float:left;
+	width: 400px;
+}
+
+#columna_der{
+	float:right;
+	width: 400px;
+}
+
+.titulo_denuncia{
+	font-weight: bold; 
+	color: #8951ae;
+}

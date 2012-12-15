@@ -3,12 +3,12 @@
             <div class="form_denuncia_widget form_div_field">
                 <input type="radio" name="denunciatype[incidente_existente]" value="{{ incidente.id }}" id="denunciatype_incidente_existente_{{ incidente.id }}">
                 <label for="denunciatype_incidente_existente_{{ incidente.id }}">
-                    <b class="ui-state-default">{{ incidente.id }}: </b>
+                    <b class="titulo_denuncia">{{ incidente.id }}: 
                     {% for denuncia in incidente.denuncias %}
                         {% for subcategoria in denuncia.subcategorias %}
-                            <b class="ui-state-default">{{ subcategoria.nombre }}, </b>
+                            {{ subcategoria.nombre }}, 
                         {% endfor %}
-                        
+                        </b>
                         :<br>
                         {{ denuncia.relato }}
                         <br>

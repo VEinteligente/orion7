@@ -1,13 +1,13 @@
-<p>Estado: {{ incidente.estado.nombre }}</p>
-<p>Municipio: {{ incidente.municipio.nombre }}</p>
-<p>Parroquia: {{ incidente.parroquia.nombre }}</p>
-<p>Centro: {{ incidente.centro.nombre }}</p>
-<p>Codigo Centro: {{ incidente.centro.codigo }}</p>
-<br/><br/>
+<span class="titulo_denuncia">Estado:</span> {{ incidente.estado.nombre }}<br>
+<span class="titulo_denuncia">Municipio:</span> {{ incidente.municipio.nombre }}<br>
+<span class="titulo_denuncia">Parroquia:</span> {{ incidente.parroquia.nombre }}<br>
+<span class="titulo_denuncia">Centro:</span> {{ incidente.centro.nombre }}<br>
+<span class="titulo_denuncia">Codigo Centro:</span> {{ incidente.centro.codigo }}<br>
+<br/>
 
 {% for denuncia in incidente.denuncias %}
 	{% for subcategoria in denuncia.subcategorias %}
-        	<b class="ui-state-default">{{ subcategoria.nombre }}, </b>
+        	<b class="titulo_denuncia">{{ subcategoria.nombre }}, </b>
         {% endfor %}
                 :<br>
                 Relato: {{ denuncia.relato }}

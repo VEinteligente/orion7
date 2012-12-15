@@ -7,25 +7,28 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('bundles/orion7core/js/chosen/chosen.jquery.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/orion7core/js/denuncia.js') }}" type="text/javascript"></script>
+    <script>
+        $(".chzn-select").chosen(); 
+    </script>
 {% endblock %}
-
 {% block body %}
-
-
-{% render "Orion7CoreBundle:Incidente:show" with {'incidenteId': incidenteId} %}
-
-
+<div>
+<div id="columna_izq">
 {% for canalizacion in canalizaciones %}
     <article class="canalizacion {{ cycle(['odd', 'even'], loop.index0) }}" id="canalizacion-{{ canalizacion.id }}">
-        <header>
-            <p><span class="highlight">{{ canalizacion.usuario }}</span> a las <time datetime="{{ canalizacion.horaRegistro|date('c') }}" pubdate="pubdate">{{ canalizacion.horaRegistro|date('g:i a') }}</time></p>
-        </header>
-        <p>TODO: agregar entes. El comentario es: {{ canalizacion.comentario }}</p>
+            <span class="titulo_denuncia">{{ canalizacion.usuario }} a las </span><time  class="titulo_denuncia" datetime="{{ canalizacion.horaRegistro|date('c') }}" pubdate="pubdate">{{ canalizacion.horaRegistro|date('g:i a') }}</time><br>
+        <p>Comentario: {{ canalizacion.comentario }}</p>
     </article>
 {% else %}
     <p>No hay canalizaciones para el incidente. Canaliza o marca como resuelto!</p>
 {% endfor %}
 
 {% render "Orion7CoreBundle:Canalizacion:new" with {'incidenteId': incidenteId} %}
+</div>
+
+<div id="columna_der">
+{% render "Orion7CoreBundle:Incidente:show" with {'incidenteId': incidenteId} %}
+</div>
+</div>
+
 {% endblock %}
