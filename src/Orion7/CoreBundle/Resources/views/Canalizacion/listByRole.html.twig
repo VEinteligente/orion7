@@ -1,3 +1,6 @@
+{% extends 'Orion7CoreBundle::layout.html.twig' %}
+
+{% block body %}
 {% if resuelto == 0 %}
     <p><b>Titulo por formatear: Incidentes por canalizar</b></p>
 {% endif %}
@@ -31,3 +34,4 @@
             <p>No hay incidentes asignados canalizados!</p>
         {% endif %}
 {% endfor %}
+{% endblock %}

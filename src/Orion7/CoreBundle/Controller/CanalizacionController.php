@@ -65,24 +65,24 @@ class CanalizacionController extends Controller
         $form    = $this->createForm(new CanalizacionType(), $canalizacion);
         $form->bindRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()
                        ->getEntityManager();
             $em->persist($canalizacion);
             $em->flush();
 
             //TODO: debe ser el show de Incidente
-            return $this->redirect($this->generateUrl('Orion7CoreBundle_canalizaciones', array(
+            return $this->redirect($this->generateUrl('Orion7CoreBundle_canalizaciones_incidente', array(
                 'incidenteId' => $incidenteId)) .
                 '#canalizacion-' . $canalizacion->getId()
             );
-        }
+        //}
 
         //TODO: Debe ser el show de Incidente
-        return $this->render('Orion7CoreBundle:Canalizacion:new.html.twig', array(
-            'incidenteId' => $incidenteId,
-            'form'    => $form->createView()
-        ));
+        //return $this->render('Orion7CoreBundle:Canalizacion:new.html.twig', array(
+        //    'incidenteId' => $incidenteId,
+        //    'form'    => $form->createView()
+        //));
     }
 
 

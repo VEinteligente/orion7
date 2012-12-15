@@ -60,7 +60,7 @@
 		        <td></td>
 		         {% if is_granted('ROLE_FILTRO') %}
 		         <td>
-		         	<a href="#">Editar</a>
+		         	<a href="{{ path('Orion7CoreBundle_filtro_show_denuncia', { 'denunciaId': denuncia.id }) }}">Editar</a>
 		         </td>
 	    		 {% endif %}
 	    	</tr>

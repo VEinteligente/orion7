@@ -16,6 +16,13 @@ Orion7CoreBundle_denuncia_create:
     requirements:
         _method:  POST
 
+Orion7CoreBundle_incidente_show:
+    pattern:  /incidente/{idIncidente}
+    defaults: { _controller: Orion7CoreBundle:Incidente:show }
+    requirements:
+        _method:  GET
+        idIncidente: \d+
+
 Orion7CoreBundle_incidente_listbycentro:
     pattern:  /incidentes/centro/{codCentro}
     defaults: { _controller: Orion7CoreBundle:Incidente:listByCentro }

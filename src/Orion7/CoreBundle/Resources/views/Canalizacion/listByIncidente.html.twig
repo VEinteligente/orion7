@@ -11,6 +11,11 @@
 {% endblock %}
 
 {% block body %}
+
+
+{% render "Orion7CoreBundle:Incidente:show" with {'incidenteId': incidenteId} %}
+
+
 {% for canalizacion in canalizaciones %}
     <article class="canalizacion {{ cycle(['odd', 'even'], loop.index0) }}" id="canalizacion-{{ canalizacion.id }}">
         <header>

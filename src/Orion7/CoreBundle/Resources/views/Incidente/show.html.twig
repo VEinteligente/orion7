@@ -1,0 +1,18 @@
+<p>Estado: {{ incidente.estado.nombre }}</p>
+<p>Municipio: {{ incidente.municipio.nombre }}</p>
+<p>Parroquia: {{ incidente.parroquia.nombre }}</p>
+<p>Centro: {{ incidente.centro.nombre }}</p>
+<p>Codigo Centro: {{ incidente.centro.codigo }}</p>
+<br/><br/>
+
+{% for denuncia in incidente.denuncias %}
+	{% for subcategoria in denuncia.subcategorias %}
+        	<b class="ui-state-default">{{ subcategoria.nombre }}, </b>
+        {% endfor %}
+                :<br>
+                Relato: {{ denuncia.relato }}
+                <br>
+	{% else %}
+                No hay denuncias en incidente.denuncias
+{% endfor %}
+<br><br>

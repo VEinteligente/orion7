@@ -6,12 +6,11 @@
 		        $('#denunciatype_incidente_existente_0').attr('checked', true);
 		    }
 		    
-			//alert('Hola');
+			
 		});
 
 	//$(function() {
 		$( "#tabs" ).tabs();
-		//calculaCentro().delay(800);
 		// Select dependiente cuando se cambia estado
 		$('#denunciatype_estado').chosen().change(function() {
         	estado=$(this).val();
@@ -22,7 +21,8 @@
 				$("#denunciatype_parroquia").html("");
 				$("#denunciatype_centro").html("");
 			});
-		});	 	
+		});	 
+			
 		// Select dependiente cuando se cambia municipio
 		$('#denunciatype_municipio').chosen().change(function() {
 			municipio=$(this).val();
@@ -33,6 +33,7 @@
 				$("#denunciatype_centro").html("");
 			});	
 		});	
+		alert('Hola');
 		// Select dependiente cuando se cambia parroquia
 		$('#denunciatype_parroquia').chosen().change(function() {
 			parroquia=$(this).val();
