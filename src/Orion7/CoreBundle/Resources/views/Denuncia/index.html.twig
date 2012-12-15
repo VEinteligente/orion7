@@ -14,20 +14,56 @@
     {% if filtrado == 1 %}
     	<p><b>Titulo por formatear: Denuncias filtradas</b></p>
     {% endif %}
-    
+    <table class="tabla_filtro">
+    <tr>
+		<th>
+            Usuario
+        </th>
+        <th class="td_espacio"></th>
+        <th>
+            Hora
+        </th>
+        <th class="td_espacio"></th>
+        <th width="400px">
+        	Relato
+        </th>
+        <th class="td_espacio"></th>
+        <th>
+        	Centro
+        </th>
+        <th class="td_espacio"></th>
+         {% if is_granted('ROLE_FILTRO') %}
+         <th>
+         	Editar
+         </th>
+		 {% endif %}
+	</tr>
     {% for denuncia in denuncias %}
 
     	{% if denuncia.isFiltrado == filtrado %}
-    		<article class="denuncia {{ cycle(['odd', 'even'], loop.index0) }}" id="denuncia-{{ denuncia.id }}">
-		        <header>
-		            <p><span class="highlight">{{ denuncia.usuarioRegistro }}</span> a las <time datetime="{{ denuncia.horaRegistro|date('c') }}" pubdate="pubdate">{{ denuncia.horaRegistro|date('g:i a') }}</time></p>
-		        </header>
-		        <p>El relato es: {{ denuncia.relato }}</p>
-		        <p>Agregar ubicacion: {{ denuncia.incidente.centro.nombre }}</p>
+    		<tr class="lista_tabla">
+    			<td>
+		            <span class="highlight">{{ denuncia.usuarioRegistro }}</span>
+		        </td>
+		        <td></td>
+		        <td>
+		            <time datetime="{{ denuncia.horaRegistro|date('c') }}" pubdate="pubdate">{{ denuncia.horaRegistro|date('g:i a') }}</time>
+		        </td>
+		        <td></td>
+		        <td width="300px">
+		        	{{ denuncia.relato }}
+		        </td>
+		        <td></td>
+		        <td>
+		        	{{ denuncia.incidente.centro.nombre|title }}
+		        </td>
+		        <td></td>
 		         {% if is_granted('ROLE_FILTRO') %}
-		         	<p>Tiene rol filtro, agregar boton o link que vaya al show de la denuncia especifica</p>
+		         <td>
+		         	<a href="#">Editar</a>
+		         </td>
 	    		 {% endif %}
-	    	</article>
+	    	</tr>
     	{% endif %}
 	{% else %}
 		{% if filtrado == 0 %}
@@ -37,4 +73,5 @@
 	    	<p>No hay denuncias filtradas</p>
 	    {% endif %}
 	{% endfor %}
+	</table>
 {% endblock %}

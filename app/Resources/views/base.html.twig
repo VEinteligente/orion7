@@ -23,14 +23,14 @@
     <body>
         <section id="wrapper">
             <header id="header">
-            <div class="header_text">Hola</div>
-                
+                           
                 {% block navigation %}
                     <nav>
                         <ul class="navigation">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a class="menu" href="#">Denuncias</a></li>
+                            <li><a class="menu" href="#">Filtro</a></li>
+                            <li><a class="menu" href="#">Canalización</a></li>
+                            <li><a class="menu" href="#">Login/Logout</a></li>
                         </ul>
                     </nav>
                 {% endblock %}
@@ -41,13 +41,13 @@
                 {% block body %}{% endblock %}
             </section>
             
-            <div id="footer">
+            
+        </section>
+        <div id="footer">
                 {% block footer %}
                     Orion 7 loguitos de Voto Joven y de VI y demas
                 {% endblock %}
             </div>
-        </section>
-
         {% block javascripts %}{% endblock %}
     </body>
 </html>
