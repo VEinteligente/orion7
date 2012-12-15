@@ -34,6 +34,7 @@ Orion7\CoreBundle\Entity\Denuncia:
             type: boolean
         id_ushahidi:
             type: integer
+            nullable: true
     manyToOne:
         incidente:
             targetEntity: Incidente

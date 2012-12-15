@@ -39,6 +39,7 @@ class DenunciaController extends Controller
         ));
     }
     
+    //Candidato a refactor
     public function createAction()
     {
         if (false === $this->get('security.context')->isGranted('ROLE_USER'))
@@ -52,55 +53,48 @@ class DenunciaController extends Controller
         $form    = $this->createForm(new DenunciaType(), $denuncia);
         $form->bindRequest($request);
         $denunciatype = $request->request->get('denunciatype');
-        //if ($form->isValid()) {
-            $em = $this->getDoctrine()
-                       ->getEntityManager();
-            
-            $user = $this->getUser();
-            $denuncia -> setUsuarioRegistro($user);
+       
+        $em = $this->getDoctrine()
+                   ->getEntityManager();
+        
+        $user = $this->getUser();
+        $denuncia -> setUsuarioRegistro($user);
 
-            //$subcategoriasIds = explode(',', $denunciatype['categoria']);
-            $subcategoriasIds = $denunciatype['categoria'];
-            $subcategorias = $em->getRepository('Orion7CoreBundle:Subcategoria')
-                     ->listAllByIds($subcategoriasIds);
+        //$subcategoriasIds = explode(',', $denunciatype['categoria']);
+        $subcategoriasIds = $denunciatype['categoria'];
+        $subcategorias = $em->getRepository('Orion7CoreBundle:Subcategoria')
+                 ->listAllByIds($subcategoriasIds);
 
-            foreach ($subcategorias as $subcategoria) {
-                $denuncia -> addSubcategoria($subcategoria);
-            }
+        foreach ($subcategorias as $subcategoria) {
+            $denuncia -> addSubcategoria($subcategoria);
+        }
 
-            $incidenteId = $denunciatype['incidente_existente'];
-            if ($incidenteId) {
-                $incidente = $this -> getIncidente($incidenteId);
-            }
-            else {//Caso id = 0, indicando que se quiere un incidente nuevo
-                $estadoId = $denunciatype['estado'];
-                $parroquiaId = $denunciatype['parroquia'];
-                $municipioId = $denunciatype['municipio'];
-                $centroId = $denunciatype['centro'];  
+        $incidenteId = $denunciatype['incidente_existente'];
+        if ($incidenteId) {
+            $incidente = $this -> getIncidente($incidenteId);
+        }
+        else {//Caso id = 0, indicando que se quiere un incidente nuevo
+            $estadoId = $denunciatype['estado'];
+            $parroquiaId = $denunciatype['parroquia'];
+            $municipioId = $denunciatype['municipio'];
+            $centroId = $denunciatype['centro'];  
 
-                $incidente = $this -> newIncidente($estadoId, $municipioId, $parroquiaId, $centroId);
-                $em->persist($incidente);
-            }
-            $denuncia -> setIncidente($incidente);
-            //$this->get('session')->getFlashBag()->add('notice', 'adentro, subcategorias ' . serialize($denuncia));
-            $em->persist($denuncia);
-            $em->flush();
+            $incidente = $this -> newIncidente($estadoId, $municipioId, $parroquiaId, $centroId);
+            $em->persist($incidente);
+        }
+        $denuncia -> setIncidente($incidente);
+        //$this->get('session')->getFlashBag()->add('notice', 'adentro, subcategorias ' . serialize($denuncia));
+        $em->persist($denuncia);
+        $em->flush();
 
-            foreach ($subcategorias as $subcategoria) {
-                $this->insertSubcategoriaDenuncia($subcategoria->getId(), $denuncia->getId());
-            }
-            foreach ($denuncia->getResponsables() as $responsable) {
-                $this->insertResponsablesDenuncia($responsable->getId(), $denuncia->getId());
-            }
+        foreach ($subcategorias as $subcategoria) {
+            $this->insertSubcategoriaDenuncia($subcategoria->getId(), $denuncia->getId());
+        }
+        foreach ($denuncia->getResponsables() as $responsable) {
+            $this->insertResponsablesDenuncia($responsable->getId(), $denuncia->getId());
+        }
 
-            return $this->redirect($this->generateUrl('Orion7CoreBundle_denuncia_new'));
-        //}
-
-       // $this->get('session')->getFlashBag()->add('notice', 'llegue afuera, form not valid' . $form->getErrorsAsString());
-
-        return $this->render('Orion7CoreBundle:Denuncia:new.html.twig', array(
-            'form' => $form->createView()
-        ));
+        return $this->redirect($this->generateUrl('Orion7CoreBundle_denuncia_new'));
     }
 
     protected function getIncidente($incidenteId)
@@ -233,6 +227,18 @@ class DenunciaController extends Controller
         return $conn->executeUpdate($sql, array($responsableId, $denunciaId));
     }
 
+    protected function eliminarSubcategoriasResponsablesDenuncia($denunciaId)
+    {
+        $sql1 = "DELETE FROM subcategorias_denuncias WHERE denuncia = ?";
+        $sql2 = "DELETE FROM responsables_denuncias WHERE denuncia = ?";
+        $conn = $this->get('database_connection');
+        $cuenta1 = $conn->executeUpdate($sql1, array($denunciaId));
+        $cuenta2 = $conn->executeUpdate($sql2, array($denunciaId)); 
+
+        return $cuenta1 + $cuenta2;
+    }
+
+
     //TODO: refactor para evitar duplicidad con CanalizacionController
     protected function getFlatArray($array)
     {
@@ -292,10 +298,66 @@ class DenunciaController extends Controller
             'denuncia' => $denuncia
         ));
     }
+
+    //candidato a ser refactored
     public function denunciaUpdateAction($denunciaId)
     {
-        //Función para mario
-        $html = 'Algo';
-        return new Response($html);
+        if (false === $this->get('security.context')->isGranted('ROLE_FILTRO'))
+        {
+            throw new AccessDeniedException();
+        }
+        $em = $this->getDoctrine()
+                   ->getEntityManager();
+
+
+        $denuncia = $em->getRepository('Orion7CoreBundle:Denuncia')
+                 ->find($denunciaId);
+
+        $request = $this->getRequest();
+        $form    = $this->createForm(new DenunciaType(), $denuncia);
+        $form->bindRequest($request);
+        $denunciatype = $request->request->get('denunciatype');
+        
+        $user = $this->getUser();
+        $denuncia -> setUsuarioFiltrado($user);
+
+        $subcategoriasIds = $denunciatype['categoria'];
+        $subcategorias = $em->getRepository('Orion7CoreBundle:Subcategoria')
+                 ->listAllByIds($subcategoriasIds);
+
+        foreach ($subcategorias as $subcategoria) {
+            $denuncia -> addSubcategoria($subcategoria);
+        }
+
+        $incidenteId = $denunciatype['incidente_existente'];
+        /////////
+        //TODO: debo revisar si hay cambio, y si hay cambio ver si ese incidente ya no tiene denuncias para borrarlo
+        /////////
+        if ($incidenteId) {
+            $incidente = $this -> getIncidente($incidenteId);
+        }
+        else {//Caso id = 0, indicando que se quiere un incidente nuevo
+            $estadoId = $denunciatype['estado'];
+            $parroquiaId = $denunciatype['parroquia'];
+            $municipioId = $denunciatype['municipio'];
+            $centroId = $denunciatype['centro'];  
+
+            $incidente = $this -> newIncidente($estadoId, $municipioId, $parroquiaId, $centroId);
+            $em->persist($incidente);
+        }
+        $denuncia -> setIncidente($incidente);
+        $denuncia -> setIsFiltrado(true);
+
+        $em->flush();
+
+        $this->eliminarSubcategoriasResponsablesDenuncia($denuncia->getId());
+        foreach ($subcategorias as $subcategoria) {
+            $this->insertSubcategoriaDenuncia($subcategoria->getId(), $denuncia->getId());
+        }
+        foreach ($denuncia->getResponsables() as $responsable) {
+            $this->insertResponsablesDenuncia($responsable->getId(), $denuncia->getId());
+        }
+
+        return $this->redirect($this->generateUrl('Orion7CoreBundle_filtro'));
     }
 }
