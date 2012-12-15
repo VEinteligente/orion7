@@ -9,9 +9,9 @@
 			//alert('Hola');
 		});
 
-	$(function() {
+	//$(function() {
 		$( "#tabs" ).tabs();
-		calculaCentro().delay(800);
+		//calculaCentro().delay(800);
 		// Select dependiente cuando se cambia estado
 		$('#denunciatype_estado').chosen().change(function() {
         	estado=$(this).val();
@@ -137,7 +137,7 @@
 		$('#denunciatype_centro').chosen().change(function() {
 			calculaIncidentes();
 		});	
-	});
+	//});
 
 		//Función para mostrar asistencias en pantalla
 		function calculaAsistencias(){
