@@ -1,13 +1,18 @@
 <?php
-// src/Blogger/BlogBundle/Controller/PageController.php
 
 namespace Orion7\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Orion7\CoreBundle\Entity\Denuncia;
 use Orion7\CoreBundle\Form\DenunciaType;
+
 use Orion7\CoreBundle\Entity\Incidente;
+use Orion7\CoreBundle\Entity\Subcategoria;
+use Orion7\CoreBundle\Entity\Responsable;
+
 use JMS\SecurityExtraBundle\Security\Authorization\Expression\Expression;
+
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,6 +27,10 @@ class DenunciaController extends Controller
 
     public function newAction()
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER'))
+        {
+            throw new AccessDeniedException();
+        }
     	$denuncia = new Denuncia();
         $form = $this->createForm(new DenunciaType(), $denuncia);
 
@@ -32,12 +41,17 @@ class DenunciaController extends Controller
     
     public function createAction()
     {
+        if (false === $this->get('security.context')->isGranted('ROLE_USER'))
+        {
+            throw new AccessDeniedException();
+        }
+
         $denuncia = new Denuncia();
 
         $request = $this->getRequest();
         $form    = $this->createForm(new DenunciaType(), $denuncia);
         $form->bindRequest($request);
-
+        $denunciatype = $request->request->get('denunciatype');
         //if ($form->isValid()) {
             $em = $this->getDoctrine()
                        ->getEntityManager();
@@ -45,26 +59,20 @@ class DenunciaController extends Controller
             $user = $this->getUser();
             $denuncia -> setUsuarioRegistro($user);
 
-            /*$tipoDenuncianteValue = $form['tipo_denunciante']->getValue();
-            $tipoDenunciante = $em->getRepository('Orion7CoreBundle:TipoDenunciante')
-                    ->find($tipoDenuncianteValue);
-            $denuncia -> setTipoDenunciante($TipoDenunciante);*/
+            //$subcategoriasIds = explode(',', $denunciatype['categoria']);
+            $subcategoriasIds = $denunciatype['categoria'];
+            $subcategorias = $em->getRepository('Orion7CoreBundle:Subcategoria')
+                     ->listAllByIds($subcategoriasIds);
 
-            $denunciatype = $request->request->get('denunciatype');
+            foreach ($subcategorias as $subcategoria) {
+                $denuncia -> addSubcategoria($subcategoria);
+            }
+
             $incidenteId = $denunciatype['incidente_existente'];
             if ($incidenteId) {
                 $incidente = $this -> getIncidente($incidenteId);
-                $this->get('session')->getFlashBag()->add('notice', 'adentro, valid form' . $incidenteId);
             }
-            else {
-                //Caso id = 0, indicando que se quiere un incidente nuevo
-                //TODO: sacar los datos de estado-parroquia-municipio-centro del form
-
-                // $estadoId = $request->request->get('estado');
-                // $parroquiaId = $request->request->get('municipio');
-                // $municipioId = $request->request->get('parroquia');
-                // $centroId = $request->request->get('centro');  
-
+            else {//Caso id = 0, indicando que se quiere un incidente nuevo
                 $estadoId = $denunciatype['estado'];
                 $parroquiaId = $denunciatype['parroquia'];
                 $municipioId = $denunciatype['municipio'];
@@ -74,16 +82,21 @@ class DenunciaController extends Controller
                 $em->persist($incidente);
             }
             $denuncia -> setIncidente($incidente);
-
-            
-            
+            //$this->get('session')->getFlashBag()->add('notice', 'adentro, subcategorias ' . serialize($denuncia));
             $em->persist($denuncia);
             $em->flush();
+
+            foreach ($subcategorias as $subcategoria) {
+                $this->insertSubcategoriaDenuncia($subcategoria->getId(), $denuncia->getId());
+            }
+            foreach ($denuncia->getResponsables() as $responsable) {
+                $this->insertResponsablesDenuncia($responsable->getId(), $denuncia->getId());
+            }
 
             return $this->redirect($this->generateUrl('Orion7CoreBundle_denuncia_new'));
         //}
 
-        $this->get('session')->getFlashBag()->add('notice', 'llegue afuera, form not valid' . $form->getErrorsAsString());
+       // $this->get('session')->getFlashBag()->add('notice', 'llegue afuera, form not valid' . $form->getErrorsAsString());
 
         return $this->render('Orion7CoreBundle:Denuncia:new.html.twig', array(
             'form' => $form->createView()
@@ -199,6 +212,25 @@ class DenunciaController extends Controller
         $statement->execute();
         $arr = $statement->fetchAll();
         return $this->getFlatArray($arr);
+    }
+
+    //Feo (salta Doctrine) pero necesario, la manera correcta implica mas tiempo de implementacion
+    protected function insertSubcategoriaDenuncia($subcategoriaId, $denunciaId)
+    {
+        $sql = "INSERT into subcategorias_denuncias (subcategoria,denuncia) values (?,?) ";
+
+        $conn = $this->get('database_connection');
+        
+        return $conn->executeUpdate($sql, array($subcategoriaId, $denunciaId));
+    }
+
+    protected function insertResponsablesDenuncia($responsableId, $denunciaId)
+    {
+        $sql = "INSERT into responsables_denuncias (responsable,denuncia) values (?,?) ";
+
+        $conn = $this->get('database_connection');
+    
+        return $conn->executeUpdate($sql, array($responsableId, $denunciaId));
     }
 
     //TODO: refactor para evitar duplicidad con CanalizacionController
