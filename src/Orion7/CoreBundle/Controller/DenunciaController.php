@@ -243,4 +243,27 @@ class DenunciaController extends Controller
         return new Response($html);
     }
 
+    public function filtroDenunciaAction($denunciaId)
+    {
+        $em = $this->getDoctrine()
+                    ->getEntityManager();
+         $denuncia = $em->getRepository('Orion7CoreBundle:Denuncia')
+                    ->find($denunciaId);
+
+        // $incidentes = $em->getRepository('Orion7CoreBundle:Incidente')
+        //             ->find($denunciaId);
+
+        $form = $this->createForm(new DenunciaType(), $denuncia);
+
+        return $this->render('Orion7CoreBundle:Denuncia:filtro.html.twig', array(
+            'form' => $form->createView(),
+            'denuncia' => $denuncia
+        ));
+    }
+    public function denunciaUpdateAction($denunciaId)
+    {
+        //Función para mario
+        $html = 'Algo';
+        return new Response($html);
+    }
 }

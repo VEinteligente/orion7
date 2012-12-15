@@ -1,17 +1,7 @@
 		$(".chzn-select").chosen(); 
 		$(".chzn-select-deselect").chosen({allow_single_deselect:true}); 
-		$(function() {
-		    var $radios = $('#denunciatype_incidente_existente');
-		    if($radios.is(':checked') === false) {
-		        $('#denunciatype_incidente_existente_0').attr('checked', true);
-		    }
-		    
-			//alert('Hola');
-		});
 
-	$(function() {
-		$( "#tabs" ).tabs();
-		calculaCentro().delay(800);
+		
 		// Select dependiente cuando se cambia estado
 		$('#denunciatype_estado').chosen().change(function() {
         	estado=$(this).val();
@@ -45,6 +35,7 @@
 
 		// cambio de codigo del centro de votación
 		function calculaCentro(){
+			//alert('2');
 			codigo_centro=$('#denunciatype_codigo_centro').val();
 			ruta = Routing.generate('Orion7CoreBundle_selects_codigo_centro', { codigo_centro: codigo_centro }, true);
 			$.post(ruta, function(data){
@@ -117,7 +108,7 @@
 				}); 
 				$('#denunciatype_nombre_denunciante').val(nombre_elector);
 				$("#tabs").tabs("select", "#tabs-1");
-				//calculaIncidentes();
+				calculaIncidentes();
 			});
 		}
 
@@ -125,19 +116,11 @@
 			calculaCedula();
 		});	
 
-		//Función para generar el listado de las denuncias existentes
-		function calculaIncidentes(){
-			centro=$('#denunciatype_centro').val();
-			ruta = Routing.generate('Orion7CoreBundle_selects_incidentes', { centro: centro }, true);
-			$.post(ruta, function(data){
-				$('#incidentes_existentes').html(data);
-			});
-		}
+
 
 		$('#denunciatype_centro').chosen().change(function() {
 			calculaIncidentes();
 		});	
-	});
 
 		//Función para mostrar asistencias en pantalla
 		function calculaAsistencias(){
@@ -151,7 +134,3 @@
 		$('#denunciatype_categoria').chosen().change(function() {
 			calculaAsistencias();
 		});
-
-    $(function() {
-        
-    });

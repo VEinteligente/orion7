@@ -96,6 +96,6 @@ class DenunciaRepository extends EntityRepository
 
     // Close handle
     curl_close($process);
-    return $id_ushahidi.' '.$mensaje;
+    return $id_ushahidi.' '.print_r($data);
     }
 }

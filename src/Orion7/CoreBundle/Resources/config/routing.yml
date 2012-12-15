@@ -165,3 +165,21 @@ Orion7CoreBundle_lab:
         _method:  GET|POST
     options:
         expose: true
+
+Orion7CoreBundle_filtro_show_denuncia:
+    pattern:  /filtro/denuncia/{denunciaId}
+    defaults: { _controller: Orion7CoreBundle:Denuncia:filtroDenuncia }
+    requirements:
+        _method:  GET
+        denunciaId: \d+
+    options:
+        expose: true
+
+Orion7CoreBundle_filtro_denuncia_update:
+    pattern:  /filtro/denuncia/update/{denunciaId}
+    defaults: { _controller: Orion7CoreBundle:Denuncia:denunciaUpdate }
+    requirements:
+        _method:  GET|POST
+        denunciaId: \d+
+    options:
+        expose: true

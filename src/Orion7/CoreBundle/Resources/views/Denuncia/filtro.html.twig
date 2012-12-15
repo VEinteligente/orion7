@@ -1,0 +1,211 @@
+{% extends 'Orion7CoreBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link href="{{ asset('bundles/orion7core/js/chosen/chosen.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/orion7core/js/chosen/chosen.jquery.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/orion7core/js/filtro.js') }}" type="text/javascript"></script>
+    
+   
+    <script>
+
+    	//Función para generar el listado de las denuncias existentes
+    	function calculaIncidentes(){
+				centro=$('#denunciatype_centro').val();
+				ruta = Routing.generate('Orion7CoreBundle_selects_incidentes', { centro: centro }, true);
+				$.post(ruta, function(data){
+					$('#incidentes_existentes').html(data);
+					$('#denunciatype_incidente_existente_{{ denuncia.incidente.id }}').attr('checked', true);
+				});
+			}
+
+    	$(function() {
+
+			$( "#tabs" ).tabs();
+			//alert('hola');
+			calculaCentro();
+			//var $radios = $('#denunciatype_incidente_existente');
+			//if($radios.is(':checked') === false) {
+			        
+			//}
+
+			var subcategorias = [
+			{% for subcategoria in denuncia.subcategorias %}
+			'{{ subcategoria.id }}',
+			{% endfor %}
+			]; 
+
+			$("#denunciatype_categoria option").each(function(){
+			  if (in_array($(this).val(), subcategorias)) {
+			    $(this).attr("selected","selected");
+			  }
+			});
+
+			var responsables = [
+			{% for responsable in denuncia.responsables %}
+			'{{ responsable.id }}',
+			{% endfor %}
+			]; 
+
+			$("#denunciatype_responsable option").each(function(){
+			  if (in_array($(this).val(), responsables)) {
+			    $(this).attr("selected","selected");
+			  }
+			});
+
+			var incidenteasignado = [
+			1
+			]; 
+			$("#denunciatype_incidente_existente option").each(function(){
+			  if (in_array($(this).val(), incidenteasignado)) {
+			    $(this).attr("selected","selected");
+			  }
+			});
+
+			function in_array (needle, haystack, argStrict) {
+			    var key = '', strict = !!argStrict;
+			    if (strict) {
+			        for (key in haystack) {
+			            if (haystack[key] === needle) {
+			                return true;
+			            }
+			        }
+			    } else {
+			        for (key in haystack) {
+			            if (haystack[key] == needle) {
+			                return true;
+			            }
+			        }
+			    }
+			    return false;
+			}
+
+			//$("#denunciatype_categoria").val("7").attr("checked", "checked");
+			//$("#denunciatype_categoria").val("13").attr("checked", "checked");
+			$("#denunciatype_categoria").trigger("liszt:updated");
+
+		});	
+
+
+    </script>
+
+
+
+{% endblock %}
+
+{% block body %}
+	{% for flashMessage in app.session.flashbag.get('notice') %}
+	    <div class="flash-notice">
+	        {{ flashMessage }}
+	    </div>
+	{% endfor %}
+	<ul>
+</ul>
+	<div id="formulario_denuncia">
+    <form action="{{ path('Orion7CoreBundle_filtro_denuncia_update', { 'denunciaId': denuncia.id }) }}" method="post" {{ form_enctype(form) }}>
+	    
+	    {{ form_errors(form) }}
+
+		<div class="form_div_field">
+		    {{ form_errors(form.via) }}
+		    {{ form_widget(form.via, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Vía de ingreso de la denuncia'} }) }}
+		</div>
+		<div class="form_div_field">
+		    {{ form_errors(form.relato) }}
+		    {{ form_widget(form.relato, { 'attr': {'class': 'form_denuncia_ta ui-widget ', 'placeholder': ' Relato'} }) }}
+		</div>
+		<div id="tabs" class="form_div_field">
+    <ul>
+        <li><a href="#tabs-1">Listados</a></li>
+        <li><a href="#tabs-2">Código de Centro</a></li>
+        <li><a href="#tabs-3">Cédula Elector</a></li>
+    </ul>
+    <div id="tabs-1">
+        <div class="form_div_field">
+		    {{ form_errors(form.estado) }}
+		    {{ form_widget(form.estado, { 'attr': {'class': 'chzn-select form_denuncia_widget2', 'data-placeholder': 'Estado'} }) }}
+		</div>
+		<div class="form_div_field">
+		    {{ form_errors(form.municipio) }}
+		    {{ form_widget(form.municipio, { 'attr': {'class': 'chzn-select form_denuncia_widget2', 'data-placeholder': 'Municipio'} }) }}
+		</div>
+		<div class="form_div_field">
+		   {{ form_errors(form.parroquia) }}
+		    {{ form_widget(form.parroquia, { 'attr': {'class': 'chzn-select form_denuncia_widget2', 'data-placeholder': 'Parroquia'} }) }}
+		</div>
+		<div class="form_div_field">
+		    {{ form_errors(form.centro) }}
+		    {{ form_widget(form.centro, { 'attr': {'class': 'chzn-select form_denuncia_widget2', 'data-placeholder': 'Centro de votación'} }) }}
+		</div>
+    </div>
+    <div id="tabs-2">
+        <div class="form_div_field">
+		    {{ form_errors(form.codigo_centro) }}
+		    {{ form_widget(form.codigo_centro, { 'attr': {'class': 'form_denuncia_widget2_2 ui-widget form_fix_v', 'placeholder': ' Código del Centro de Votación', 'value': denuncia.incidente.centro.codigo } }) }}
+		    <button type="button" id="boton_centro" class="ui-widget form_fix_v">-></button>
+		</div>
+    </div>
+    <div id="tabs-3">
+        <div class="form_div_field">
+		    {{ form_errors(form.cedula_elector) }}
+		    {{ form_widget(form.cedula_elector, { 'attr': {'class': 'form_denuncia_widget2_2 ui-widget form_fix_v', 'placeholder': ' Cédula del elector'} }) }}
+		    <button type="button" id="boton_cedula" class="ui-widget form_fix_v">-></button>
+		</div>
+    </div>
+</div>
+		
+		<div class="form_div_field">
+		    {{ form_errors(form.categoria) }}
+		    {{ form_widget(form.categoria, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Subcategorías asociadas'} }) }}
+		</div>
+
+		<div class="form_div_field" id="incidentes_nuevo">
+		    {{ form_errors(form.incidente_existente) }}
+		    {{ form_widget(form.incidente_existente, { 'attr': {'class': 'form_denuncia_widget' } }) }}
+		</div>
+
+		<div class="form_div_field" id="incidentes_existentes">
+		    
+		</div>
+
+		<div class="form_div_field">
+		    {{ form_errors(form.tipo_denunciante) }}
+		    {{ form_widget(form.tipo_denunciante, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Rol del denunciante'} }) }}
+		</div>
+		<div class="form_div_field">
+		    {{ form_errors(form.responsables) }}
+		    {{ form_widget(form.responsables, { 'attr': {'class': 'chzn-select form_denuncia_widget', 'data-placeholder': 'Responsables de la situación'} }) }}
+		</div>
+		<div class="form_div_field">
+		    {{ form_errors(form.hora_hecho) }}
+		    {{ form_widget(form.hora_hecho, { 'attr': {'class': 'form_denuncia_widget ui-widget'} }) }}
+		</div>
+		<div class="form_div_field">
+		    {{ form_errors(form.nombre_denunciante) }}
+		    {{ form_widget(form.nombre_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget form_fix_v', 'placeholder': ' Nombre del Denunciante'} }) }}
+		</div>
+		<div class="form_div_field">
+		    {{ form_errors(form.telefono_denunciante) }}
+		    {{ form_widget(form.telefono_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget form_fix_v', 'placeholder': ' Teléfonos del Denunciante'} }) }}
+		</div>
+		<div class="form_div_field">
+		    {{ form_errors(form.correo_denunciante) }}
+		    {{ form_widget(form.correo_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget form_fix_v', 'placeholder': ' Correo del Denunciante'} }) }}
+		</div>
+		<div class="form_div_field">
+		    {{ form_errors(form.twitter_denunciante) }}
+		    {{ form_widget(form.twitter_denunciante, { 'attr': {'class': 'form_denuncia_widget ui-widget form_fix_v', 'placeholder': ' Twitter del Denunciante'} }) }}
+		</div>
+
+		{{ form_rest(form) }}
+
+	    <input type="submit" />
+	</form>
+	</div>
+	<div id="asistencias">
+	Asistencias
+	</div>
+{% endblock %}
