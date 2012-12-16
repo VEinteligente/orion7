@@ -1,0 +1,11 @@
+{% if is_granted('ROLE_COORDINADOR') %}
+
+    <form action="{{ path('Orion7CoreBundle_mensaje_create') }}" method="post" {{ form_enctype(form) }} class="mensaje">
+     {{ form_errors(form) }}
+		<div class="form_div_field">
+		    {{ form_errors(form.texto) }}
+		    {{ form_widget(form.texto, { 'attr': {'class': 'form_denuncia_ta ui-widget ', 'placeholder': ' Texto del mensaje'} }) }}
+		</div>
+        <input type="submit" value="Submit">
+	</form>
+{% endif %}

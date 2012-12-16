@@ -1,0 +1,23 @@
+Orion7\CoreBundle\Entity\Mensaje:
+    type: entity
+    table: mensaje
+    repositoryClass: Orion7\CoreBundle\Entity\MensajeRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        texto:
+            type: text
+        rolDestinado:
+            type: string
+            length: '100'
+        horaCreado:
+            type: datetime
+    manyToOne:
+        usuario:
+            targetEntity: Usuario
+            joinColumn:
+                name: usuario
+                referencedColumnName: id
