@@ -17,6 +17,7 @@ Orion7\CoreBundle\Entity\Incidente:
         canalizaciones:
           targetEntity: Canalizacion
           mappedBy: incidente
+          cascade: ["remove"]
     manyToOne:
         estado:
             targetEntity: Estado

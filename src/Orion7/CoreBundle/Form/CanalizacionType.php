@@ -11,7 +11,6 @@ class CanalizacionType extends AbstractType
     {
         $builder->add('comentario', 'textarea');
 
-        //TODO: agregar consulta custom que agarre los entes con ubicacion null y los entes con ubicacion igual a la ubicacion del incidente. Se puede?
         $builder->add('entes', 'entity', array(
             'class' => 'Orion7CoreBundle:Ente',
             'property' => 'nombre',

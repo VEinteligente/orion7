@@ -36,11 +36,9 @@ class CanalizacionController extends Controller
         }
 
         $canalizacion = new Canalizacion();
-        //$canalizacion -> setIncidente($incidenteId);
 
         $form = $this->createForm(new CanalizacionType(), $canalizacion);
 
-        //TODO: Debe ser el show de Incidente?
         return $this->render('Orion7CoreBundle:Canalizacion:new.html.twig', array(
             'incidenteId' => $incidenteId,
             'form' => $form->createView()
@@ -71,18 +69,11 @@ class CanalizacionController extends Controller
             $em->persist($canalizacion);
             $em->flush();
 
-            //TODO: debe ser el show de Incidente
             return $this->redirect($this->generateUrl('Orion7CoreBundle_canalizaciones_incidente', array(
                 'incidenteId' => $incidenteId)) .
                 '#canalizacion-' . $canalizacion->getId()
             );
         //}
-
-        //TODO: Debe ser el show de Incidente
-        //return $this->render('Orion7CoreBundle:Canalizacion:new.html.twig', array(
-        //    'incidenteId' => $incidenteId,
-        //    'form'    => $form->createView()
-        //));
     }
 
 
@@ -155,8 +146,7 @@ class CanalizacionController extends Controller
 
     }
 
-    //TODO: refactor para evitar duplicidad con DenunciaController
-    //Feo (salta Doctrine) pero necesario, la manera correcta implica mas tiempo de implementacion
+    //candidato a refactor para evitar duplicidad con DenunciaController
     protected function getIncidentesTerminalesCodcentro($terminales)
     {
         $sql = "SELECT i.id FROM incidente i ";
@@ -173,7 +163,7 @@ class CanalizacionController extends Controller
         return $this->getFlatArray($arr);
     }
 
-    //TODO: refactor para evitar duplicidad con DenunciaController
+    //candidato a refactor para evitar duplicidad con DenunciaController
     protected function getFlatArray($array)
     {
         $ret_array = array();

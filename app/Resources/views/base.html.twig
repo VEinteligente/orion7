@@ -39,6 +39,11 @@
             </header>
             <section class="main-col">
                 {% render "Orion7CoreBundle:Mensaje:getMensajes" %}
+                {% for flashMessage in app.session.flashbag.get('notice') %}
+                    <div class="flash-notice">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
                 {% block body %}{% endblock %}
             </section>
             

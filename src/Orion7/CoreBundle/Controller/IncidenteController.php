@@ -16,9 +16,6 @@ class IncidenteController extends Controller
              throw $this->createNotFoundException('No se pudo conseguir el incidente');
          }
 
-    //     //TODO: hacer lo mismo con categorias y demas atributos lista? Con los nombres de las ubicaciones?
-    //     //TODO: generar twig y ver que mas hace falta
-
          return $this->render('Orion7CoreBundle:Incidente:show.html.twig', array(
              'incidente'      => $incidente
          ));
@@ -35,8 +32,6 @@ class IncidenteController extends Controller
         return $this->render('Orion7CoreBundle:Incidente:listByCentro.html.twig', array(
             'incidentes' => $incidentes
         ));
-
-        //TODO: hacer vista y ver caso de como mostrar que sea practico. Snippets de las denuncias?
     }
 
     public function buscarIncidentesAction($centro)
