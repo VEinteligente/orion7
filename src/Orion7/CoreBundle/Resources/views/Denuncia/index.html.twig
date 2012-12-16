@@ -10,7 +10,7 @@
     <table class="tabla_filtro">
     <tr>
 		<th>
-            Usuario
+            Estado
         </th>
         <th class="td_espacio"></th>
         <th>
@@ -25,10 +25,14 @@
         	Centro
         </th>
         <th class="td_espacio"></th>
+        <th>
+        	Categorias
+        </th>
+        <th class="td_espacio"></th>
          {% if is_granted('ROLE_FILTRO') %}
-         <th>
-         	Editar
-         </th>
+	         <th>
+	         	Editar
+	         </th>
 		 {% endif %}
 	</tr>
     {% for denuncia in denuncias %}
@@ -36,7 +40,7 @@
     	{% if denuncia.isFiltrado == filtrado %}
     		<tr class="lista_tabla">
     			<td>
-		            <span class="highlight">{{ denuncia.usuarioRegistro }}</span>
+		            {{ denuncia.incidente.estado.nombre }}
 		        </td>
 		        <td></td>
 		        <td>
@@ -49,6 +53,12 @@
 		        <td></td>
 		        <td>
 		        	{{ denuncia.incidente.centro.nombre|title }}
+		        </td>
+		        <td></td>
+		        <td>
+		        	{% for subcategoria in denuncia.subcategorias %}
+		        		{{ subcategoria.nombre }},
+		        	{% endfor %}
 		        </td>
 		        <td></td>
 		         {% if is_granted('ROLE_FILTRO') %}

@@ -1,6 +1,6 @@
 Orion7CoreBundle_denuncia_homepage:
     pattern:  /
-    defaults: { _controller: Orion7CoreBundle:Denuncia:index }
+    defaults: { _controller: Orion7CoreBundle:Denuncia:new }
     requirements:
         _method:  GET
 
