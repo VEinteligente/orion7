@@ -17,6 +17,12 @@ class CanalizacionType extends AbstractType
             'multiple' => 'true',
             'empty_value' => '',
         ));
+
+        $builder->add('marcarResuelto', 'checkbox', array(
+            'label'     => 'Marcar como resuelto',
+            'mapped'  => false,
+            'required'  => false,
+        ));
     }
 
     public function getName()

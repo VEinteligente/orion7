@@ -9,9 +9,9 @@
 {% endif %}
 {% for incidente in incidentes %}
     {% if incidente.resuelto == resuelto %}
-            <div class="form_denuncia_widget form_div_field">
+            <div>
                 <label for="denunciatype_incidente_existente_{{ incidente.id }}">
-                    <b class="ui-state-default">{{ incidente.id }}: </b>
+                    <a class="titulo_denuncia" href="{{ path('Orion7CoreBundle_canalizaciones_incidente', { 'incidenteId': incidente.id }) }}">{{ incidente.id }}: </a>
                     {% for denuncia in incidente.denuncias %}
                         {% for subcategoria in denuncia.subcategorias %}
                             <b class="ui-state-default">{{ subcategoria.nombre }}, </b>

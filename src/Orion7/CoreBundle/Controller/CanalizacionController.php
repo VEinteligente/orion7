@@ -50,8 +50,18 @@ class CanalizacionController extends Controller
         if (false === $this->get('security.context')->isGranted('ROLE_CANALIZADOR')) {
             throw new AccessDeniedException();
         }
+        $request = $this->getRequest();
+        $canalizaciontype = $request->request->get('canalizaciontype');
+        if (array_key_exists('marcarResuelto', $canalizaciontype)) {
+            $resuelto = $canalizaciontype['marcarResuelto'];
+        }
+        else
+        {
+            $resuelto = false;
+        }
 
         $incidente = $this->getIncidente($incidenteId);
+
 
         $canalizacion  = new Canalizacion();
         $canalizacion->setIncidente($incidente);
@@ -66,6 +76,11 @@ class CanalizacionController extends Controller
         //if ($form->isValid()) {
             $em = $this->getDoctrine()
                        ->getEntityManager();
+
+            if ($resuelto) {
+                $incidente->setResuelto($resuelto);
+            
+            }
             $em->persist($canalizacion);
             $em->flush();
 
