@@ -57,10 +57,10 @@ class Ente
     /**
      * Set tipo_ente
      *
-     * @param \Orion7\CoreBundle\Entity\Tipo_ente $tipoEnte
+     * @param \Orion7\CoreBundle\Entity\TipoEnte $tipoEnte
      * @return Ente
      */
-    public function setTipoEnte(\Orion7\CoreBundle\Entity\Tipo_ente $tipoEnte = null)
+    public function setTipoEnte(\Orion7\CoreBundle\Entity\TipoEnte $tipoEnte = null)
     {
         $this->tipo_ente = $tipoEnte;
     
@@ -70,7 +70,7 @@ class Ente
     /**
      * Get tipo_ente
      *
-     * @return \Orion7\CoreBundle\Entity\Tipo_ente 
+     * @return \Orion7\CoreBundle\Entity\TipoEnte 
      */
     public function getTipoEnte()
     {

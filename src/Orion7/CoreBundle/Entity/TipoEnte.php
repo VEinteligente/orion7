@@ -31,7 +31,7 @@ class TipoEnte
      * Set tipo
      *
      * @param string $tipo
-     * @return Tipo_ente
+     * @return TipoEnte
      */
     public function setTipo($tipo)
     {
@@ -54,7 +54,7 @@ class TipoEnte
      * Add entes
      *
      * @param \Orion7\CoreBundle\Entity\Ente $entes
-     * @return Tipo_ente
+     * @return TipoEnte
      */
     public function addEnte(\Orion7\CoreBundle\Entity\Ente $entes)
     {
