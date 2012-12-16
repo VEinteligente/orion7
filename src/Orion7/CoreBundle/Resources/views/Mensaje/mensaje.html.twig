@@ -1,0 +1,4 @@
+{% if is_granted('ROLE_USER') %}
+	{% if mensajeGlobal.id %}Mensaje global:<br>{{ mensajeGlobal.texto }}<br>{% endif %}
+	{% if mensajeRol.id %}Mensaje de tu coordinador:<br>{{ mensajeRol.texto }}<br>{% endif %}
+{% endif %}

@@ -27,10 +27,12 @@
                 {% block navigation %}
                     <nav>
                         <ul class="navigation">
-                            <li><a class="menu" href="#">Denuncias</a></li>
-                            <li><a class="menu" href="#">Filtro</a></li>
-                            <li><a class="menu" href="#">Canalización</a></li>
-                            <li><a class="menu" href="#">Login/Logout</a></li>
+                            {% if is_granted('ROLE_USER') %}<li><a class="menu" href="{{ path('Orion7CoreBundle_denuncia_new') }}">Denuncias</a></li>{% endif %}
+                            {% if is_granted('ROLE_FILTRO') %}<li><a class="menu" href="{{ path('Orion7CoreBundle_filtro') }}">Filtro</a></li>{% endif %}
+                            {% if is_granted('ROLE_CANALIZADOR') %}<li><a class="menu" href="{{ path('Orion7CoreBundle_canalizaciones_incidentes_roles') }}">Canalizaci&oacute;n</a></li>{% endif %}
+                            {% if is_granted('ROLE_COORDINADOR') %}<li><a class="menu" href="{{ path('Orion7CoreBundle_mensajes_index') }}">Mensajes</a></li>{% endif %}
+                            {% if not is_granted('ROLE_USER') %}<li><a class="menu" href="{{ path('fos_user_security_login') }}">Login</a></li>{% endif %}
+
                         </ul>
                     </nav>
                 {% endblock %}
@@ -38,6 +40,12 @@
                 <div class"clear"></div>
             </header>
             <section class="main-col">
+                {% render "Orion7CoreBundle:Mensaje:getMensajes" %}
+                {% for flashMessage in app.session.flashbag.get('notice') %}
+                    <div class="flash-notice">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
                 {% block body %}{% endblock %}
             </section>
             

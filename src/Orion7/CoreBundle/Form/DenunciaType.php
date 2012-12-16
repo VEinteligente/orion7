@@ -167,10 +167,7 @@ class DenunciaType extends AbstractType
             'empty_value' => '',
         ));
 
-        //TODO: agregar faltantes. Creo que hace falta agregar un atributo "categorias" en Denuncia, 
-        // luego tener un "choice" que renderice en un select vacio que se pueda llenar luego. maybe.
-
-         $datetime = new \DateTime('now');
+        $datetime = new \DateTime('now');
 
         $builder->add('hora_hecho', 'time', array(
             'input'  => 'datetime',

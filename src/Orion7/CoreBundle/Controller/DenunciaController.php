@@ -190,8 +190,7 @@ class DenunciaController extends Controller
         ));
     }
 
-    //TODO: refactor para evitar duplicidad con CanalizacionController
-    //Feo (salta Doctrine) pero necesario, la manera correcta implica mas tiempo de implementacion
+    //refactor candidate
     protected function getIncidentesTerminalesCodcentro($terminales)
     {
         $sql = "SELECT i.id FROM incidente i ";
@@ -208,7 +207,7 @@ class DenunciaController extends Controller
         return $this->getFlatArray($arr);
     }
 
-    //Feo (salta Doctrine) pero necesario, la manera correcta implica mas tiempo de implementacion
+    //refactor candidate
     protected function insertSubcategoriaDenuncia($subcategoriaId, $denunciaId)
     {
         $sql = "INSERT into subcategorias_denuncias (subcategoria,denuncia) values (?,?) ";
@@ -239,7 +238,7 @@ class DenunciaController extends Controller
     }
 
 
-    //TODO: refactor para evitar duplicidad con CanalizacionController
+    //refactor candidate para evitar duplicidad con CanalizacionController
     protected function getFlatArray($array)
     {
         $ret_array = array();
@@ -342,9 +341,7 @@ class DenunciaController extends Controller
         }
 
         $incidenteId = $denunciatype['incidente_existente'];
-        /////////
-        //TODO: debo revisar si hay cambio, y si hay cambio ver si ese incidente ya no tiene denuncias para borrarlo
-        /////////
+
         if ($incidenteId) {
             $incidente = $this -> getIncidente($incidenteId);
         }
@@ -357,6 +354,16 @@ class DenunciaController extends Controller
             $incidente = $this -> newIncidente($estadoId, $municipioId, $parroquiaId, $centroId);
             $em->persist($incidente);
         }
+
+        $incidenteIdViejo = $denuncia->getIncidente()->getId();
+        if ($incidenteId != $incidenteIdViejo) {
+            $incidenteViejo = $this->getIncidente($incidenteIdViejo);
+            if (count($incidenteViejo->getDenuncias()) == 1)
+            {
+                $em->remove($incidenteViejo);
+            }
+        }
+
         $denuncia -> setIncidente($incidente);
         $denuncia -> setIsFiltrado(true);
 

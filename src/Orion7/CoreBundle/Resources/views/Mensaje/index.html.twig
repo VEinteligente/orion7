@@ -1,0 +1,17 @@
+{% extends 'Orion7CoreBundle::layout.html.twig' %}
+
+{% block body %}
+    <p><b>Mensajes</b></p>
+    {% for mensaje in mensajes %}
+        <article class="mensaje {{ cycle(['odd', 'even'], loop.index0) }}" id="mensaje-{{ mensaje.id }}">
+            <span class="titulo_denuncia">{{ mensaje.usuario }} a las </span><time  class="titulo_denuncia" datetime="{{ mensaje.horaCreado|date('c') }}" pubdate="pubdate">{{ mensaje.horaCreado|date('g:i a') }}</time><br>
+        <p>Texto: {{ mensaje.texto }}</p>
+        </article>
+    {% else %}
+        <p>No hay mensajes!</p>
+    {% endfor %}
+
+    <br><br>
+
+    {% render "Orion7CoreBundle:Mensaje:new" %}
+{% endblock %}

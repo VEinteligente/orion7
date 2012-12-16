@@ -1,6 +1,6 @@
 Orion7CoreBundle_denuncia_homepage:
     pattern:  /
-    defaults: { _controller: Orion7CoreBundle:Denuncia:index }
+    defaults: { _controller: Orion7CoreBundle:Denuncia:new }
     requirements:
         _method:  GET
 
@@ -190,3 +190,21 @@ Orion7CoreBundle_filtro_denuncia_update:
         denunciaId: \d+
     options:
         expose: true
+
+Orion7CoreBundle_mensajes_index:
+    pattern:  /mensajes
+    defaults: { _controller: Orion7CoreBundle:Mensaje:index }
+    requirements:
+        _method:  GET
+
+Orion7CoreBundle_mensaje_create:
+    pattern:  /mensajes/create
+    defaults: { _controller: Orion7CoreBundle:Mensaje:create }
+    requirements:
+        _method:  POST
+
+Orion7CoreBundle_mensajes_get:
+    pattern:  /mensajes/get
+    defaults: { _controller: Orion7CoreBundle:Mensaje:getMensajes }
+    requirements:
+        _method:  GET
