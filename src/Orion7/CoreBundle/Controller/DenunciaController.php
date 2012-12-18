@@ -256,39 +256,69 @@ class DenunciaController extends Controller
          $denuncia = $em->getRepository('Orion7CoreBundle:Denuncia')
                     ->find($denunciaid);
         $k = 1;
-        $subcategorias = "";
-        foreach($denuncia->getSubcategorias() as $oSubcategoria):
-            if($k!=1){
-                $subcategorias.= ',';
+            $subcategorias = "";
+            foreach($denuncia->getSubcategorias() as $oSubcategoria):
+                if($k!=1){
+                    $subcategorias.= ',';
+                }
+                $subcategorias.= $oSubcategoria->getId();
+                $k++;
+            endforeach;
+ 
+            $via_i = $denuncia->getVia()->getId();
+            if($via_i==1){
+                $via = ',56';
             }
-            $subcategorias.= $oSubcategoria->getId();
-            $k++;
-        endforeach;
-
-        
-
-       $data = array(
-          'task' => 'report', 
-          'incident_title' => 'Denuncia '.$denuncia->getId(), 
-          'incident_description' => $denuncia->getRelato(), 
-          'incident_date' => date('m/d/Y'),
-          'incident_hour' => $denuncia->getHoraHecho()->format('g'),
-          'incident_minute' => $denuncia->getHoraHecho()->format('i'), 
-          'incident_ampm' => $denuncia->getHoraHecho()->format('a'), 
-          'incident_category' => $subcategorias,
-          'latitude' => $denuncia->getIncidente()->getCentro()->getLatitud(), 
-          'longitude' => $denuncia->getIncidente()->getCentro()->getLongitud(),  
-          'location_name' => 'Estado: '.$denuncia->getIncidente()->getEstado()->getNombre().' Municipio: '.$denuncia->getIncidente()->getMunicipio()->getNombre().' Parroquia: '.$denuncia->getIncidente()->getParroquia()->getNombre().' Centro de Votación: '.$denuncia->getIncidente()->getCentro()->getNombre(),
-        );
-
-        // $envio = $em->getRepository('Orion7CoreBundle:Denuncia')
-        //             ->sendUshahidiReport($data);
-
-        // $denuncia ->setIdUshahidi($envio);
-        // $em->flush();
-
-        // $html = $envio;
-        $html = print_r($data);
+            elseif($via_i==2){
+                $via = ',57';
+            }
+            elseif($via_i==3){
+                $via = ',58';
+            }
+ 
+           $data = array(
+              'task' => 'report', 
+              'incident_title' => 'Denuncia '.$denuncia->getId(), 
+              'incident_description' => $denuncia->getRelato(), 
+              'incident_date' => date('m/d/Y'),
+              'incident_hour' => $denuncia->getHoraHecho()->format('g'),
+              'incident_minute' => $denuncia->getHoraHecho()->format('i'), 
+              'incident_ampm' => $denuncia->getHoraHecho()->format('a'), 
+              'incident_category' => $subcategorias.$via,
+              'latitude' => $denuncia->getIncidente()->getCentro()->getLatitud(), 
+              'longitude' => $denuncia->getIncidente()->getCentro()->getLongitud(),  
+              'location_name' => 'Estado: '.$denuncia->getIncidente()->getEstado()->getNombre().' Municipio: '.$denuncia->getIncidente()->getMunicipio()->getNombre().' Parroquia: '.$denuncia->getIncidente()->getParroquia()->getNombre().' Centro de Votación: '.$denuncia->getIncidente()->getCentro()->getNombre(),
+            );
+ 
+              
+        //return $data;
+    $process = curl_init('http://votojoven.com/den16do7/api?task=report');
+    //curl_setopt($process, CURLOPT_URL,'http://votojoven.com/den16do7/api?task=report');
+    //curl_setopt($process, CURLOPT_TIMEOUT, 30);
+    // permitir envio de informacion por POST
+    curl_setopt($process, CURLOPT_POST, TRUE); 
+    // colocar campos a ser posteados
+    curl_setopt($process, CURLOPT_POSTFIELDS, $data);
+    // capacidad para tener una respuesta de la solicitud hecha
+    curl_setopt($process, CURLOPT_RETURNTRANSFER,TRUE);
+    // ejecutar la llamada curl
+    $ret_val = curl_exec($process);
+    // Check if any error occured
+    //if(!curl_errno($process))
+    //{
+      $respuesta_json = json_decode(curl_multi_getcontent($process),true);
+      //$id_ushahidi = $respuesta_json['details']['id']; 
+      //Id del reporte ushahidi, meter en campo correspondiente en incidente
+    //}
+ 
+    // Close handle
+    curl_close($process);
+ 
+    // $hola = $respuesta_json;
+ 
+             // $denuncia ->setIdUshahidi($envio);
+             // $em->flush();
+        $html = '<pre>'.print_r($respuesta_json).'</pre>';
         return new Response($html);
     }
 
@@ -377,6 +407,50 @@ class DenunciaController extends Controller
             $this->insertResponsablesDenuncia($responsable->getId(), $denuncia->getId());
         }
 
+        //USHAHIDI
+ 
+        if($denuncia -> getIdUshahidi() == 0){
+            $k = 1;
+            $subcategorias = "";
+            foreach($denuncia->getSubcategorias() as $oSubcategoria):
+                if($k!=1){
+                    $subcategorias.= ',';
+                }
+                $subcategorias.= $oSubcategoria->getId();
+                $k++;
+            endforeach;
+ 
+            $via_i = $denuncia->getVia()->getId();
+            if($via_i==1){
+                $via = ',56';
+            }
+            elseif($via_i==2){
+                $via = ',57';
+            }
+            elseif($via_i==3){
+                $via = ',58';
+            }
+ 
+           $data = array(
+              'task' => 'report', 
+              'incident_title' => 'Denuncia '.$denuncia->getId(), 
+              'incident_description' => $denuncia->getRelato(), 
+              'incident_date' => date('m/d/Y'),
+              'incident_hour' => $denuncia->getHoraHecho()->format('g'),
+              'incident_minute' => $denuncia->getHoraHecho()->format('i'), 
+              'incident_ampm' => $denuncia->getHoraHecho()->format('a'), 
+              'incident_category' => $subcategorias.$via,
+              'latitude' => $denuncia->getIncidente()->getCentro()->getLatitud(), 
+              'longitude' => $denuncia->getIncidente()->getCentro()->getLongitud(),  
+              'location_name' => 'Estado: '.$denuncia->getIncidente()->getEstado()->getNombre().' Municipio: '.$denuncia->getIncidente()->getMunicipio()->getNombre().' Parroquia: '.$denuncia->getIncidente()->getParroquia()->getNombre().' Centro de Votación: '.$denuncia->getIncidente()->getCentro()->getNombre(),
+            );
+ 
+             $envio = $em->getRepository('Orion7CoreBundle:Denuncia')
+                         ->sendUshahidiReport($data);
+ 
+             // $denuncia ->setIdUshahidi($envio);
+             // $em->flush();
+        }
         return $this->redirect($this->generateUrl('Orion7CoreBundle_filtro'));
     }
 }

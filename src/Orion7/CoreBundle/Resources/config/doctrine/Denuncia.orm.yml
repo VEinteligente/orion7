@@ -17,17 +17,21 @@ Orion7\CoreBundle\Entity\Denuncia:
         nombre_denunciante:
             type: string
             length: 100
+            nullable: true
         telefono_denunciante:
             type: string
-            length: 100
+            nullable: true
         correo_denunciante:
             type: string
             length: 100
+            nullable: true
         twitter_denunciante:
             type: string
             length: 100
+            nullable: true
         genera_retraso:
             type: boolean
+            nullable: true
         isFiltrado:
             type: boolean
         autorizacion_cne:

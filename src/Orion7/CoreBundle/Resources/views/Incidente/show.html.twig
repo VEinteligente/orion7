@@ -12,6 +12,14 @@
                 :<br>
                 Relato: {{ denuncia.relato }}
                 <br>
+                Telefono: {{ denuncia.telefonoDenunciante }}
+                <br>
+                Nombre Denunciante: {{ denuncia.nombreDenunciante }}
+                <br>
+                Hora Incidente: {{ denuncia.horaHecho|date('g:i a') }}
+                <br>
+                Hora Registro Denuncia: {{ denuncia.horaRegistro|date('g:i a') }}
+                <br>
 	{% else %}
                 No hay denuncias en incidente.denuncias
 {% endfor %}

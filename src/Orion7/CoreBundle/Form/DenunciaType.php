@@ -176,10 +176,18 @@ class DenunciaType extends AbstractType
         ));
 
 
-        $builder->add('nombre_denunciante');
-        $builder->add('telefono_denunciante');
-        $builder->add('correo_denunciante', 'email');
-        $builder->add('twitter_denunciante');
+        $builder->add('nombre_denunciante', 'text', array(
+            'required'  => false,
+        ));
+        $builder->add('telefono_denunciante', 'text', array(
+            'required'  => false,
+        ));
+        $builder->add('correo_denunciante', 'email', array(
+            'required'  => false,
+        ));
+        $builder->add('twitter_denunciante', 'text', array(
+            'required'  => false,
+        ));
         $builder->add('genera_retraso', 'checkbox', array(
             'label'     => 'Genera retraso',
             'required'  => false,

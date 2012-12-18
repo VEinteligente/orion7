@@ -22,7 +22,7 @@
     </head>
     <body>
         <section id="wrapper">
-		<img src="{{ asset('images/paelogo.png') }}" height="90px">
+		<img src="{{ asset('images/paelogo.png') }}" height="70px">
             <header id="header">
                            
                 {% block navigation %}

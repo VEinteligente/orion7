@@ -336,6 +336,17 @@ class Denuncia
     }
 
     /**
+     * Remove subcategorias
+     *
+     */
+    public function removeAllSubcategoria()
+    {   foreach ($this->subcategorias as $subcategoria) {
+            $this->removeSubcategoria($subcategoria);
+        }
+        $this->subcategorias->removeElement($subcategorias);
+    }    
+
+    /**
      * Get subcategorias
      *
      * @return \Doctrine\Common\Collections\Collection 
